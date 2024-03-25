@@ -1,0 +1,401 @@
+WEBVTT
+
+0
+00:00:00.230 --> 00:00:03.560
+it is crucial to understand that every lesson from this course
+
+1
+00:00:03.940 --> 00:00:08.160
+can also be applied just as well. In combination with non procedural elements,
+
+2
+00:00:08.740 --> 00:00:11.890
+segments of the no tree can be replaced with image
+
+3
+00:00:11.890 --> 00:00:16.260
+textures to gain easily accessible control over shapes and textures.
+
+4
+00:00:16.940 --> 00:00:20.290
+Those image textures can be used at any step of the way
+
+5
+00:00:20.300 --> 00:00:24.650
+as a mosque and overlay a detailed texture mab et cetera.
+
+6
+00:00:25.440 --> 00:00:27.530
+As a very basic functionality.
+
+7
+00:00:27.540 --> 00:00:30.420
+Procedural textures can be used to enhance
+
+8
+00:00:30.430 --> 00:00:33.360
+image textures by including additional variation.
+
+9
+00:00:34.040 --> 00:00:37.360
+For example a very simple way of introducing variation,
+
+10
+00:00:37.450 --> 00:00:41.700
+repeating image texture map is to overlay it with a noise texture.
+
+11
+00:00:41.710 --> 00:00:47.230
+Also introducing variations like this into individual PPR maps like the roughness
+
+12
+00:00:47.230 --> 00:00:50.960
+map can go a long way to add some realism to a shader
+
+13
+00:00:51.240 --> 00:00:54.230
+but a procedural approach can also be used to
+
+14
+00:00:54.230 --> 00:00:57.560
+eliminate obvious reputations in a texture map like this.
+
+15
+00:00:57.740 --> 00:01:02.880
+Using a very nice texture. The repeating image texture can be randomized in the
+
+16
+00:01:02.990 --> 00:01:05.860
+Illinois cells to the tile the whole area.
+
+17
+00:01:06.240 --> 00:01:09.270
+This trick works using the randomization methods
+
+18
+00:01:09.270 --> 00:01:11.460
+I previously showed in the last chapter.
+
+19
+00:01:11.940 --> 00:01:15.960
+You can download the example file using eight extra from the blood of cloud.
+
+20
+00:01:16.440 --> 00:01:18.900
+Just as in the example I show you earlier where
+
+21
+00:01:18.900 --> 00:01:21.760
+I layer the materials based on the height map.
+
+22
+00:01:21.770 --> 00:01:24.410
+You can of course just as well use a
+
+23
+00:01:24.420 --> 00:01:27.860
+non procedural high texture to accomplish the same thing
+
+24
+00:01:28.440 --> 00:01:31.300
+and in the same sense you can use the method
+
+25
+00:01:31.300 --> 00:01:35.220
+of adapting masks from for example the vertex color to
+
+26
+00:01:35.230 --> 00:01:38.240
+follow the logic of the material by using the base
+
+27
+00:01:38.240 --> 00:01:41.760
+textures of the shader whether those are procedural or not.
+
+28
+00:01:42.340 --> 00:01:44.510
+But it is important to understand that
+
+29
+00:01:44.520 --> 00:01:47.740
+the concept of which part is created procedurally
+
+30
+00:01:47.750 --> 00:01:53.170
+and which is not does not necessarily matter for a dynamic and parametric workflow.
+
+31
+00:01:53.180 --> 00:01:56.740
+In fact using non procedural elements like image textures
+
+32
+00:01:56.750 --> 00:02:00.060
+within the procedural workflow can be incredibly powerful.
+
+33
+00:02:00.340 --> 00:02:03.300
+You can even go further by using an image texture
+
+34
+00:02:03.300 --> 00:02:06.760
+only as a small part of a generally procedural pattern.
+
+35
+00:02:06.940 --> 00:02:10.490
+A very useful lesson that can still be taking for example,
+
+36
+00:02:10.490 --> 00:02:15.540
+is that folding and manipulating the input coordinates can still be used
+
+37
+00:02:15.540 --> 00:02:18.800
+to influence how the image texture is mapped on the surface.
+
+38
+00:02:18.810 --> 00:02:21.970
+That way a simple bit mapped textures can be
+
+39
+00:02:21.970 --> 00:02:26.260
+incorporated into more complex and interesting looking texture maps
+
+40
+00:02:26.440 --> 00:02:29.630
+in this example I am using a single basic
+
+41
+00:02:29.640 --> 00:02:33.370
+wood texture from the blander cloud integrated into a procedural
+
+42
+00:02:33.370 --> 00:02:37.090
+fishbone pattern by lining the texture with the pattern and
+
+43
+00:02:37.100 --> 00:02:40.460
+randomizing the offset and color for each wooden board.
+
+44
+00:02:40.480 --> 00:02:44.670
+I generated a completely new texture map that combines the benefits of
+
+45
+00:02:44.670 --> 00:02:48.940
+a procedural pattern with the realism of a photographic image texture.
+
+46
+00:02:48.970 --> 00:02:53.630
+This is pretty much the shortcut to procedural realism and can work like
+
+47
+00:02:53.630 --> 00:02:58.550
+magic to create realistic surface detail that still has the procedural variation.
+
+48
+00:02:58.740 --> 00:03:03.840
+If used correctly. This workflow can perfectly combined the best of both worlds
+
+49
+00:03:04.080 --> 00:03:08.000
+and the way this works is honestly nothing that I haven't touched on before.
+
+50
+00:03:08.000 --> 00:03:08.640
+In this course
+
+51
+00:03:08.750 --> 00:03:10.290
+at the end of the day,
+
+52
+00:03:10.300 --> 00:03:13.250
+an image texture is just an element that takes a two
+
+53
+00:03:13.250 --> 00:03:17.250
+dimensional vector map and returns a column map based on pixels.
+
+54
+00:03:17.440 --> 00:03:19.840
+This can modular lee be included in a
+
+55
+00:03:19.840 --> 00:03:22.730
+procedural workflow just like every other element.
+
+56
+00:03:22.740 --> 00:03:23.760
+Because of this,
+
+57
+00:03:23.770 --> 00:03:26.700
+the methods to work with non procedural elements
+
+58
+00:03:26.710 --> 00:03:29.500
+is strongly connected to the Chapter 2.5.
+
+59
+00:03:29.500 --> 00:03:30.980
+About space manipulation.
+
+60
+00:03:30.990 --> 00:03:33.730
+Where I showed how the coordinate space can be
+
+61
+00:03:33.730 --> 00:03:38.550
+put together with individual modules to create basically any pattern
+
+62
+00:03:38.560 --> 00:03:41.520
+but any part of this course really can just
+
+63
+00:03:41.520 --> 00:03:44.260
+as well be applied to a semi procedural workflow.
+
+64
+00:03:44.540 --> 00:03:48.800
+I want to quickly go over the essential elements that make up this example shader
+
+65
+00:03:49.180 --> 00:03:51.050
+which you can also download as a bland file.
+
+66
+00:03:51.540 --> 00:03:54.030
+I am taking the shader of the general pattern
+
+67
+00:03:54.030 --> 00:03:57.260
+that is only missing the wood texture as a framework
+
+68
+00:03:57.640 --> 00:04:00.890
+that is the fully procedural part that I don't want to focus on
+
+69
+00:04:00.890 --> 00:04:04.110
+in this section and it really could be any pattern at all.
+
+70
+00:04:04.120 --> 00:04:08.150
+This fish bone pattern is essentially just a fancier version of
+
+71
+00:04:08.150 --> 00:04:11.730
+a simple brick pattern that I created using coordinate repetition.
+
+72
+00:04:11.740 --> 00:04:15.060
+If you are interested, you can get the setup from the demonstration file.
+
+73
+00:04:15.640 --> 00:04:17.810
+What we need from this pattern is the
+
+74
+00:04:17.820 --> 00:04:20.760
+information about the coordinate space that it generates.
+
+75
+00:04:21.339 --> 00:04:24.520
+That is most importantly a coordinate map that is
+
+76
+00:04:24.520 --> 00:04:27.810
+aligned with the individual boards which make up pattern.
+
+77
+00:04:27.820 --> 00:04:33.140
+You can think of them as UV coordinates that are the same for each individual board
+
+78
+00:04:33.150 --> 00:04:35.790
+and these coordinates now have to simply be
+
+79
+00:04:35.800 --> 00:04:38.650
+adjusted to display the wood texture correctly.
+
+80
+00:04:39.240 --> 00:04:41.580
+You can use a mapping note to take care of
+
+81
+00:04:41.580 --> 00:04:44.550
+the correct aspect ratio and rotation of the texture,
+
+82
+00:04:45.240 --> 00:04:47.960
+but now every board looks the exact same.
+
+83
+00:04:48.540 --> 00:04:51.290
+So what we want to do here is randomize
+
+84
+00:04:51.290 --> 00:04:54.150
+the placement of the texture in each individual cell.
+
+85
+00:04:54.540 --> 00:04:57.190
+To do that we need a huh random value per cell
+
+86
+00:04:57.200 --> 00:05:00.740
+or generally a value that is different for each cell.
+
+87
+00:05:00.750 --> 00:05:03.860
+It could be for example the south position.
+
+88
+00:05:04.240 --> 00:05:07.550
+Then the position vector can simply be plugged into
+
+89
+00:05:07.550 --> 00:05:10.450
+a white noise texture to receive a random value.
+
+90
+00:05:11.040 --> 00:05:12.560
+To randomize the placement.
+
+91
+00:05:12.560 --> 00:05:16.090
+Now we can simply add the random color as a vector
+
+92
+00:05:16.090 --> 00:05:19.950
+onto the coordinates which offsets the texture randomly for each cell.
+
+93
+00:05:20.440 --> 00:05:24.360
+And that is already the randomized pattern with the image texture done.
+
+94
+00:05:24.740 --> 00:05:28.520
+Now this automatically stitched together texture can be used
+
+95
+00:05:28.520 --> 00:05:30.560
+to be included in the rest of the shader.
+
+96
+00:05:30.940 --> 00:05:34.480
+If you have the individual PBR maps of this image texture,
+
+97
+00:05:34.490 --> 00:05:38.830
+you can simply use those with the same manipulated coordinate factories.
+
+98
+00:05:38.900 --> 00:05:42.310
+This method can be used to create all sorts of different
+
+99
+00:05:42.310 --> 00:05:46.450
+patterns out of basic scalable image textures in a dynamic setup

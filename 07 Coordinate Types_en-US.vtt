@@ -1,0 +1,505 @@
+WEBVTT
+
+0
+00:00:00.340 --> 00:00:03.650
+now that we've seen that every texture needs some sort of input.
+
+1
+00:00:03.660 --> 00:00:06.960
+Let's take a look at the different texture coordinate inputs that we have.
+
+2
+00:00:06.990 --> 00:00:08.650
+I just added a new note,
+
+3
+00:00:08.660 --> 00:00:12.660
+input texture coordinate and here you can see a range of options.
+
+4
+00:00:13.240 --> 00:00:15.360
+These all have individual benefits
+
+5
+00:00:15.590 --> 00:00:18.360
+and can be used to achieve different sorts of effects.
+
+6
+00:00:18.940 --> 00:00:23.460
+There also are some common misconceptions around them so I quickly want to go
+
+7
+00:00:23.460 --> 00:00:26.920
+over them one by one to illustrate better what we are looking at.
+
+8
+00:00:26.930 --> 00:00:29.980
+I made a demonstration file that displays the cordon map.
+
+9
+00:00:29.980 --> 00:00:32.400
+I plug in here in this main window on our
+
+10
+00:00:32.400 --> 00:00:36.330
+Suzanne and underneath it splits discordant map into its X.
+
+11
+00:00:36.330 --> 00:00:37.450
+Y. Z. Components
+
+12
+00:00:37.740 --> 00:00:39.750
+and displace each one individually.
+
+13
+00:00:39.940 --> 00:00:43.760
+That is achieved with a separate X Y. Z. Note from the converted category
+
+14
+00:00:43.950 --> 00:00:45.850
+and gives better insight into the map.
+
+15
+00:00:46.540 --> 00:00:50.510
+Generated coordinates are anchored to the local bounding box
+
+16
+00:00:50.520 --> 00:00:53.350
+of the object and ranged from 0 to 1
+
+17
+00:00:53.740 --> 00:00:55.900
+along each of the three axis.
+
+18
+00:00:55.930 --> 00:00:59.700
+That means that they move with the orientation and location of
+
+19
+00:00:59.700 --> 00:01:03.840
+the object and the scale is connected to the whole mesh.
+
+20
+00:01:03.850 --> 00:01:07.060
+So even when I go into edit mode and change the
+
+21
+00:01:07.060 --> 00:01:11.370
+mesh can see that the generated coordinates stretch along with it.
+
+22
+00:01:11.380 --> 00:01:12.790
+In the example seen,
+
+23
+00:01:12.800 --> 00:01:18.250
+I use them whenever I wanted a texture to flexibly only appear on the objects bounce.
+
+24
+00:01:18.740 --> 00:01:20.660
+For example, for the dust on the floor
+
+25
+00:01:21.740 --> 00:01:24.260
+and the gradient on the walls.
+
+26
+00:01:24.740 --> 00:01:27.090
+Normal coordinates are not coordinates in the
+
+27
+00:01:27.090 --> 00:01:29.630
+sense of location but rather direction.
+
+28
+00:01:30.020 --> 00:01:34.500
+Normal vector is equal to the direction perpendicular to the surface
+
+29
+00:01:34.640 --> 00:01:36.070
+and has a length of one.
+
+30
+00:01:36.170 --> 00:01:39.460
+You can see that on top of Suzanne's head, it points up,
+
+31
+00:01:39.940 --> 00:01:43.940
+the component is one and the other components are zero.
+
+32
+00:01:43.950 --> 00:01:46.150
+Here it points into a negative direction
+
+33
+00:01:46.840 --> 00:01:49.960
+and here all components are positive points like this.
+
+34
+00:01:50.440 --> 00:01:55.060
+These normals use local space so they are anchored to the objects transformation.
+
+35
+00:01:55.840 --> 00:01:59.630
+You can also get global normals from the geometry input node.
+
+36
+00:01:59.770 --> 00:02:03.520
+And they can be used to incorporate the objects geometry and a shader.
+
+37
+00:02:03.530 --> 00:02:04.510
+For example,
+
+38
+00:02:04.510 --> 00:02:07.040
+they are very useful to make a layer of
+
+39
+00:02:07.050 --> 00:02:10.560
+dust or snow only appear on surfaces facing upwards.
+
+40
+00:02:12.140 --> 00:02:12.400
+U.
+
+41
+00:02:12.400 --> 00:02:15.810
+V coordinates are the most conventional way to define a texture coordinate
+
+42
+00:02:15.810 --> 00:02:20.450
+space and opposed to all other coordinate spaces I am discussing here.
+
+43
+00:02:20.840 --> 00:02:25.160
+They have the major benefit that they always stick to the surface of the object
+
+44
+00:02:25.540 --> 00:02:27.660
+even when it is animated with an armature
+
+45
+00:02:28.140 --> 00:02:31.300
+that makes them very vital for most production environments.
+
+46
+00:02:31.740 --> 00:02:34.130
+But this comes with the cost of having to unwrap
+
+47
+00:02:34.130 --> 00:02:37.730
+the object from three dimensional space into two dimensional space.
+
+48
+00:02:37.740 --> 00:02:39.950
+And usually there has to be done manually.
+
+49
+00:02:39.960 --> 00:02:43.160
+It also creates these seems that have to be hidden. Somehow
+
+50
+00:02:43.840 --> 00:02:47.590
+There can be multiple benefits to having a two dimensional coordinate space.
+
+51
+00:02:48.340 --> 00:02:50.370
+You can use textures that have a preferred
+
+52
+00:02:50.370 --> 00:02:53.230
+direction without having to worry about warping.
+
+53
+00:02:53.240 --> 00:02:56.560
+And you can decide for the flow of the texture on the surface.
+
+54
+00:02:57.440 --> 00:03:02.150
+Object coordinates, as the name suggests are completely anchored to the object.
+
+55
+00:03:02.640 --> 00:03:07.540
+They are centered around the objects origin and connected to the objects location,
+
+56
+00:03:07.540 --> 00:03:08.960
+rotation and scale.
+
+57
+00:03:09.340 --> 00:03:12.590
+Object coordinates are one of my go to tax the coordinates
+
+58
+00:03:12.770 --> 00:03:16.660
+but they are connected to the object without being influenced by the mesh itself.
+
+59
+00:03:17.240 --> 00:03:21.860
+So whenever you don't need a specific property of another coordinate map,
+
+60
+00:03:21.870 --> 00:03:23.960
+I recommend using object coordinates
+
+61
+00:03:24.540 --> 00:03:28.180
+but keep in mind that the position of your objects origin
+
+62
+00:03:28.450 --> 00:03:30.360
+and rotation and scale matter.
+
+63
+00:03:30.940 --> 00:03:34.100
+So if the coordinate spaces really stretched,
+
+64
+00:03:34.110 --> 00:03:36.850
+you might want to apply an objects transformation.
+
+65
+00:03:37.740 --> 00:03:40.860
+You can also choose the orientation of the coordinates by going
+
+66
+00:03:40.860 --> 00:03:44.850
+into the transform options and checking to affect only origins.
+
+67
+00:03:45.340 --> 00:03:48.770
+This is a great way to change the coordinate space within an object
+
+68
+00:03:48.780 --> 00:03:52.560
+but you can also outsource the object coordinate space to another object.
+
+69
+00:03:52.560 --> 00:03:53.560
+Local coordinates
+
+70
+00:03:54.140 --> 00:03:55.100
+for example,
+
+71
+00:03:55.130 --> 00:03:57.760
+I can create an empty object and link it in
+
+72
+00:03:57.760 --> 00:04:00.260
+the object field down in the texture corner note.
+
+73
+00:04:00.640 --> 00:04:04.960
+And I can choose the use coordinate space without changing the main object at all.
+
+74
+00:04:06.240 --> 00:04:09.070
+The most prominent use of object coordinates in the
+
+75
+00:04:09.070 --> 00:04:12.050
+example file is on all the wooden elements.
+
+76
+00:04:12.150 --> 00:04:14.480
+As you can see the texture on this block of
+
+77
+00:04:14.480 --> 00:04:17.360
+wood is based on the structure of an actual tree
+
+78
+00:04:17.940 --> 00:04:20.089
+and I can just change the shape around
+
+79
+00:04:20.220 --> 00:04:21.560
+and it just works like that.
+
+80
+00:04:22.840 --> 00:04:24.960
+Camera coordinates are locked to the view.
+
+81
+00:04:25.340 --> 00:04:27.260
+So when you are in camera view
+
+82
+00:04:27.640 --> 00:04:31.060
+you can see that they are oriented along with the camera object
+
+83
+00:04:31.840 --> 00:04:35.760
+but they are in general not locked to the active camera object itself.
+
+84
+00:04:36.140 --> 00:04:38.590
+Even when you are not encounter of you,
+
+85
+00:04:38.600 --> 00:04:41.060
+they work with the orientation of the view port.
+
+86
+00:04:41.740 --> 00:04:46.420
+That means that the origin of the xy plane sits in the center of the
+
+87
+00:04:46.420 --> 00:04:49.550
+view and the zet access is essentially giving
+
+88
+00:04:49.550 --> 00:04:51.960
+information of the distance to the camera.
+
+89
+00:04:52.340 --> 00:04:57.970
+These coordinates can be used as a death pass within the shader to create fake missed
+
+90
+00:04:57.980 --> 00:05:01.850
+and in general can be used to create effects that should be stuck to the view.
+
+91
+00:05:02.440 --> 00:05:05.900
+Window coordinates are two dimensional along the X
+
+92
+00:05:05.900 --> 00:05:07.730
+and Y coordinate of the view port.
+
+93
+00:05:07.740 --> 00:05:11.320
+They range from 0 to 1 and scale along with the window.
+
+94
+00:05:11.330 --> 00:05:12.730
+When you are in camera view,
+
+95
+00:05:12.740 --> 00:05:16.560
+they are locked to the bounds of the camera so it looks like it does for rendering
+
+96
+00:05:16.940 --> 00:05:20.550
+they can be used for example to create a radial gradient in the world
+
+97
+00:05:20.550 --> 00:05:24.560
+trader that sticks to the window at all times and works as a background
+
+98
+00:05:25.540 --> 00:05:26.700
+reflection coordinates.
+
+99
+00:05:26.710 --> 00:05:30.500
+Just like normals are no coordinates in the sense of location.
+
+100
+00:05:30.630 --> 00:05:34.190
+They give you information about the direction of a ray that
+
+101
+00:05:34.190 --> 00:05:37.010
+would be reflected on the surface coming from the viewer.
+
+102
+00:05:37.070 --> 00:05:41.650
+You can use it for example to generate fake reflections from a specified angle.
+
+103
+00:05:42.440 --> 00:05:45.010
+I want to mention one other coordinate space which
+
+104
+00:05:45.010 --> 00:05:47.260
+is not listed in the texture coordinate node.
+
+105
+00:05:47.640 --> 00:05:51.350
+There is another very useful coordinate type hidden in the geometry.
+
+106
+00:05:51.350 --> 00:05:53.340
+Note the position coordinates.
+
+107
+00:05:53.350 --> 00:05:58.590
+They are anchored to nothing else but the world and thus our global coordinates.
+
+108
+00:05:58.600 --> 00:06:01.970
+They can be very useful to generate textures that are consistent
+
+109
+00:06:01.970 --> 00:06:05.360
+of a multiple objects and don't stick to each object individually
+
+110
+00:06:05.640 --> 00:06:07.670
+and also to create global effects.
+
+111
+00:06:08.340 --> 00:06:10.050
+In the example seen,
+
+112
+00:06:10.060 --> 00:06:13.070
+I am using them to generate a gradient of dust from
+
+113
+00:06:13.070 --> 00:06:16.460
+the bottom up on the wooden bars and the stone walls.
+
+114
+00:06:17.140 --> 00:06:19.080
+As you can see on the geometry node,
+
+115
+00:06:19.090 --> 00:06:24.280
+there are several more inputs and of course a whole lot more nodes with
+
+116
+00:06:24.290 --> 00:06:28.630
+even more inputs that you can use as a source to create traders from.
+
+117
+00:06:28.640 --> 00:06:31.830
+I will not go over every note and every socket that there is
+
+118
+00:06:31.840 --> 00:06:36.660
+but rather show you those most useful for a procedural shading workflow.
+
+119
+00:06:37.440 --> 00:06:42.310
+Most of these I will only show organically during the course when they are needed.
+
+120
+00:06:42.320 --> 00:06:47.600
+So if you want to look up a specific note, I recommend you check out the blender.
+
+121
+00:06:47.600 --> 00:06:51.420
+Manual page at dark start blender, the dog.
+
+122
+00:06:51.430 --> 00:06:53.610
+Do you have a short description for every
+
+123
+00:06:53.610 --> 00:06:56.360
+note and socket and screenshots where it's useful?
+
+124
+00:06:56.540 --> 00:06:58.760
+You can just use the search bar and
+
+125
+00:06:58.760 --> 00:07:01.550
+read about the individual functionality of each note

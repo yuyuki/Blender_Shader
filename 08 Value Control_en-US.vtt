@@ -1,0 +1,513 @@
+WEBVTT
+
+0
+00:00:00.240 --> 00:00:02.640
+generally speaking all we need to do to
+
+1
+00:00:02.640 --> 00:00:06.280
+create a procedural texture is combining the cordon maps
+
+2
+00:00:06.280 --> 00:00:09.960
+with the different tools and mathematical operations that the
+
+3
+00:00:09.960 --> 00:00:13.760
+different notes providers with in just the right way
+
+4
+00:00:14.240 --> 00:00:18.020
+the most universal skill to help with that is being
+
+5
+00:00:18.020 --> 00:00:21.460
+able to control values exactly how you want them.
+
+6
+00:00:21.470 --> 00:00:24.760
+That will automatically involve some level of mathematics
+
+7
+00:00:25.140 --> 00:00:27.620
+but that can be broken down to simple chunks.
+
+8
+00:00:27.660 --> 00:00:31.770
+The nice thing about having a direct visual representation of what we are
+
+9
+00:00:31.770 --> 00:00:36.440
+working on is that you can easily work in modular steps and check
+
+10
+00:00:36.440 --> 00:00:40.120
+what the output is at any point because it can be extremely hard
+
+11
+00:00:40.120 --> 00:00:44.060
+to read precise values and gradients just from the shade on your screen.
+
+12
+00:00:44.240 --> 00:00:47.960
+I made a little tool for the visualization of values on a surface.
+
+13
+00:00:48.140 --> 00:00:51.510
+I will be using this tool a couple of times throughout this course
+
+14
+00:00:51.940 --> 00:00:55.040
+but I want to encourage you to play around with it yourself as well.
+
+15
+00:00:55.410 --> 00:00:57.360
+Let me quickly explain how the tool works
+
+16
+00:00:57.840 --> 00:00:59.410
+in the shader of this plane.
+
+17
+00:00:59.420 --> 00:01:03.060
+You can see that there is a note group that takes object coordinates
+
+18
+00:01:03.440 --> 00:01:06.700
+and returns values which are then displayed with the view. Note.
+
+19
+00:01:07.020 --> 00:01:08.960
+When you tab into the note group
+
+20
+00:01:09.540 --> 00:01:12.880
+you can define the texture that has returned and displayed.
+
+21
+00:01:12.890 --> 00:01:15.920
+And the great thing about this setup now is that the
+
+22
+00:01:15.920 --> 00:01:20.160
+value map is also used to inform this red and blue graph
+
+23
+00:01:20.540 --> 00:01:22.460
+that you can see in the view port here.
+
+24
+00:01:22.930 --> 00:01:24.010
+His height information.
+
+25
+00:01:24.350 --> 00:01:29.030
+The different views that there are set up by default show the plane in top view
+
+26
+00:01:29.160 --> 00:01:30.690
+the graph and thrown view
+
+27
+00:01:30.830 --> 00:01:33.550
+and the perspective view where you can look around.
+
+28
+00:01:34.040 --> 00:01:37.400
+Positive values are displayed as blue and negative values
+
+29
+00:01:37.400 --> 00:01:39.980
+is read that gives you very good knowledge over
+
+30
+00:01:39.980 --> 00:01:42.260
+the value map you are generating and is a
+
+31
+00:01:42.260 --> 00:01:46.360
+great way to debug textures and preview height maps.
+
+32
+00:01:46.840 --> 00:01:49.500
+This tool bypasses the difficulties are listed in
+
+33
+00:01:49.500 --> 00:01:51.550
+the chapter about the display of values.
+
+34
+00:01:51.940 --> 00:01:54.450
+I recommend you use it to familiarize yourself with
+
+35
+00:01:54.450 --> 00:01:57.690
+the different operations for controlling values in general but
+
+36
+00:01:57.690 --> 00:02:01.230
+you can also use it to help out when you're working on a shader to do that.
+
+37
+00:02:01.230 --> 00:02:04.330
+You can simply replace the notes within this note group.
+
+38
+00:02:04.340 --> 00:02:06.280
+Right now it is just displaying the X.
+
+39
+00:02:06.280 --> 00:02:09.660
+Component of the object coordinates that are fed into the note group.
+
+40
+00:02:10.840 --> 00:02:11.900
+As you would expect
+
+41
+00:02:12.160 --> 00:02:16.060
+the graph shows a linear curve from negative 12 positive one
+
+42
+00:02:16.440 --> 00:02:17.700
+along the X axis.
+
+43
+00:02:19.240 --> 00:02:22.700
+You can change the scale of the whole graph by moving this empty here
+
+44
+00:02:22.810 --> 00:02:26.460
+which represents the scale of one unit along the Z axis.
+
+45
+00:02:27.340 --> 00:02:32.350
+The most basic but also most versatile way to control values in the shader editor
+
+46
+00:02:32.940 --> 00:02:34.560
+is using the math note
+
+47
+00:02:34.940 --> 00:02:38.130
+when I add one in here and click on the operation type.
+
+48
+00:02:38.140 --> 00:02:39.780
+You can see that there are a lot of
+
+49
+00:02:39.780 --> 00:02:42.500
+mathematical operations that can be done with this note.
+
+50
+00:02:42.570 --> 00:02:45.460
+Again I won't show every single one in here.
+
+51
+00:02:45.940 --> 00:02:49.290
+I will show a couple that are useful in a lot of situations
+
+52
+00:02:49.300 --> 00:02:52.260
+and then I will show more throughout the course when they are needed
+
+53
+00:02:52.740 --> 00:02:54.860
+but feel free to check them out individually
+
+54
+00:02:55.340 --> 00:02:58.240
+Before I start different operations here. A quick tip.
+
+55
+00:02:58.250 --> 00:03:00.430
+When working with value maps,
+
+56
+00:03:00.440 --> 00:03:05.560
+it is helpful to think about what an operation does to the values zero and 1
+
+57
+00:03:06.040 --> 00:03:09.240
+to have some idea of how it influences the different values.
+
+58
+00:03:09.250 --> 00:03:12.310
+Using the add operation as you can see
+
+59
+00:03:12.320 --> 00:03:15.360
+shifts the resulting gradient texture to the left.
+
+60
+00:03:15.740 --> 00:03:19.280
+That works only because the input is the X coordinate
+
+61
+00:03:19.500 --> 00:03:22.160
+and it is not locked in a range between zero and one.
+
+62
+00:03:22.540 --> 00:03:25.840
+What actually happens is that the values are shifted
+
+63
+00:03:25.850 --> 00:03:28.760
+up but because it is just a linear curve,
+
+64
+00:03:28.770 --> 00:03:32.800
+it could just as well be shifting from side to side as you can see here.
+
+65
+00:03:32.810 --> 00:03:36.630
+This gets clear when I apply the ad operation until the Musgrave texture that
+
+66
+00:03:36.630 --> 00:03:39.030
+have been shown before negative values of
+
+67
+00:03:39.030 --> 00:03:41.350
+course shift into the opposite direction.
+
+68
+00:03:41.640 --> 00:03:46.560
+The subtract operation that's basically the same thing just with negative values.
+
+69
+00:03:46.640 --> 00:03:50.190
+But by instead of plugging the texture into the first socket,
+
+70
+00:03:50.530 --> 00:03:52.250
+subtracting it from one
+
+71
+00:03:52.940 --> 00:03:58.080
+can easily invert the value map. So black becomes white and white becomes black.
+
+72
+00:03:58.120 --> 00:04:03.100
+The operations multiply and divide scale the values around zero by a factor.
+
+73
+00:04:03.160 --> 00:04:05.660
+And just as for adding and subtracting
+
+74
+00:04:06.040 --> 00:04:08.680
+the scaling is actually happening on the Z axis.
+
+75
+00:04:09.140 --> 00:04:12.460
+But because the operation is applied to linear coordinate values,
+
+76
+00:04:12.940 --> 00:04:16.700
+the results also in scaling the gradient along the X axis
+
+77
+00:04:17.240 --> 00:04:20.860
+by chaining an offset operation and a scaling operation together
+
+78
+00:04:21.240 --> 00:04:24.940
+you can have complete control over Remapping the values linearly.
+
+79
+00:04:24.950 --> 00:04:27.750
+That means you can shift stretch,
+
+80
+00:04:27.750 --> 00:04:30.660
+squish and invert the resulting gradient texture
+
+81
+00:04:30.660 --> 00:04:33.090
+however you want to so the position
+
+82
+00:04:33.090 --> 00:04:35.970
+of black and white changes but the
+
+83
+00:04:35.980 --> 00:04:38.850
+interpolation between them will still remain linear
+
+84
+00:04:39.150 --> 00:04:41.680
+as long as you are using constant value inputs.
+
+85
+00:04:42.140 --> 00:04:45.030
+A simple method to introduce some curvature into
+
+86
+00:04:45.030 --> 00:04:47.840
+the gradient is to use the power operation.
+
+87
+00:04:47.850 --> 00:04:50.730
+You can see that the positions of zero and one
+
+88
+00:04:50.740 --> 00:04:53.610
+stay the same but the curve between them changes.
+
+89
+00:04:53.620 --> 00:04:55.660
+If you have some mathematical expertise,
+
+90
+00:04:55.670 --> 00:04:58.770
+you can use the combination of these math operations to
+
+91
+00:04:58.770 --> 00:05:02.860
+create all sorts of polynomial exponential functions and what not.
+
+92
+00:05:03.340 --> 00:05:05.900
+But for most training use cases you can get
+
+93
+00:05:05.900 --> 00:05:10.150
+along great with the visual interpretation of shifting and squishing
+
+94
+00:05:10.540 --> 00:05:14.830
+a more intuitive way to remember gradient is using a color ramp.
+
+95
+00:05:14.840 --> 00:05:19.490
+It's visual intuitiveness makes it often the first choice for people starting out
+
+96
+00:05:19.490 --> 00:05:23.110
+with shader notes when they are trying to control gradients like this,
+
+97
+00:05:23.120 --> 00:05:26.880
+the color um note definitely has its place when it comes to mapping
+
+98
+00:05:26.880 --> 00:05:31.560
+actual colors to a gradient or when you need multiple stops like this
+
+99
+00:05:31.840 --> 00:05:34.150
+and want to change the interpolation type
+
+100
+00:05:34.640 --> 00:05:37.850
+but if you only want to remap values like this.
+
+101
+00:05:38.240 --> 00:05:41.900
+I want to take the opportunity to advocate for using the map range.
+
+102
+00:05:41.900 --> 00:05:46.210
+Note instead it is much more powerful as it can deal with negative values
+
+103
+00:05:46.310 --> 00:05:48.150
+and values greater than one
+
+104
+00:05:48.250 --> 00:05:51.350
+and it also provides sockets for the different inputs.
+
+105
+00:05:51.740 --> 00:05:56.560
+So you can actually drive them with a texture or expose them in a note group
+
+106
+00:05:57.040 --> 00:05:59.500
+and once you get used to the ideas of these inputs,
+
+107
+00:05:59.850 --> 00:06:01.960
+it can become also quite intuitive,
+
+108
+00:06:02.440 --> 00:06:05.130
+just like what we did with just the math nodes.
+
+109
+00:06:05.140 --> 00:06:08.870
+It re maps the values linearly to a new range,
+
+110
+00:06:08.880 --> 00:06:13.410
+but the parameters here are just what incoming range is mapped to,
+
+111
+00:06:13.410 --> 00:06:15.060
+what outgoing range,
+
+112
+00:06:15.440 --> 00:06:19.550
+which works much more like the color ramp than the math notes. If you think about it,
+
+113
+00:06:20.740 --> 00:06:25.660
+you can also change the interpolation type to get a smooth curve or steps
+
+114
+00:06:28.040 --> 00:06:34.160
+a more loose and flexible way to control values. Is using an RgB curves node.
+
+115
+00:06:34.640 --> 00:06:39.990
+It is meant to be used for colours as the name suggests and that makes it less optimal.
+
+116
+00:06:40.000 --> 00:06:42.270
+But it is a great way to quickly control
+
+117
+00:06:42.270 --> 00:06:45.690
+a gradient intuitively and with a lot of flexibility.
+
+118
+00:06:45.700 --> 00:06:49.690
+I will show a very useful application of this method in the following chapter.
+
+119
+00:06:49.700 --> 00:06:51.350
+One more thing at this point.
+
+120
+00:06:51.640 --> 00:06:55.150
+The efficiency of your no tree is something you should always have in mind,
+
+121
+00:06:55.540 --> 00:06:58.360
+especially when you're working on more complex setups.
+
+122
+00:06:58.940 --> 00:07:00.370
+So if possible,
+
+123
+00:07:00.380 --> 00:07:04.640
+try using the simplest method needed for what we are trying to achieve.
+
+124
+00:07:04.650 --> 00:07:05.460
+For example,
+
+125
+00:07:05.470 --> 00:07:09.980
+instead of using the map range note when you're only changing the maximum input,
+
+126
+00:07:09.990 --> 00:07:11.450
+just use a multiply node
+
+127
+00:07:11.840 --> 00:07:15.050
+that makes you know, trees easier to read and also faster

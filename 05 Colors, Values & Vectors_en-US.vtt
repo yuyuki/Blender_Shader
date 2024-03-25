@@ -1,0 +1,753 @@
+WEBVTT
+
+0
+00:00:00.240 --> 00:00:02.980
+before we can start generating textures procedurally.
+
+1
+00:00:03.050 --> 00:00:06.140
+It is crucial to understand how the actual information of colours,
+
+2
+00:00:06.140 --> 00:00:08.550
+values and vectors that we are working with
+
+3
+00:00:08.940 --> 00:00:11.060
+is represented and displayed on screen.
+
+4
+00:00:12.040 --> 00:00:14.650
+We need to be able to interpret what we see correctly
+
+5
+00:00:15.040 --> 00:00:16.560
+and that can have some pitfalls
+
+6
+00:00:17.540 --> 00:00:19.830
+to create a color and put in the shader editor.
+
+7
+00:00:19.900 --> 00:00:23.560
+It can simply go to the input category and grab an RgB node
+
+8
+00:00:23.940 --> 00:00:25.740
+where you can simply pick a color
+
+9
+00:00:25.910 --> 00:00:28.760
+as you are probably used to from blender and other software
+
+10
+00:00:29.540 --> 00:00:31.950
+and if I just connect this to of your note,
+
+11
+00:00:31.960 --> 00:00:35.450
+you can see that the color is directly displayed in the material preview.
+
+12
+00:00:36.440 --> 00:00:40.300
+It is important to understand that a color is made up of three individual
+
+13
+00:00:40.300 --> 00:00:43.450
+values where what the values represent depends
+
+14
+00:00:43.450 --> 00:00:45.160
+on the color model that you're using,
+
+15
+00:00:45.940 --> 00:00:51.550
+how we pick a color with a color wheel like this is based on the HSV color model,
+
+16
+00:00:52.140 --> 00:00:54.750
+you can pick the hue of color like this,
+
+17
+00:00:55.340 --> 00:00:57.560
+the situation along the radius here
+
+18
+00:00:58.340 --> 00:01:01.160
+and the value or brightness along this axis.
+
+19
+00:01:01.840 --> 00:01:04.800
+What is usually more useful when working with Schrader's is
+
+20
+00:01:04.810 --> 00:01:08.460
+using the RGB color model which creates the same colors.
+
+21
+00:01:08.470 --> 00:01:10.860
+Just the three values represent something else.
+
+22
+00:01:11.740 --> 00:01:14.350
+RGB stands for red, green and blue
+
+23
+00:01:15.040 --> 00:01:18.460
+and it is also quite intuitive how the values control the color.
+
+24
+00:01:18.930 --> 00:01:21.960
+The color wheel is a nice and intuitive way to pick a color
+
+25
+00:01:22.440 --> 00:01:25.560
+but if you want to have more capabilities and precision,
+
+26
+00:01:25.940 --> 00:01:28.480
+you can also use a combined RgB node
+
+27
+00:01:28.730 --> 00:01:30.160
+from the converted category
+
+28
+00:01:30.840 --> 00:01:31.480
+and there.
+
+29
+00:01:31.480 --> 00:01:34.950
+You have just these three individual value controls for R,
+
+30
+00:01:34.950 --> 00:01:38.430
+G and B and additionally you can see that here.
+
+31
+00:01:38.440 --> 00:01:39.860
+Those also have sockets.
+
+32
+00:01:40.240 --> 00:01:41.830
+This means that you can drive the
+
+33
+00:01:41.830 --> 00:01:44.460
+channels individually with values from other notes.
+
+34
+00:01:45.240 --> 00:01:47.570
+As you can see the values that we can choose
+
+35
+00:01:47.570 --> 00:01:50.760
+by sliding here are locked to a range from 0-1,
+
+36
+00:01:51.240 --> 00:01:53.360
+but we can also punch in values beyond that.
+
+37
+00:01:54.040 --> 00:01:58.550
+For example, I can take a value input and connected with the combined RGB note,
+
+38
+00:01:58.560 --> 00:02:01.360
+let's just take the same value for all channels
+
+39
+00:02:02.340 --> 00:02:03.830
+and as you can see,
+
+40
+00:02:04.080 --> 00:02:05.780
+the result is some shade of gray
+
+41
+00:02:06.020 --> 00:02:07.950
+with the brightness depending on the value.
+
+42
+00:02:08.440 --> 00:02:10.580
+But if I now put this value to one
+
+43
+00:02:10.870 --> 00:02:12.360
+and drag the slider higher,
+
+44
+00:02:12.840 --> 00:02:15.110
+you can see that the brightness still changes.
+
+45
+00:02:15.540 --> 00:02:17.290
+It is actually brighter on 10
+
+46
+00:02:17.480 --> 00:02:18.450
+than it is on one.
+
+47
+00:02:18.840 --> 00:02:22.560
+Which does not really make sense when you're thinking back to the color picker
+
+48
+00:02:22.940 --> 00:02:25.900
+Where the maximum value of one for RG&B
+
+49
+00:02:26.130 --> 00:02:27.460
+results in pure white.
+
+50
+00:02:28.040 --> 00:02:29.390
+The reason there is a difference in the
+
+51
+00:02:29.390 --> 00:02:32.340
+display is the color management at this point.
+
+52
+00:02:32.340 --> 00:02:34.890
+It would be easy to get lost in the intricacies of color
+
+53
+00:02:34.890 --> 00:02:37.330
+theory which is not my point to make in this course.
+
+54
+00:02:37.340 --> 00:02:40.750
+Just know that how color looks depends mainly
+
+55
+00:02:40.750 --> 00:02:43.850
+on your display device and is also highly subjective
+
+56
+00:02:44.040 --> 00:02:46.720
+but for procedural shedding it is useful to have an
+
+57
+00:02:46.720 --> 00:02:50.060
+intuitive translation between the cars you're working with for the shader
+
+58
+00:02:50.240 --> 00:02:51.470
+and the colors that you are seeing on
+
+59
+00:02:51.470 --> 00:02:54.550
+screen to get objective values for comparing colors,
+
+60
+00:02:54.560 --> 00:02:59.150
+I can just render out a shot of the surface with the viewer node as the shader output.
+
+61
+00:02:59.640 --> 00:03:01.580
+When I now right click on the image,
+
+62
+00:03:01.590 --> 00:03:05.020
+you can see a number of values showing up at the bottom of the window.
+
+63
+00:03:05.420 --> 00:03:09.240
+These are an analytical breakdown of the pixel I'm currently selecting
+
+64
+00:03:09.380 --> 00:03:11.170
+that gives you some useful information.
+
+65
+00:03:11.510 --> 00:03:14.730
+The values you can see here are the X and y position,
+
+66
+00:03:15.020 --> 00:03:16.460
+distance of the camera
+
+67
+00:03:16.840 --> 00:03:19.360
+and then we have some RGB values
+
+68
+00:03:19.840 --> 00:03:22.750
+and these are matching the RGB values that we choose before
+
+69
+00:03:23.140 --> 00:03:24.850
+.5 for every channel
+
+70
+00:03:25.440 --> 00:03:28.050
+but these are not the values that are actually displayed.
+
+71
+00:03:28.540 --> 00:03:30.460
+There is still a transformation going on
+
+72
+00:03:30.840 --> 00:03:34.760
+the following values of the analytics. After color management is applied
+
+73
+00:03:35.340 --> 00:03:36.320
+RGB
+
+74
+00:03:36.520 --> 00:03:37.460
+HSV
+
+75
+00:03:37.940 --> 00:03:39.190
+and the luminosity
+
+76
+00:03:39.420 --> 00:03:40.850
+which will play a role later.
+
+77
+00:03:41.240 --> 00:03:44.060
+And as you can see there is a clear deviation
+
+78
+00:03:44.640 --> 00:03:47.860
+to adjust how the display of colors is handled within blender.
+
+79
+00:03:48.000 --> 00:03:51.860
+You can go to the color management settings in the rendered properties. Tab
+
+80
+00:03:52.440 --> 00:03:58.560
+by default, that is plenty of ice is set to S RGb and the view transform to filmic.
+
+81
+00:03:59.540 --> 00:04:02.380
+These settings give you the most natural look of colours
+
+82
+00:04:02.840 --> 00:04:06.350
+and I definitely recommend you use it for all your final renderings
+
+83
+00:04:07.140 --> 00:04:09.850
+but when you want information about actual values,
+
+84
+00:04:10.130 --> 00:04:11.360
+it can look quite misleading
+
+85
+00:04:11.940 --> 00:04:14.830
+to get the colors straight without any transformation,
+
+86
+00:04:14.880 --> 00:04:17.160
+you can turn the display device to none
+
+87
+00:04:17.839 --> 00:04:22.160
+but do this only temporarily for debugging values and not for actual rendering.
+
+88
+00:04:23.040 --> 00:04:24.440
+As you can see now.
+
+89
+00:04:24.440 --> 00:04:28.650
+The analytical values of the color management also fit the ones we selected before
+
+90
+00:04:30.040 --> 00:04:32.930
+at this point it is important to mention that the color
+
+91
+00:04:32.930 --> 00:04:37.150
+management settings only influenced the look of how colors are is played
+
+92
+00:04:37.540 --> 00:04:40.560
+and not the actual values that the render engine is working with.
+
+93
+00:04:40.940 --> 00:04:43.220
+It is important to understand is all that matters for
+
+94
+00:04:43.220 --> 00:04:46.550
+calculations in the shade of editor are the actual values.
+
+95
+00:04:47.040 --> 00:04:49.350
+The look can still be changed after rendering
+
+96
+00:04:49.940 --> 00:04:52.840
+but it is not necessary to mess with the colour management at all
+
+97
+00:04:53.070 --> 00:04:54.950
+to have an idea of values and colors.
+
+98
+00:04:55.640 --> 00:04:58.360
+You can just get used to the settings you're using for rendering
+
+99
+00:04:58.840 --> 00:05:00.550
+but it is good to know about the option.
+
+100
+00:05:01.240 --> 00:05:03.410
+In fact keeping the setting on filming.
+
+101
+00:05:03.410 --> 00:05:08.050
+S RGB is a nice way to cheat and see changes beyond the value of one
+
+102
+00:05:08.440 --> 00:05:12.160
+but maybe you have already realized that procedural textures like the
+
+103
+00:05:12.160 --> 00:05:16.150
+noise texture or plain values look different than you would expect.
+
+104
+00:05:16.640 --> 00:05:19.550
+That is not an illusion but a side effect of the economy management.
+
+105
+00:05:20.040 --> 00:05:21.780
+So switching off the color management
+
+106
+00:05:22.100 --> 00:05:24.150
+might give you more neutral insight.
+
+107
+00:05:26.440 --> 00:05:29.300
+Now let's take a look at how values are displayed when
+
+108
+00:05:29.300 --> 00:05:31.560
+we try to display a value with of your note,
+
+109
+00:05:31.570 --> 00:05:33.460
+it needs to be converted into a color.
+
+110
+00:05:33.600 --> 00:05:36.710
+This conversion is very straightforward and you can
+
+111
+00:05:36.710 --> 00:05:38.960
+actually see on screen right now the same
+
+112
+00:05:38.960 --> 00:05:43.560
+value is just use for all three RGB channels which results in a gray tone.
+
+113
+00:05:44.040 --> 00:05:46.670
+So if I delete this combined RGB note and
+
+114
+00:05:46.670 --> 00:05:48.900
+connect the value directly with of your note,
+
+115
+00:05:48.910 --> 00:05:50.830
+it shows the exact same result.
+
+116
+00:05:50.840 --> 00:05:54.860
+So generally that means that zero shows black,
+
+117
+00:05:55.440 --> 00:05:56.690
+one shows white
+
+118
+00:05:57.040 --> 00:06:00.060
+and everything in between is some gradual shade of gray.
+
+119
+00:06:00.440 --> 00:06:03.260
+Keep in mind that this depends on your color management settings
+
+120
+00:06:04.040 --> 00:06:06.830
+but values don't have to be between zero and one
+
+121
+00:06:06.930 --> 00:06:11.150
+and this is where the major downside of displaying values as colours comes in,
+
+122
+00:06:11.740 --> 00:06:14.460
+all negative values are cut off to black
+
+123
+00:06:15.050 --> 00:06:18.360
+and all values above one are eventually cut off to white.
+
+124
+00:06:18.840 --> 00:06:20.960
+The additional information is lost on screen.
+
+125
+00:06:21.340 --> 00:06:25.220
+So keep in mind that just because the value is displayed as black,
+
+126
+00:06:25.230 --> 00:06:27.820
+it does not mean that the value is zero,
+
+127
+00:06:27.830 --> 00:06:30.980
+it might just as well be negative the other way around.
+
+128
+00:06:30.990 --> 00:06:33.160
+When a color is converted into a value,
+
+129
+00:06:33.540 --> 00:06:37.050
+The three color channels have to be reduced into one.
+
+130
+00:06:37.640 --> 00:06:40.520
+And it is interesting to note that the calculated
+
+131
+00:06:40.520 --> 00:06:43.550
+value here is the luminosity of the color,
+
+132
+00:06:44.040 --> 00:06:48.510
+which is not to be mistaken for the value from the HSV color model.
+
+133
+00:06:48.620 --> 00:06:51.760
+The luminosity or relative luminescence is a
+
+134
+00:06:51.760 --> 00:06:54.660
+measure for the perceived brightness of color
+
+135
+00:06:55.040 --> 00:06:58.850
+and it is calculated as a weighted average of R G and B.
+
+136
+00:06:59.340 --> 00:07:01.760
+It becomes clear when you look at pure red,
+
+137
+00:07:01.770 --> 00:07:05.760
+green and blue that one does not seem as bright as the other
+
+138
+00:07:06.440 --> 00:07:09.430
+and that is what the luminosity takes into account.
+
+139
+00:07:09.440 --> 00:07:12.760
+If I add a math note to force the conversion to a value,
+
+140
+00:07:13.340 --> 00:07:14.660
+I'll just add zero.
+
+141
+00:07:15.340 --> 00:07:19.360
+You can clearly see that they are in fact convert into different values.
+
+142
+00:07:19.940 --> 00:07:24.560
+So if you find yourself in a situation where you have to choose a colour for a value,
+
+143
+00:07:25.240 --> 00:07:31.260
+don't go for the HSV value but rather choose the same value for all RGB channels,
+
+144
+00:07:32.240 --> 00:07:36.260
+confusing luminosity and HSV value is a very common mistake
+
+145
+00:07:37.440 --> 00:07:39.450
+at last. Let's talk about the factories.
+
+146
+00:07:39.940 --> 00:07:44.650
+You can simply think of a vector as a container of multiple separate values.
+
+147
+00:07:45.540 --> 00:07:47.660
+In the case of blenders shading system,
+
+148
+00:07:48.040 --> 00:07:50.550
+A victory always has three dimensions
+
+149
+00:07:50.700 --> 00:07:52.150
+X, Y and zed.
+
+150
+00:07:52.940 --> 00:07:53.930
+Because of that.
+
+151
+00:07:53.940 --> 00:07:57.320
+A vector is commonly interpreted either as a position in
+
+152
+00:07:57.320 --> 00:08:00.350
+three dimensional space or a direction with a length.
+
+153
+00:08:00.740 --> 00:08:05.850
+But fundamentally the components of a vector can represent anything and you
+
+154
+00:08:05.850 --> 00:08:09.650
+don't have to think of it as some type of complex mathematical object
+
+155
+00:08:10.540 --> 00:08:12.760
+to create a vector in the shader editor,
+
+156
+00:08:13.140 --> 00:08:15.660
+you can add a combined X y z note
+
+157
+00:08:16.140 --> 00:08:20.680
+and that works completely in parallel to the combined Rgb known for colors.
+
+158
+00:08:21.140 --> 00:08:24.860
+The only difference is that the sliders of the combined X Y Z node
+
+159
+00:08:25.240 --> 00:08:27.550
+are not clamped between zero and one,
+
+160
+00:08:28.140 --> 00:08:31.950
+which makes sense as the components of vectors can have any value.
+
+161
+00:08:32.539 --> 00:08:35.909
+Generally vectors and colours in the shade of editor are
+
+162
+00:08:35.919 --> 00:08:40.140
+interchangeable and there is no conversion needed when it's played.
+
+163
+00:08:40.309 --> 00:08:44.360
+The X, Y Z values are just used as the RgB values of the color.
+
+164
+00:08:45.040 --> 00:08:49.750
+That means of course that negative factors can only be displayed as black
+
+165
+00:08:50.140 --> 00:08:52.970
+and just as with the display of values,
+
+166
+00:08:52.980 --> 00:08:56.560
+a vector that is displayed black does not have to be zero,
+
+167
+00:08:57.340 --> 00:09:02.750
+so mostly in the shade of editor, vectors and RgB colors are handled in the same way,
+
+168
+00:09:02.760 --> 00:09:06.660
+but there's one subtle difference in how they are converted into values.
+
+169
+00:09:07.040 --> 00:09:10.800
+Remember that I said that cars are reduced into values by the use
+
+170
+00:09:10.800 --> 00:09:15.950
+of the relative luminescence which is a weighted average of the color channels.
+
+171
+00:09:16.540 --> 00:09:20.560
+That is not the case for the conversion of a vector to a single value.
+
+172
+00:09:20.570 --> 00:09:23.840
+There are three channels don't have a different importance and
+
+173
+00:09:23.840 --> 00:09:26.500
+the value used is simply the average of x,
+
+174
+00:09:26.500 --> 00:09:27.160
+Y and Z.
+
+175
+00:09:28.040 --> 00:09:31.550
+It might not be very intuitive to think of a vector as a color.
+
+176
+00:09:32.240 --> 00:09:36.050
+That's why I made a simple demonstration file that should illustrate it further.
+
+177
+00:09:37.240 --> 00:09:40.990
+You can choose a vector as an arrow by shifting its source
+
+178
+00:09:41.110 --> 00:09:41.950
+and target
+
+179
+00:09:42.640 --> 00:09:44.460
+and it is colored accordingly.
+
+180
+00:09:44.840 --> 00:09:48.530
+And as you would expect when I shift the target along the Z axis,
+
+181
+00:09:48.650 --> 00:09:50.860
+the arrow gets more and more blue.
+
+182
+00:09:51.240 --> 00:09:55.560
+Same thing for the X and the Y axis with the red and green.
+
+183
+00:09:56.540 --> 00:09:58.020
+If you change the scene,
+
+184
+00:09:58.030 --> 00:10:02.450
+you can also see similar demonstrations for RgB colors and values.
+
+185
+00:10:03.340 --> 00:10:04.780
+So if you want to get more familiar
+
+186
+00:10:04.780 --> 00:10:07.360
+with how Corus values and victories are displayed,
+
+187
+00:10:07.740 --> 00:10:10.050
+I recommend you play around with this file a little bit.

@@ -1,0 +1,813 @@
+WEBVTT
+
+0
+00:00:00.040 --> 00:00:02.550
+PBR stands for physically based rendering,
+
+1
+00:00:02.840 --> 00:00:06.060
+it is about the whole rendering environment and not just the shakers
+
+2
+00:00:06.440 --> 00:00:09.350
+but physically based shading is at its very core
+
+3
+00:00:09.840 --> 00:00:13.860
+PBR is the standard for realistic shading across platforms,
+
+4
+00:00:13.990 --> 00:00:18.750
+the specific implementations differ, but generally they can be used in exchange
+
+5
+00:00:19.240 --> 00:00:22.970
+opposed to PBR, there's also non photorealistic rendering,
+
+6
+00:00:22.970 --> 00:00:27.540
+or NPR NPR comes in several different shapes and forms and
+
+7
+00:00:27.540 --> 00:00:30.450
+some of it can be abstracted from the PBR workflow.
+
+8
+00:00:30.460 --> 00:00:33.360
+So I want to focus on PBR for this course,
+
+9
+00:00:33.400 --> 00:00:36.610
+like the name implies physically based rendering is
+
+10
+00:00:36.610 --> 00:00:39.670
+an attempt to accurately depict a rendered scene
+
+11
+00:00:39.680 --> 00:00:43.010
+but describing it through its physical properties and
+
+12
+00:00:43.010 --> 00:00:46.650
+simulating real physical interactions for the shader.
+
+13
+00:00:46.660 --> 00:00:50.110
+That means describing a material by the way it interacts with light.
+
+14
+00:00:50.130 --> 00:00:52.720
+The great thing about PBR is that it
+
+15
+00:00:52.720 --> 00:00:55.530
+breaks down the shader into objective parameters,
+
+16
+00:00:55.540 --> 00:00:57.320
+which means that it will generally look
+
+17
+00:00:57.330 --> 00:00:59.850
+accurate from all different lighting scenarios,
+
+18
+00:01:00.240 --> 00:01:04.090
+generally what a material looks like is defined by its interaction with
+
+19
+00:01:04.090 --> 00:01:08.110
+light and there are different types of interactions that can be described with
+
+20
+00:01:08.110 --> 00:01:11.680
+those physical properties and those can then be given to a shader
+
+21
+00:01:11.680 --> 00:01:15.670
+that translates the material for the render engine to use in blender.
+
+22
+00:01:15.680 --> 00:01:18.060
+That shader is the Principal B S D F,
+
+23
+00:01:18.240 --> 00:01:23.250
+which is used as the standard shader for surfaces and has a lot of input parameters.
+
+24
+00:01:23.340 --> 00:01:25.740
+Every one of these parameters has its own
+
+25
+00:01:25.740 --> 00:01:28.840
+importance to the material and changing only one
+
+26
+00:01:28.840 --> 00:01:32.770
+of them at a time can have a drastic impact on the shader as a whole.
+
+27
+00:01:32.780 --> 00:01:34.800
+Instead of the Principal B S D F,
+
+28
+00:01:34.810 --> 00:01:39.170
+you can also build a shader manually out of the individual shader notes.
+
+29
+00:01:39.180 --> 00:01:42.430
+But for this course we are sticking to the principle be sdf
+
+30
+00:01:42.440 --> 00:01:46.850
+as it is already the best choice for most regular PBR based setups
+
+31
+00:01:47.040 --> 00:01:48.840
+for a perfect realism.
+
+32
+00:01:48.850 --> 00:01:51.830
+You theoretically want to have accurate maps
+
+33
+00:01:51.830 --> 00:01:54.500
+for each individual one of these channels
+
+34
+00:01:54.510 --> 00:01:57.520
+as real services generally have a combination
+
+35
+00:01:57.520 --> 00:01:59.820
+of all different interactions with light however,
+
+36
+00:01:59.820 --> 00:02:00.860
+is huddled, they may be,
+
+37
+00:02:00.870 --> 00:02:03.140
+but usually it is enough to focus
+
+38
+00:02:03.140 --> 00:02:06.060
+on the most characteristic properties of a material
+
+39
+00:02:06.240 --> 00:02:10.520
+to make it look convincing and approximate the rest with constant values
+
+40
+00:02:10.530 --> 00:02:14.980
+depending on the level of stylization you want a more uniform appearance,
+
+41
+00:02:14.980 --> 00:02:19.450
+can even be what you're looking for for the example seen I went with more
+
+42
+00:02:19.450 --> 00:02:25.050
+stylized PBR to simplify some of its complexity but the principle stays the same.
+
+43
+00:02:25.540 --> 00:02:29.930
+One thing about the render engines for cycles as it uses True.
+
+44
+00:02:29.930 --> 00:02:31.480
+Raytracing for rendering
+
+45
+00:02:31.600 --> 00:02:36.980
+the PBR map simply influence how the simulated raise propagate through the scene.
+
+46
+00:02:36.990 --> 00:02:38.010
+E V, however,
+
+47
+00:02:38.010 --> 00:02:42.770
+has to approximate most of these light interactions using different techniques to
+
+48
+00:02:42.770 --> 00:02:46.460
+fake the same look and in most cases that works really well.
+
+49
+00:02:46.540 --> 00:02:50.190
+The similarity of the result enables a powerful workflow
+
+50
+00:02:50.190 --> 00:02:53.560
+with Evie for a preview and cycles for rendering.
+
+51
+00:02:53.940 --> 00:02:57.450
+I will not go into the physical background of these light interactions
+
+52
+00:02:57.450 --> 00:03:00.780
+but let me quickly go over the different parameters in general,
+
+53
+00:03:00.790 --> 00:03:03.790
+we will go over how to generate the different PBR
+
+54
+00:03:03.790 --> 00:03:06.750
+maps in a procedural workflow and the following videos.
+
+55
+00:03:07.240 --> 00:03:10.350
+The base colour is like the name suggests the
+
+56
+00:03:10.360 --> 00:03:12.570
+main color map that the shader is based on.
+
+57
+00:03:12.580 --> 00:03:15.080
+It describes the color of the diffused
+
+58
+00:03:15.080 --> 00:03:17.790
+metallic or trance missive light interaction,
+
+59
+00:03:17.800 --> 00:03:21.300
+ideally the texture map used here should contain no
+
+60
+00:03:21.300 --> 00:03:24.200
+light information like shadows and highlights at all,
+
+61
+00:03:24.210 --> 00:03:26.650
+making it what is called an albedo map.
+
+62
+00:03:26.840 --> 00:03:30.330
+Then all the shading comes from the actual geometry
+
+63
+00:03:30.340 --> 00:03:32.360
+and light sources in the three D scene.
+
+64
+00:03:32.640 --> 00:03:33.540
+If however,
+
+65
+00:03:33.540 --> 00:03:36.320
+the geometry is lacking the relevant amount of
+
+66
+00:03:36.320 --> 00:03:39.200
+detail to produce this light information while rendering,
+
+67
+00:03:39.210 --> 00:03:41.370
+which is the case most of the time,
+
+68
+00:03:41.380 --> 00:03:45.120
+it can be useful to include some amount of lighting in the base color.
+
+69
+00:03:45.120 --> 00:03:48.690
+Already a color map that includes some lighting information
+
+70
+00:03:48.690 --> 00:03:52.460
+like shadows and ambient occlusion is called a diffuse map
+
+71
+00:03:52.640 --> 00:03:56.630
+and it helps to add realism to objects with a low poly count.
+
+72
+00:03:56.640 --> 00:03:59.560
+When highly detailed displacement is not an option
+
+73
+00:03:59.940 --> 00:04:01.000
+in this example,
+
+74
+00:04:01.000 --> 00:04:03.430
+you can see how the diffuse map adds more depth
+
+75
+00:04:03.440 --> 00:04:06.640
+decreases that are not showing on a geometrical level.
+
+76
+00:04:06.650 --> 00:04:10.480
+So you have to make the conscious decision whether or not you want
+
+77
+00:04:10.480 --> 00:04:14.850
+to include lighting information into the base color map with procedural sharing.
+
+78
+00:04:14.860 --> 00:04:17.459
+It is more straightforward to create an orbital
+
+79
+00:04:17.459 --> 00:04:20.550
+map as the lighting information comes with the rendering
+
+80
+00:04:20.940 --> 00:04:25.860
+from photographs. On the other hand, it has to be carefully extracted or avoided
+
+81
+00:04:26.340 --> 00:04:30.150
+while we are on the topic, I want to also talk about the shadow displacement
+
+82
+00:04:30.540 --> 00:04:30.840
+share,
+
+83
+00:04:30.840 --> 00:04:34.570
+displacement is not part of the principal gsdf itself
+
+84
+00:04:34.580 --> 00:04:37.250
+but can be accessed through the displacement socket and
+
+85
+00:04:37.250 --> 00:04:41.170
+the material output node cycles supports the option to
+
+86
+00:04:41.180 --> 00:04:44.250
+displace the mesh on a shader level When rendering
+
+87
+00:04:44.640 --> 00:04:45.280
+that way,
+
+88
+00:04:45.290 --> 00:04:49.470
+you can add additional geometric detail from within the share editor
+
+89
+00:04:49.480 --> 00:04:53.850
+using a displacement map generated just like the other PBR maps.
+
+90
+00:04:54.240 --> 00:04:58.950
+What this displacement does is exactly the same as the displaced modifier.
+
+91
+00:04:58.960 --> 00:05:03.270
+Only here you can use the shader notes to drive how the matches displaced.
+
+92
+00:05:03.280 --> 00:05:07.020
+That can be extremely useful to create highly realistic surface
+
+93
+00:05:07.020 --> 00:05:10.560
+detail and also general procedural shapes based on the shader.
+
+94
+00:05:10.840 --> 00:05:14.450
+However, to be effective, the mesh has to be highly subdivided,
+
+95
+00:05:14.450 --> 00:05:17.650
+which drastically increases memory usage in render time
+
+96
+00:05:17.840 --> 00:05:20.750
+and it is only available using cycles Currently,
+
+97
+00:05:21.240 --> 00:05:22.210
+as you can see,
+
+98
+00:05:22.220 --> 00:05:26.050
+the socket accepts a vector is the type which means that you
+
+99
+00:05:26.050 --> 00:05:29.930
+can technically displace any point on the mesh in any direction,
+
+100
+00:05:29.940 --> 00:05:33.180
+allowing you to effectively change the complete shape
+
+101
+00:05:33.180 --> 00:05:35.550
+of the geometry from within the shader.
+
+102
+00:05:35.940 --> 00:05:36.760
+This however,
+
+103
+00:05:36.760 --> 00:05:40.450
+has besides from looking very fancy only rather few
+
+104
+00:05:40.450 --> 00:05:43.880
+applications and it's quite advanced and difficult to control.
+
+105
+00:05:43.890 --> 00:05:45.880
+So for the scope of this course,
+
+106
+00:05:45.890 --> 00:05:50.060
+we're going to focus on the single dimensional displacement using a height map
+
+107
+00:05:50.440 --> 00:05:53.690
+and maybe at the end we can throw in vector displacement as a bonus,
+
+108
+00:05:54.240 --> 00:05:57.680
+let's move on to the next inputs of the principal BcF.
+
+109
+00:05:57.780 --> 00:06:00.580
+Subsurface scattering describes light penetrating the
+
+110
+00:06:00.580 --> 00:06:02.790
+surface and being sketched beneath it,
+
+111
+00:06:02.800 --> 00:06:04.980
+creating a glow where the light hits.
+
+112
+00:06:05.310 --> 00:06:09.540
+Subsurface scattering can be very crucial for different material types like
+
+113
+00:06:09.540 --> 00:06:13.160
+for example skin and add more depth and life to materials.
+
+114
+00:06:13.540 --> 00:06:17.580
+But this type of light interaction depends highly on the geometry of the mesh
+
+115
+00:06:17.590 --> 00:06:20.640
+and has to be simulated with a lot of race to be accurate,
+
+116
+00:06:20.650 --> 00:06:23.010
+which creates a lot of noise because
+
+117
+00:06:23.010 --> 00:06:26.520
+of that subsurface scattering only produces accurate results
+
+118
+00:06:26.520 --> 00:06:30.660
+using cycles and has to be faked when using Evie to work in real time.
+
+119
+00:06:30.840 --> 00:06:35.960
+There are three maps to control the subsurface scattering in the principal psd. F.
+
+120
+00:06:36.340 --> 00:06:40.890
+The subsurface input simply blends between the simple diffuse
+
+121
+00:06:40.900 --> 00:06:44.540
+and the subsurface scattered shading as the base shader.
+
+122
+00:06:44.550 --> 00:06:49.400
+They both also use separate base colour maps for the subsurface scattering.
+
+123
+00:06:49.400 --> 00:06:52.060
+This can be plugged into the subsurface color socket.
+
+124
+00:06:52.540 --> 00:06:57.130
+The 3rd map is the subsurface Radius, which determines the distance,
+
+125
+00:06:57.130 --> 00:06:59.490
+the light is scattered underneath the surface and
+
+126
+00:06:59.490 --> 00:07:02.460
+thus changes the softness of the subsurface effect.
+
+127
+00:07:02.940 --> 00:07:06.770
+This input accepts a vector which makes it possible to tint the
+
+128
+00:07:06.770 --> 00:07:11.360
+scattered light by the finding a different scattering length per RGb channel.
+
+129
+00:07:11.840 --> 00:07:16.700
+The shorter this radius input, the more it converges to the diffused trading.
+
+130
+00:07:16.710 --> 00:07:19.310
+There are also different algorithms that can be chosen
+
+131
+00:07:19.310 --> 00:07:22.160
+to simulate the propagation of the scattered light.
+
+132
+00:07:23.040 --> 00:07:26.210
+The metallic input blends between a base shader that
+
+133
+00:07:26.210 --> 00:07:29.660
+is using the fuse and reflective light interaction.
+
+134
+00:07:30.140 --> 00:07:32.320
+Those behave fundamentally different.
+
+135
+00:07:32.330 --> 00:07:37.670
+So usually it is a good idea to map the parameters value to either one or zero
+
+136
+00:07:37.680 --> 00:07:40.290
+depending on the class of the material and
+
+137
+00:07:40.290 --> 00:07:43.660
+only use values in between to transition between them
+
+138
+00:07:44.040 --> 00:07:45.990
+because they behave so differently.
+
+139
+00:07:46.000 --> 00:07:49.950
+The metallic input influences the behavior of the whole shader.
+
+140
+00:07:50.440 --> 00:07:54.860
+A lot of these parameters only influence the non metallic part of the shader.
+
+141
+00:07:54.870 --> 00:07:58.450
+So for the showcases here, I will focus on other materials.
+
+142
+00:07:59.040 --> 00:08:03.080
+The speculator input controls the reflectivity of the surface.
+
+143
+00:08:03.090 --> 00:08:06.150
+This reflection happens on top of the base shader
+
+144
+00:08:06.160 --> 00:08:09.410
+and its intensity depends on the viewing angle.
+
+145
+00:08:09.420 --> 00:08:14.110
+Also it is not based on the base color unlike the metallic reflection,
+
+146
+00:08:14.120 --> 00:08:18.360
+but it can be optionally tinted using the speculative parameter
+
+147
+00:08:18.840 --> 00:08:20.640
+usually for a PBR shader.
+
+148
+00:08:20.650 --> 00:08:24.800
+Keeping it on 0.5 yields good results as all real
+
+149
+00:08:24.800 --> 00:08:28.770
+materials have a certain amount of reflection to some capacity.
+
+150
+00:08:28.810 --> 00:08:31.350
+The parameter you should mainly focus on
+
+151
+00:08:31.350 --> 00:08:33.710
+to control the reflection is the roughness.
+
+152
+00:08:34.030 --> 00:08:37.350
+The roughness parameter controls exactly what the name implies.
+
+153
+00:08:37.539 --> 00:08:42.360
+It is a measure of the roughness of the surface on a microscopic level and it is
+
+154
+00:08:42.360 --> 00:08:45.540
+used to simplify the surface detail so that not
+
+155
+00:08:45.550 --> 00:08:48.630
+every microscopic little bump has to be described,
+
+156
+00:08:48.640 --> 00:08:51.060
+but the roughness of the surface as a whole.
+
+157
+00:08:51.440 --> 00:08:55.320
+The nuances in this map at a lot of character to a material
+
+158
+00:08:55.330 --> 00:08:59.260
+and getting it right is one of the keys to a convincing PBR shader
+
+159
+00:09:00.040 --> 00:09:02.510
+and I Satrapi is another parameter that gives
+
+160
+00:09:02.520 --> 00:09:05.710
+information about the microscopic detail of the surface.
+
+161
+00:09:05.820 --> 00:09:08.920
+An anisotropy reflection occurs in another part
+
+162
+00:09:08.920 --> 00:09:11.310
+of the surface is structured with a preferred
+
+163
+00:09:11.310 --> 00:09:14.560
+direction that results in the reflection being wrapped
+
+164
+00:09:14.560 --> 00:09:17.260
+around the geometry depending on that direction.
+
+165
+00:09:17.440 --> 00:09:22.060
+The most prominent example of the use of this effect is brushed metal.
+
+166
+00:09:22.140 --> 00:09:25.880
+The rotation of this preferred direction can also be tweaked with a
+
+167
+00:09:25.880 --> 00:09:29.840
+parameter and the fact that this preferred direction has to be wrapped
+
+168
+00:09:29.840 --> 00:09:34.250
+around a three D surface creates a poll where the directions run
+
+169
+00:09:34.250 --> 00:09:38.960
+together the way this is oriented can be accessed using the tangent input
+
+170
+00:09:40.240 --> 00:09:42.200
+sheen is in effect to add,
+
+171
+00:09:42.200 --> 00:09:45.330
+I highlight depending on the angle of the surface that can
+
+172
+00:09:45.330 --> 00:09:48.920
+be used to create more fuzzy looking materials like cloth.
+
+173
+00:09:48.930 --> 00:09:51.660
+This effect can also be tinted by the base color
+
+174
+00:09:52.340 --> 00:09:56.290
+clear code adds an additional layer of reflection on top of the shader.
+
+175
+00:09:56.300 --> 00:10:01.250
+Usually this is used for services like car paint that have a glossy finish,
+
+176
+00:10:01.260 --> 00:10:05.260
+but the roughness of the clear coat layer is fully adjustable as well.
+
+177
+00:10:06.140 --> 00:10:09.460
+The transmission parameter controls how much light passes
+
+178
+00:10:09.470 --> 00:10:12.370
+through the object to create glass like materials.
+
+179
+00:10:12.380 --> 00:10:15.500
+How blurry this transmission is is controlled by both
+
+180
+00:10:15.500 --> 00:10:19.410
+the surface roughness of the overall shader and additionally,
+
+181
+00:10:19.410 --> 00:10:21.760
+the dedicated transmission roughness.
+
+182
+00:10:21.770 --> 00:10:25.850
+The I. O. R. Parameter also impacts the transmission
+
+183
+00:10:26.040 --> 00:10:26.620
+I. O. R.
+
+184
+00:10:26.620 --> 00:10:31.290
+Stands for index of refraction and it is another intrinsic material
+
+185
+00:10:31.290 --> 00:10:35.160
+property that tells the refraction of the light when it's transmitted,
+
+186
+00:10:36.540 --> 00:10:39.590
+The Emission Map is a simple emission effect that is
+
+187
+00:10:39.590 --> 00:10:42.460
+added on top of the shader to create a glow.
+
+188
+00:10:42.470 --> 00:10:47.790
+The fact that it is added means that an emission of zero or black adds nothing.
+
+189
+00:10:47.800 --> 00:10:52.060
+The input here is a single color input, but for highly a missive materials,
+
+190
+00:10:52.070 --> 00:10:55.260
+the values can also surpass the range of 0-1.
+
+191
+00:10:55.840 --> 00:10:59.240
+The alpha input is a parameter to control the
+
+192
+00:10:59.250 --> 00:11:03.160
+opacity of the surface without influencing the shedding itself,
+
+193
+00:11:03.170 --> 00:11:07.560
+but rather blending the shaded surface with the background as a whole.
+
+194
+00:11:08.540 --> 00:11:11.550
+The normal input takes into account the surface
+
+195
+00:11:11.550 --> 00:11:14.640
+detail that falls in between the microscopic scale
+
+196
+00:11:14.650 --> 00:11:17.200
+where it can be translated into roughness and
+
+197
+00:11:17.200 --> 00:11:20.260
+a large scale where it is geometrically significant,
+
+198
+00:11:20.440 --> 00:11:25.100
+it directly controls the normal direction of the surface and can this way add
+
+199
+00:11:25.100 --> 00:11:29.490
+visual detail to the shader without the need of a highly subdivided mesh,
+
+200
+00:11:29.500 --> 00:11:31.260
+like it is the case with displacement.
+
+201
+00:11:31.740 --> 00:11:34.490
+The normals of the clear coat layer can be controlled
+
+202
+00:11:34.490 --> 00:11:38.360
+separately to keep surface detail while adding a smooth finish

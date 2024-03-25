@@ -1,0 +1,853 @@
+WEBVTT
+
+0
+00:00:00.340 --> 00:00:04.230
+note groups are a great way to create custom blocks of nodes in
+
+1
+00:00:04.230 --> 00:00:09.550
+a very clearly readable way and make them easily and flexibly reusable.
+
+2
+00:00:10.240 --> 00:00:15.400
+They also extend the shader editor for the ability to change multiple instances
+
+3
+00:00:15.400 --> 00:00:19.660
+of the same notes set up in multiple places of the notary.
+
+4
+00:00:19.940 --> 00:00:23.140
+A great deal in achieving an efficient workflow.
+
+5
+00:00:23.140 --> 00:00:28.590
+Is having a custom database of note groups for functionalities that you use a lot,
+
+6
+00:00:28.600 --> 00:00:31.360
+but would take a while to set up each time.
+
+7
+00:00:31.840 --> 00:00:34.120
+We already talked about the methods to
+
+8
+00:00:34.120 --> 00:00:37.200
+parameter is a shader into sensible parameters,
+
+9
+00:00:37.210 --> 00:00:40.890
+which is a very important base to create useful note groups
+
+10
+00:00:40.900 --> 00:00:45.550
+that are easy to control and reusable and multiple different situations.
+
+11
+00:00:45.560 --> 00:00:46.410
+In this part,
+
+12
+00:00:46.410 --> 00:00:49.390
+I want to talk about how to use a sensible set
+
+13
+00:00:49.390 --> 00:00:53.460
+of control parameters that provide flexible control over a note set up
+
+14
+00:00:53.640 --> 00:00:56.250
+and set it up as a user friendly node group.
+
+15
+00:00:56.740 --> 00:01:03.000
+A note group at the end of the day is just a module, a tool to be used by an artist,
+
+16
+00:01:03.030 --> 00:01:07.880
+whether that user maybe Hugh yourself a colleague or a customer.
+
+17
+00:01:07.990 --> 00:01:08.700
+In any case,
+
+18
+00:01:08.700 --> 00:01:14.270
+it is important to design the user interaction with that tool in an intuitive way and
+
+19
+00:01:14.280 --> 00:01:17.710
+expose all the essential functionality for the user
+
+20
+00:01:17.710 --> 00:01:20.550
+to easily adapt how the note group behaves.
+
+21
+00:01:21.040 --> 00:01:27.040
+So a large part of designing I know well is defining a sensible permit realization,
+
+22
+00:01:27.050 --> 00:01:29.860
+which is what I talked about in the previous video,
+
+23
+00:01:30.440 --> 00:01:33.350
+but that is not all of what a good note group should provide.
+
+24
+00:01:34.140 --> 00:01:36.660
+Just as important as a good privatization
+
+25
+00:01:37.040 --> 00:01:39.350
+that is defined with the inputs of the note group.
+
+26
+00:01:39.740 --> 00:01:42.050
+Are the outputs that it returns
+
+27
+00:01:42.440 --> 00:01:45.080
+depending on the functionality of a note group,
+
+28
+00:01:45.090 --> 00:01:48.370
+you can have a variety of different types of output maps.
+
+29
+00:01:48.380 --> 00:01:53.580
+Usually you have a main output that is defined by the notes main functionality,
+
+30
+00:01:53.590 --> 00:01:56.010
+but a lot of the time it is incredibly
+
+31
+00:01:56.010 --> 00:02:00.150
+useful to include an additional set of secondary outputs,
+
+32
+00:02:00.160 --> 00:02:02.150
+just as with the input,
+
+33
+00:02:02.440 --> 00:02:05.260
+there should be no redundant information though.
+
+34
+00:02:05.640 --> 00:02:09.590
+If one output map can just as well be drawn
+
+35
+00:02:09.600 --> 00:02:13.160
+out of the information of another with simple means,
+
+36
+00:02:13.170 --> 00:02:15.850
+then it is sometimes better to just include
+
+37
+00:02:15.850 --> 00:02:18.960
+the map that provides the more valuable information.
+
+38
+00:02:19.640 --> 00:02:22.580
+For example, for a cell based texture,
+
+39
+00:02:22.590 --> 00:02:28.550
+a sell position output provides more information than a random value per cell
+
+40
+00:02:29.040 --> 00:02:34.350
+as this can be easily retrieved from the sell position with a white noise.
+
+41
+00:02:34.940 --> 00:02:37.760
+The other way around is not possible though.
+
+42
+00:02:38.240 --> 00:02:42.950
+So in this case the random value output could simply be left out.
+
+43
+00:02:43.640 --> 00:02:44.640
+On the other hand,
+
+44
+00:02:44.860 --> 00:02:47.950
+a random value map has a lot of use cases
+
+45
+00:02:48.160 --> 00:02:51.270
+and can simply be included to be more user friendly.
+
+46
+00:02:51.580 --> 00:02:53.450
+That is your choice to make in this case
+
+47
+00:02:54.140 --> 00:02:58.540
+something though that has without a doubt more information than a random value
+
+48
+00:02:58.770 --> 00:03:00.200
+is a random color
+
+49
+00:03:00.420 --> 00:03:03.650
+as it provides three random values in one output.
+
+50
+00:03:04.340 --> 00:03:09.740
+Let's for a moment get back to the input information the user gifts to the note group.
+
+51
+00:03:09.750 --> 00:03:12.850
+When a note trees collapsed into a note group.
+
+52
+00:03:12.860 --> 00:03:17.680
+Some of the access to additional functionality that has not specifically been
+
+53
+00:03:17.680 --> 00:03:21.860
+parameter prized as input parameters is cut off from the user.
+
+54
+00:03:22.140 --> 00:03:26.160
+So additionally to the main functionality of the Shader set up,
+
+55
+00:03:26.240 --> 00:03:31.360
+you might also want to expose some secondary functionality for optional tweaking.
+
+56
+00:03:32.140 --> 00:03:33.450
+Working with note groups,
+
+57
+00:03:33.460 --> 00:03:38.100
+it is crucial to understand that all parameters that are not exposed as
+
+58
+00:03:38.100 --> 00:03:43.060
+the group inputs are chosen within the note group and not over rideable.
+
+59
+00:03:44.340 --> 00:03:49.500
+One of the main ideas of using note groups is that you can use them multiple
+
+60
+00:03:49.500 --> 00:03:54.260
+times in a note set up as a separate instances of the same note group.
+
+61
+00:03:54.840 --> 00:03:59.000
+Every instance of the note group uses the exact same internal
+
+62
+00:03:59.000 --> 00:04:03.150
+notes setup but can be driven by different input parameters.
+
+63
+00:04:03.540 --> 00:04:07.410
+All the parameters exposed in the note group interface can be
+
+64
+00:04:07.410 --> 00:04:11.280
+chosen separately for each individual instance of the note group.
+
+65
+00:04:11.280 --> 00:04:12.060
+In the shader,
+
+66
+00:04:12.640 --> 00:04:15.420
+you can simply create an instance of a note group by
+
+67
+00:04:15.430 --> 00:04:19.279
+selecting it from the ad menu or duplicating another group.
+
+68
+00:04:19.279 --> 00:04:19.660
+Note
+
+69
+00:04:20.339 --> 00:04:21.610
+with instance Sing,
+
+70
+00:04:21.630 --> 00:04:24.830
+you have to be carefully aware of which parameters
+
+71
+00:04:24.830 --> 00:04:28.820
+are exposed to the inputs and those are set individually
+
+72
+00:04:28.820 --> 00:04:31.580
+for each instance of the note group and which
+
+73
+00:04:31.580 --> 00:04:34.950
+are globally controlled from within the note group itself.
+
+74
+00:04:35.540 --> 00:04:41.610
+They still can also be used to create a blend file wide control of parameters.
+
+75
+00:04:41.620 --> 00:04:46.030
+You can just outsource the global control parameters into
+
+76
+00:04:46.030 --> 00:04:49.590
+a note group that simply provides these as outputs.
+
+77
+00:04:50.040 --> 00:04:53.260
+And then this note group can be used in multiple places
+
+78
+00:04:53.260 --> 00:04:56.250
+in the military but the parameter is always the same.
+
+79
+00:04:56.840 --> 00:04:59.770
+But not every note group has to be intended
+
+80
+00:04:59.770 --> 00:05:02.560
+to be directly interacted with by the user.
+
+81
+00:05:03.140 --> 00:05:08.750
+Another very important utility of note groups is to nest them within one another.
+
+82
+00:05:09.140 --> 00:05:09.970
+For example,
+
+83
+00:05:09.970 --> 00:05:13.450
+is it a valid option to create an elaborate master
+
+84
+00:05:13.450 --> 00:05:17.660
+node group that includes an extensive amount of input parameters
+
+85
+00:05:18.040 --> 00:05:20.750
+and then trim those down by nesting it
+
+86
+00:05:20.760 --> 00:05:23.890
+in another note group that simplifies the interface
+
+87
+00:05:24.040 --> 00:05:26.860
+by using a smaller subset of parameters
+
+88
+00:05:27.070 --> 00:05:30.250
+and is intended for a more specific use case.
+
+89
+00:05:30.740 --> 00:05:32.930
+I want to quickly mention another specific
+
+90
+00:05:32.930 --> 00:05:35.920
+use case of nesting and instances note groups
+
+91
+00:05:36.540 --> 00:05:41.760
+a way to expose not only single values but whole parts of the notes set up to
+
+92
+00:05:41.760 --> 00:05:47.960
+a user is to use another note group and using instances of it in the main setup.
+
+93
+00:05:48.340 --> 00:05:50.680
+The functionality of this helper.
+
+94
+00:05:50.680 --> 00:05:53.570
+Note group can then be adapted by the user,
+
+95
+00:05:53.580 --> 00:05:58.610
+which changes every instance where the setup is used at the same time.
+
+96
+00:05:58.620 --> 00:06:01.510
+I like to use this for example to control the
+
+97
+00:06:01.510 --> 00:06:05.650
+functionality of multiple RGB curves in the same place.
+
+98
+00:06:06.140 --> 00:06:09.720
+But of course nesting can also just be used for less
+
+99
+00:06:09.720 --> 00:06:14.960
+specific use cases for a convoluted but organized notary structure.
+
+100
+00:06:15.540 --> 00:06:19.160
+Note groups are generally a great organization tool to
+
+101
+00:06:19.160 --> 00:06:21.750
+structure your no tree in a modular way.
+
+102
+00:06:22.240 --> 00:06:26.310
+So let's just grab the notes set up of the parametric bubble wrap that I
+
+103
+00:06:26.310 --> 00:06:29.860
+showed you in the previous video and set it up as a note group.
+
+104
+00:06:30.640 --> 00:06:36.270
+I could make the full materially note group with a shader output but instead I want
+
+105
+00:06:36.270 --> 00:06:40.750
+to create a note group from the base texture setup that is used by the material.
+
+106
+00:06:41.140 --> 00:06:45.760
+As the first step, you can simply select all the notes that are part of the setup.
+
+107
+00:06:45.760 --> 00:06:47.560
+That is supposed to be the note group
+
+108
+00:06:48.140 --> 00:06:50.960
+in this case, that is this part of the notary.
+
+109
+00:06:51.440 --> 00:06:54.990
+I recommend you to parameter rise the notary beforehand.
+
+110
+00:06:55.000 --> 00:06:59.220
+So you can have an exact idea of what the inputs are going to be.
+
+111
+00:06:59.230 --> 00:07:01.800
+Make sure that you don't include the input
+
+112
+00:07:01.800 --> 00:07:05.220
+parameters in your selection and then simply group the
+
+113
+00:07:05.220 --> 00:07:09.560
+notes by pressing control plus G make sure to give it a proper name as well.
+
+114
+00:07:09.840 --> 00:07:12.530
+Depending on the simplicity of the use case,
+
+115
+00:07:12.630 --> 00:07:14.220
+that might already be enough.
+
+116
+00:07:14.230 --> 00:07:17.470
+But most of the time you should take some additional steps
+
+117
+00:07:17.470 --> 00:07:20.770
+to make the note group well accessible and user friendly.
+
+118
+00:07:20.780 --> 00:07:25.210
+So let's go over the different steps of customization because
+
+119
+00:07:25.210 --> 00:07:27.340
+of the way the notes set up was used.
+
+120
+00:07:27.380 --> 00:07:31.460
+The note group already created the necessary inputs and outputs
+
+121
+00:07:31.640 --> 00:07:33.650
+but these might not be in the right order.
+
+122
+00:07:33.940 --> 00:07:38.260
+So you can simply go into the notes section of the properties tab
+
+123
+00:07:38.640 --> 00:07:41.660
+and order the inputs and outputs how you want them.
+
+124
+00:07:41.670 --> 00:07:46.760
+But first it is necessary to name them accordingly. So you know which one is which
+
+125
+00:07:47.540 --> 00:07:51.650
+Now that the needed inputs and outputs are all correctly organized.
+
+126
+00:07:51.660 --> 00:07:54.050
+I wanted to find some additional outputs
+
+127
+00:07:54.440 --> 00:07:57.960
+even though they are not needed in this specific notes set up.
+
+128
+00:07:57.970 --> 00:08:01.390
+I want to output also the vector maps of the sell
+
+129
+00:08:01.390 --> 00:08:05.900
+position and sell you vis which the texture is created with.
+
+130
+00:08:05.910 --> 00:08:09.160
+These might be useful for the setup in another use case
+
+131
+00:08:09.540 --> 00:08:12.750
+and on top of that the whole random output color from
+
+132
+00:08:12.750 --> 00:08:15.560
+the white noise that I am already using in the setup.
+
+133
+00:08:16.240 --> 00:08:20.040
+One of the main customization methods that you can use to adapt
+
+134
+00:08:20.040 --> 00:08:24.550
+the interface of the note groups is specifying the type of input.
+
+135
+00:08:24.660 --> 00:08:28.910
+The inputs that are automatically use when you're creating a note group are
+
+136
+00:08:28.910 --> 00:08:32.909
+based on the type of socket it is connected to on the inside
+
+137
+00:08:33.080 --> 00:08:35.559
+and in most cases that is exactly what you want.
+
+138
+00:08:35.940 --> 00:08:39.630
+But on the output for the mosque we run into an issue here.
+
+139
+00:08:39.730 --> 00:08:43.270
+The socket of the output is generated as a color socket.
+
+140
+00:08:43.530 --> 00:08:48.060
+This type is misleading though, as the information is a simple value mask.
+
+141
+00:08:48.440 --> 00:08:49.970
+So to fix that,
+
+142
+00:08:49.980 --> 00:08:54.770
+I simply create a new value output by dragging a value connection
+
+143
+00:08:54.780 --> 00:08:58.550
+to the group output and then reconnected with the right map.
+
+144
+00:08:59.140 --> 00:09:04.150
+The unused output can then be deleted by pressing the X next to the name field.
+
+145
+00:09:04.640 --> 00:09:09.330
+But apart from the main types of data that the sockets used for values,
+
+146
+00:09:09.340 --> 00:09:12.560
+there are also different types of interface controls.
+
+147
+00:09:12.570 --> 00:09:15.990
+There's the regular value slider that shows arrows
+
+148
+00:09:15.990 --> 00:09:17.750
+on the sides when you hover over it
+
+149
+00:09:18.140 --> 00:09:20.490
+and then there is the slider that shows a
+
+150
+00:09:20.490 --> 00:09:23.920
+blue bar as the value approaches its maximum.
+
+151
+00:09:23.930 --> 00:09:28.360
+This difference is only visual and the different inputs can be
+
+152
+00:09:28.360 --> 00:09:33.080
+created connecting two sockets that already use this specific type.
+
+153
+00:09:33.090 --> 00:09:35.900
+It is important to communicate the uses of
+
+154
+00:09:35.900 --> 00:09:39.050
+the input parameters as clearly as possible.
+
+155
+00:09:39.440 --> 00:09:41.420
+So here, for example,
+
+156
+00:09:41.430 --> 00:09:43.770
+I want to communicate better than the high
+
+157
+00:09:43.770 --> 00:09:47.140
+random height has a hard minimum and maximum.
+
+158
+00:09:47.150 --> 00:09:51.390
+And so I create a new input by connecting it to for example,
+
+159
+00:09:51.400 --> 00:09:53.600
+factor input of the mixed Rgb.
+
+160
+00:09:53.600 --> 00:09:55.460
+Note, then I rename
+
+161
+00:09:55.840 --> 00:09:56.650
+reconnect
+
+162
+00:09:57.240 --> 00:09:59.110
+and delete the replaced input.
+
+163
+00:09:59.430 --> 00:10:03.960
+The only other difference in input interface exists for vectors
+
+164
+00:10:04.340 --> 00:10:09.560
+additionally to the regular vector input that gives you the three value sliders,
+
+165
+00:10:10.140 --> 00:10:13.480
+there's also an optional normal input as a sphere.
+
+166
+00:10:13.490 --> 00:10:17.890
+In top down view with that you can specify the direction of
+
+167
+00:10:17.890 --> 00:10:22.860
+a vector with a length of one by rotating the sphere around.
+
+168
+00:10:23.240 --> 00:10:27.860
+This type of input can be found in the normal note of the vector category.
+
+169
+00:10:28.740 --> 00:10:33.010
+In the last video I already talked about how useful it is to be
+
+170
+00:10:33.020 --> 00:10:37.910
+able to control the behavior of inputs with the use of note groups.
+
+171
+00:10:37.920 --> 00:10:42.960
+You can go even a step further and define the restrictions and default values.
+
+172
+00:10:43.440 --> 00:10:47.930
+So for every input you can specify the value that it takes by the fault.
+
+173
+00:10:47.930 --> 00:10:50.360
+For a new instance of the same note group.
+
+174
+00:10:50.740 --> 00:10:52.530
+When the input is created,
+
+175
+00:10:52.540 --> 00:10:55.990
+the fault is automatically set to the value of
+
+176
+00:10:56.000 --> 00:10:58.360
+the socket is connected to on the inside,
+
+177
+00:10:58.840 --> 00:11:01.450
+but you can always change it in the note properties.
+
+178
+00:11:02.040 --> 00:11:04.820
+Then you can also define the limits of the
+
+179
+00:11:04.820 --> 00:11:07.950
+value input with a maximum and minimum value.
+
+180
+00:11:08.440 --> 00:11:12.960
+The limits can still be ignored though by punching and direct values.
+
+181
+00:11:13.340 --> 00:11:18.460
+So if you want to truly limit the input, you have to use a clamp note on top.
+
+182
+00:11:18.840 --> 00:11:23.760
+Also you can hide the direct control options in the interface of the note group.
+
+183
+00:11:24.340 --> 00:11:27.950
+This feature should be used whenever an input is intended to
+
+184
+00:11:27.950 --> 00:11:32.160
+be only driven by another map and not a constant value.
+
+185
+00:11:32.840 --> 00:11:36.860
+For example, when the input is meant to be a coordinate map,
+
+186
+00:11:37.240 --> 00:11:42.550
+there is no usual use case where you would want to define a single coordinate
+
+187
+00:11:42.940 --> 00:11:45.530
+and when you hide the value controls,
+
+188
+00:11:45.660 --> 00:11:48.360
+the interface gets a little bit less cluttered
+
+189
+00:11:49.040 --> 00:11:54.160
+and also the input reads more clearly as being meant to be driven with another map.
+
+190
+00:11:54.840 --> 00:12:01.080
+But that brings us to a problem. If an input that is intended to be used with input maps
+
+191
+00:12:01.190 --> 00:12:02.460
+is left empty,
+
+192
+00:12:02.940 --> 00:12:04.650
+there is no map to work with
+
+193
+00:12:05.140 --> 00:12:10.150
+and the default value can only provide a singular constant value.
+
+194
+00:12:10.740 --> 00:12:16.230
+So in cases like this one, when you want to assign an input with a default map,
+
+195
+00:12:16.240 --> 00:12:18.750
+that is used when the input is left empty,
+
+196
+00:12:19.140 --> 00:12:20.710
+there is still a way to do this.
+
+197
+00:12:21.040 --> 00:12:25.860
+It is a work around But in the case of using this method for the coordinate map,
+
+198
+00:12:26.240 --> 00:12:27.890
+it comes with no drawbacks.
+
+199
+00:12:28.340 --> 00:12:31.540
+You can simply take a vector note said to length and
+
+200
+00:12:31.540 --> 00:12:34.330
+then compare the length of the input map to zero.
+
+201
+00:12:34.340 --> 00:12:36.060
+Using a greater than note,
+
+202
+00:12:36.110 --> 00:12:42.650
+this returns a one whenever the input is not zero and a zero when it is exactly zero,
+
+203
+00:12:43.040 --> 00:12:47.060
+which is the case when nothing is plugged in due to the default value.
+
+204
+00:12:47.540 --> 00:12:50.680
+However, when something is plugged into the input,
+
+205
+00:12:50.740 --> 00:12:56.860
+it only returns a zero in the exact spot where the map has the absolute value of zero.
+
+206
+00:12:57.440 --> 00:13:01.530
+For usual coordinate maps, like object or generated,
+
+207
+00:13:01.540 --> 00:13:07.460
+this point is infinitesimally small and thus does not contribute to the mosque.
+
+208
+00:13:08.240 --> 00:13:11.620
+So if you simply use this greater than mask to
+
+209
+00:13:11.630 --> 00:13:15.350
+mix between the cornet input and a default coordinate map,
+
+210
+00:13:15.740 --> 00:13:18.130
+for example, the generated coordinates,
+
+211
+00:13:18.540 --> 00:13:22.270
+It works perfectly only using the default coordinate map
+
+212
+00:13:22.280 --> 00:13:25.160
+whenever there is no external input plugged in.

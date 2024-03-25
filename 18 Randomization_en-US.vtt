@@ -1,0 +1,737 @@
+WEBVTT
+
+0
+00:00:00.340 --> 00:00:03.390
+another one of the core aspects of procedural sharing
+
+1
+00:00:03.400 --> 00:00:05.950
+is that you can use elements of randomization.
+
+2
+00:00:06.440 --> 00:00:09.000
+That is useful for example to automatically
+
+3
+00:00:09.000 --> 00:00:11.530
+generate any number of random variations of a
+
+4
+00:00:11.530 --> 00:00:14.600
+shader to avoid repetition or to introduce
+
+5
+00:00:14.600 --> 00:00:17.810
+aspects of variation into the shader itself.
+
+6
+00:00:17.820 --> 00:00:20.730
+There are different methods of implementing randomization
+
+7
+00:00:20.730 --> 00:00:22.360
+in a procedural shader and blender.
+
+8
+00:00:22.540 --> 00:00:26.760
+And in this video I want to go over the most fundamental and common ones
+
+9
+00:00:26.940 --> 00:00:28.650
+and give some simple examples.
+
+10
+00:00:29.040 --> 00:00:32.180
+The more specific application of these methods to create
+
+11
+00:00:32.180 --> 00:00:35.240
+shakers can be found in the workflow examples.
+
+12
+00:00:35.250 --> 00:00:38.970
+The first method I want to mention is something I already talked about
+
+13
+00:00:38.980 --> 00:00:43.920
+in the chapter about space manipulation to create variation in a regular pattern.
+
+14
+00:00:43.920 --> 00:00:45.570
+By distorting its shape,
+
+15
+00:00:45.580 --> 00:00:49.860
+can simply distort the korean space that it uses with a noise texture.
+
+16
+00:00:50.040 --> 00:00:54.340
+This method plays a huge role in making patterns look more natural.
+
+17
+00:00:54.350 --> 00:00:55.740
+It is used for example,
+
+18
+00:00:55.740 --> 00:00:58.730
+prominently in the wood textures on two different
+
+19
+00:00:58.730 --> 00:01:01.280
+levels in the stone wall texture and many,
+
+20
+00:01:01.280 --> 00:01:03.830
+many more of the shares in the example seen.
+
+21
+00:01:03.840 --> 00:01:06.960
+Let me quickly go over how to create this effect. Again,
+
+22
+00:01:07.340 --> 00:01:09.750
+The general idea is to use the color of the
+
+23
+00:01:09.750 --> 00:01:12.950
+noise texture as a vector map to distort the coordinates
+
+24
+00:01:12.950 --> 00:01:15.840
+that the texture uses and due to the fact that
+
+25
+00:01:15.840 --> 00:01:19.630
+the noise texture is centred around values of 0.5,
+
+26
+00:01:19.640 --> 00:01:22.320
+you cannot simply add the values on top is
+
+27
+00:01:22.320 --> 00:01:24.650
+that will overall shift the pattern as well.
+
+28
+00:01:24.840 --> 00:01:28.700
+Instead you can simply use the linear light operation and then you have
+
+29
+00:01:28.700 --> 00:01:33.060
+a convenient factor parameter to dial and the strength of the distortion effect.
+
+30
+00:01:33.140 --> 00:01:35.740
+The only problem with this setup is that the factor
+
+31
+00:01:35.740 --> 00:01:38.380
+now is limited to a range between zero and one.
+
+32
+00:01:38.390 --> 00:01:42.710
+To prevent that, you can instead subtract a vector of 0.5 for X,
+
+33
+00:01:42.710 --> 00:01:44.580
+Y and Z from the color noise.
+
+34
+00:01:44.590 --> 00:01:47.980
+Use a scale note to adjust the strength factor
+
+35
+00:01:47.990 --> 00:01:51.050
+and add the resulting vector map to the coordinates.
+
+36
+00:01:51.540 --> 00:01:54.710
+That essentially does the same thing as the linear light operation,
+
+37
+00:01:54.720 --> 00:01:55.950
+but it gives you more control.
+
+38
+00:01:56.440 --> 00:02:00.430
+Instead of using a noise texture to influence the initial coordinates,
+
+39
+00:02:00.440 --> 00:02:04.560
+you can of course, simply applying noise texture on top of the pattern.
+
+40
+00:02:04.940 --> 00:02:06.240
+A simple way for example,
+
+41
+00:02:06.240 --> 00:02:08.870
+is to overlay a noise over the texture
+
+42
+00:02:08.880 --> 00:02:12.280
+using the mixed RgB note that creates some subtle
+
+43
+00:02:12.280 --> 00:02:15.230
+variation while just as well as the linear
+
+44
+00:02:15.230 --> 00:02:19.430
+light operation respecting the values center around 0.5.
+
+45
+00:02:19.440 --> 00:02:23.560
+So bright values lighten the texture while low values darken it,
+
+46
+00:02:23.940 --> 00:02:25.480
+but depending on your use case,
+
+47
+00:02:25.530 --> 00:02:29.710
+of course you can also use any other type of operation to mix in the noise texture.
+
+48
+00:02:29.720 --> 00:02:35.160
+Also that variation can of course be applied in any context of the PBR maps,
+
+49
+00:02:35.540 --> 00:02:37.640
+creating some variation in the roughness.
+
+50
+00:02:37.640 --> 00:02:42.050
+For example, it can be very important to selling the authenticity of shader.
+
+51
+00:02:42.440 --> 00:02:45.410
+Another note I want to recommend for this is the map range note
+
+52
+00:02:45.840 --> 00:02:50.810
+I mentioned before that the map range note is essentially an advanced mixed note for
+
+53
+00:02:50.810 --> 00:02:56.410
+values as it dynamically maps values from one range to another that can be used,
+
+54
+00:02:56.410 --> 00:02:57.030
+for example,
+
+55
+00:02:57.030 --> 00:03:00.120
+to define the range the pattern is mapped to with
+
+56
+00:03:00.120 --> 00:03:03.450
+a noise and that way also creates some variation.
+
+57
+00:03:03.940 --> 00:03:07.000
+I'm using that technique specifically in the work, for example,
+
+58
+00:03:07.000 --> 00:03:09.560
+showing how I created the procedural would shader.
+
+59
+00:03:09.570 --> 00:03:14.360
+Another very essential technique of randomization is to use the properties
+
+60
+00:03:14.360 --> 00:03:18.020
+of a texture when it is divisible into separate cells.
+
+61
+00:03:18.030 --> 00:03:20.560
+These cells could be multiple things,
+
+62
+00:03:20.740 --> 00:03:24.660
+the individual boards of the floor, the stones in the wall,
+
+63
+00:03:24.740 --> 00:03:29.170
+the stones and the chimney and the lines of raindrops on the window.
+
+64
+00:03:29.180 --> 00:03:35.050
+As long as a texture is divisible into cells like this, it is easy to for example,
+
+65
+00:03:35.060 --> 00:03:39.740
+give every cell a variation in color roughness or anything else.
+
+66
+00:03:39.750 --> 00:03:43.050
+That way you can integrate the very structure of
+
+67
+00:03:43.050 --> 00:03:46.280
+the cell based material into the randomization that you
+
+68
+00:03:46.280 --> 00:03:49.060
+apply and you don't need to rely on the
+
+69
+00:03:49.070 --> 00:03:52.240
+sometimes easy to detect look of the noise texture.
+
+70
+00:03:52.250 --> 00:03:53.100
+Also,
+
+71
+00:03:53.110 --> 00:03:58.450
+you can use this method of randomization to influence the content of these cells.
+
+72
+00:03:58.460 --> 00:04:01.200
+If you remember back to the chapter about repetition,
+
+73
+00:04:01.210 --> 00:04:05.370
+I already quickly show you how to randomize a repetitive pattern by
+
+74
+00:04:05.380 --> 00:04:09.550
+adjusting the parameters that each one of these repetitions is created with.
+
+75
+00:04:09.940 --> 00:04:12.350
+I showed this by adjusting the scale of the
+
+76
+00:04:12.350 --> 00:04:15.300
+flower shapes that were repeated in an infinite pattern.
+
+77
+00:04:15.310 --> 00:04:19.720
+But this technique can be huge to randomize other properties of a shape.
+
+78
+00:04:19.730 --> 00:04:20.420
+For example,
+
+79
+00:04:20.420 --> 00:04:24.960
+I could have used to randomize the number of petals that each of the flowers has.
+
+80
+00:04:25.140 --> 00:04:29.890
+I can simply use the random index that each cell gets by using
+
+81
+00:04:29.890 --> 00:04:33.620
+the white noise map it to the range between three and 10,
+
+82
+00:04:33.620 --> 00:04:38.700
+for example, and then around these values to get the exact number of petals.
+
+83
+00:04:38.710 --> 00:04:43.450
+That way the shapes within each of these cells can be completely randomized,
+
+84
+00:04:43.840 --> 00:04:48.580
+but the application of this cell based randomization can go another step further.
+
+85
+00:04:48.580 --> 00:04:52.730
+Even you can use the randomization of cells to create the base
+
+86
+00:04:52.730 --> 00:04:57.710
+pattern itself before he referred to every individual board as a cell.
+
+87
+00:04:57.720 --> 00:05:03.760
+Also, every row of boards can be interpreted as a cell. With this understanding
+
+88
+00:05:03.940 --> 00:05:08.760
+you can influence how the base pattern itself is created in a randomized way.
+
+89
+00:05:09.040 --> 00:05:09.860
+For example,
+
+90
+00:05:09.860 --> 00:05:13.610
+you can easily shift the distribution of the board cells by
+
+91
+00:05:13.610 --> 00:05:17.770
+a random distance to truly randomize how the pattern is created.
+
+92
+00:05:17.860 --> 00:05:19.780
+This randomization however,
+
+93
+00:05:19.790 --> 00:05:24.340
+and this is important is only confined within each one of the cells,
+
+94
+00:05:24.350 --> 00:05:26.890
+which has to be clearly find in the first place.
+
+95
+00:05:27.140 --> 00:05:28.230
+So for example,
+
+96
+00:05:28.230 --> 00:05:32.750
+to create a pattern of actual random cells as a whole different problem,
+
+97
+00:05:32.760 --> 00:05:35.560
+you can't solve simply by using this technique
+
+98
+00:05:35.940 --> 00:05:40.810
+now that we're already at the topic of driving cells with parameters of course,
+
+99
+00:05:40.820 --> 00:05:45.590
+instead of random values, you can also assign each cell with a controlled value.
+
+100
+00:05:45.600 --> 00:05:48.560
+For example, a simple gradient from left to right,
+
+101
+00:05:49.040 --> 00:05:51.100
+of course, with all that randomness,
+
+102
+00:05:51.110 --> 00:05:54.940
+you still want to be in control over how the randomization is applied.
+
+103
+00:05:54.950 --> 00:05:58.000
+So it is important to be able to control in
+
+104
+00:05:58.000 --> 00:06:01.870
+what range and with what distribution The values operate.
+
+105
+00:06:01.880 --> 00:06:04.240
+This is highly connected to statistics,
+
+106
+00:06:04.250 --> 00:06:07.160
+but I want to go much into the theory behind all of it.
+
+107
+00:06:07.340 --> 00:06:09.460
+The implication is actually quite simple
+
+108
+00:06:09.940 --> 00:06:13.090
+if you simply use the white noise texture to give
+
+109
+00:06:13.090 --> 00:06:15.930
+you a different random value for a different coordinate.
+
+110
+00:06:15.940 --> 00:06:19.590
+The return values are all between zero and one,
+
+111
+00:06:19.600 --> 00:06:24.390
+but a lot of the time you want to have random values that are in a different range.
+
+112
+00:06:24.400 --> 00:06:28.150
+To change this range, you can simply use a map range note
+
+113
+00:06:28.340 --> 00:06:32.750
+and then you can easily select the new range that the Iranian values are mapped to
+
+114
+00:06:32.940 --> 00:06:35.910
+by choosing the two men and two max inputs.
+
+115
+00:06:35.940 --> 00:06:38.720
+But depending on the range that you want to choose,
+
+116
+00:06:38.730 --> 00:06:42.640
+it's sometimes easier to simply use a math notes set to either
+
+117
+00:06:42.660 --> 00:06:46.520
+add or multiply as these would give you the same result.
+
+118
+00:06:46.520 --> 00:06:50.590
+In some cases next After the range of the random values,
+
+119
+00:06:50.600 --> 00:06:52.350
+let's talk about their distribution.
+
+120
+00:06:52.640 --> 00:06:56.660
+The distribution of the values, The white noise returns is uniform.
+
+121
+00:06:57.040 --> 00:06:59.480
+That means that if you split the range between
+
+122
+00:06:59.480 --> 00:07:02.190
+zero and one and two equally large sections,
+
+123
+00:07:02.200 --> 00:07:07.500
+a random value is equally probable to land within any one of those sections.
+
+124
+00:07:07.510 --> 00:07:09.090
+No section is preferred.
+
+125
+00:07:09.100 --> 00:07:12.610
+That means in return when you use these random values for example,
+
+126
+00:07:12.610 --> 00:07:16.260
+to randomize the number of petals you get on average the
+
+127
+00:07:16.260 --> 00:07:19.660
+same amount of flowers with any given number of petals,
+
+128
+00:07:20.040 --> 00:07:23.520
+so there is no bias simply changing the range of the random
+
+129
+00:07:23.520 --> 00:07:27.060
+values does not have an effect on the shape of their distribution.
+
+130
+00:07:27.640 --> 00:07:30.010
+If you want to influence the shape of the distribution
+
+131
+00:07:30.010 --> 00:07:33.160
+though you can use for example an Rgb curves node,
+
+132
+00:07:33.540 --> 00:07:36.970
+just make sure you use it before the map range note and you
+
+133
+00:07:36.970 --> 00:07:40.240
+can influence how probably individual values are
+
+134
+00:07:40.240 --> 00:07:42.150
+by manipulating them with the curve.
+
+135
+00:07:42.840 --> 00:07:45.730
+It is not very straightforward how exactly this works,
+
+136
+00:07:45.740 --> 00:07:49.460
+but it makes sense that when you increase the overall brightness,
+
+137
+00:07:49.470 --> 00:07:52.160
+the values are higher overall as well.
+
+138
+00:07:52.540 --> 00:07:57.460
+That way you can influence the values to be biased towards the specific range.
+
+139
+00:07:57.840 --> 00:08:01.260
+The distribution of the values of the Perlin noise is a
+
+140
+00:08:01.260 --> 00:08:05.040
+bit more difficult to define as with increasing detail level.
+
+141
+00:08:05.050 --> 00:08:08.100
+It is technically not a single noise texture anymore,
+
+142
+00:08:08.110 --> 00:08:12.250
+but in general it is fair to approximate the value distribution of
+
+143
+00:08:12.260 --> 00:08:16.050
+the noise texture with a bell shaped curve that looks like this.
+
+144
+00:08:16.440 --> 00:08:22.210
+The values are centered around 0.5 and the symmetrical between zero and one.
+
+145
+00:08:22.220 --> 00:08:24.900
+In comparison to the uniform distribution,
+
+146
+00:08:24.910 --> 00:08:28.820
+you can see that values close to 0.5 are much more
+
+147
+00:08:28.820 --> 00:08:33.559
+likely and values close to one or zero are practically impossible.
+
+148
+00:08:33.840 --> 00:08:37.150
+That means when you apply to distort texture space,
+
+149
+00:08:37.159 --> 00:08:39.750
+the coordinates are shifted more gradually,
+
+150
+00:08:40.140 --> 00:08:43.380
+but also the distribution of this noise can be influenced.
+
+151
+00:08:43.380 --> 00:08:45.450
+Using for example in Rgb curves note,
+
+152
+00:08:46.240 --> 00:08:49.620
+you don't have precise control over the distribution as with the white
+
+153
+00:08:49.620 --> 00:08:53.350
+noise but you can generally adjust where the values should be leaning to
+
+154
+00:08:53.740 --> 00:08:57.520
+a nice way of controlling randomness for colours is to simply use a
+
+155
+00:08:57.520 --> 00:09:01.620
+color um node as the random values are usually between zero and one.
+
+156
+00:09:01.630 --> 00:09:04.730
+You can simply plug them into the value input and
+
+157
+00:09:04.730 --> 00:09:07.660
+then map those random values two colors of your choice.
+
+158
+00:09:08.340 --> 00:09:12.310
+In cases where you have multiple instances of the same object in your scene,
+
+159
+00:09:12.320 --> 00:09:15.320
+you usually want some form of variation between their shader is
+
+160
+00:09:15.320 --> 00:09:19.050
+to break the repetition that immediately marks them as artificial.
+
+161
+00:09:19.440 --> 00:09:20.910
+To achieve such variation,
+
+162
+00:09:20.920 --> 00:09:24.150
+you can simply use the object info note from the
+
+163
+00:09:24.160 --> 00:09:27.860
+input category which gives you a random value per object.
+
+164
+00:09:28.340 --> 00:09:33.060
+Usually using this random value to drive the variation of your shader as
+
+165
+00:09:33.060 --> 00:09:37.660
+a seed is enough to get a different pattern for each object.
+
+166
+00:09:38.040 --> 00:09:38.750
+For example,
+
+167
+00:09:38.750 --> 00:09:42.380
+you can simply switch the noise texture that you're using for the
+
+168
+00:09:42.380 --> 00:09:47.230
+variation to four dimensional space and pluck the random value into the w
+
+169
+00:09:47.230 --> 00:09:50.390
+input a lot of the time though you have to scale up the
+
+170
+00:09:50.390 --> 00:09:54.190
+range of this random value as it's also between zero and one.
+
+171
+00:09:54.200 --> 00:09:57.450
+And keeping it that way might give you two similar results.
+
+172
+00:09:57.640 --> 00:10:00.390
+A good way to add a certain level of manual
+
+173
+00:10:00.390 --> 00:10:04.460
+control is to include the object index into the randomization.
+
+174
+00:10:04.560 --> 00:10:07.720
+The object index can be selected as the past
+
+175
+00:10:07.720 --> 00:10:11.080
+index in the relations category of the object properties.
+
+176
+00:10:11.090 --> 00:10:14.890
+And this way you can easily select a different random variation.
+
+177
+00:10:14.900 --> 00:10:16.560
+By changing this index,
+
+178
+00:10:17.040 --> 00:10:20.480
+you can simply set the randomization up with this object
+
+179
+00:10:20.480 --> 00:10:23.060
+index by adding it on top of a random value
+
+180
+00:10:23.440 --> 00:10:24.860
+when you are using cycles.
+
+181
+00:10:24.870 --> 00:10:29.760
+You can additionally get a random value per disconnected island of geometry that
+
+182
+00:10:29.760 --> 00:10:34.650
+can be very useful to randomize patterns for different parts within one object.
+
+183
+00:10:34.660 --> 00:10:38.050
+For example, if these islands are using the same coordinate space.

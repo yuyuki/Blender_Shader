@@ -1,0 +1,3793 @@
+WEBVTT
+
+0
+00:00:00.040 --> 00:00:02.620
+Hello and welcome to the next work, for example,
+
+1
+00:00:02.620 --> 00:00:05.700
+for the procedural shading course in this work for example,
+
+2
+00:00:05.700 --> 00:00:10.290
+we're going to take a look at how to create this advanced wall shader that is
+
+3
+00:00:10.290 --> 00:00:14.210
+building up from the wall share that we've done in the first work for example,
+
+4
+00:00:14.220 --> 00:00:17.050
+and adds the functionality too,
+
+5
+00:00:17.340 --> 00:00:22.260
+scratch off the plaster for a hidden underlying wooden structure
+
+6
+00:00:23.340 --> 00:00:27.980
+that can be dynamically removed with using the vertex colors.
+
+7
+00:00:27.990 --> 00:00:33.860
+And this is the no tree. I know it looks quite scary at the first sight, but
+
+8
+00:00:34.240 --> 00:00:36.160
+we're going to break it down step by step
+
+9
+00:00:36.740 --> 00:00:41.360
+and we're not going to completely start from scratch because we already have the
+
+10
+00:00:41.840 --> 00:00:44.960
+plaster material which is this part of the no tree.
+
+11
+00:00:46.040 --> 00:00:48.130
+That is what we did in the first work for example.
+
+12
+00:00:48.130 --> 00:00:50.260
+So we're going to build up from that and
+
+13
+00:00:50.840 --> 00:00:52.460
+what's left to create is the
+
+14
+00:00:52.840 --> 00:00:55.360
+pattern of the wooden structure underneath
+
+15
+00:00:56.440 --> 00:01:00.550
+and then also the mask to blend between them.
+
+16
+00:01:01.040 --> 00:01:04.959
+I showed this material as well in the video about blending and masking
+
+17
+00:01:05.440 --> 00:01:10.080
+and yeah, in this video we're going to build it from the ground up.
+
+18
+00:01:10.090 --> 00:01:14.070
+This is probably going to be a long one. I'm going to go into detail of every step.
+
+19
+00:01:14.070 --> 00:01:16.450
+And uh yeah, so let's get started.
+
+20
+00:01:16.840 --> 00:01:19.580
+Alright, so to increase the general performance,
+
+21
+00:01:19.580 --> 00:01:22.960
+I'm going to go into the isolated local view
+
+22
+00:01:23.840 --> 00:01:27.260
+for only this wall object that's already running a lot smoother.
+
+23
+00:01:28.240 --> 00:01:29.460
+Um but yeah,
+
+24
+00:01:29.470 --> 00:01:34.860
+first we have to get rid of this material and start with a completely new one.
+
+25
+00:01:35.440 --> 00:01:37.910
+And first let's start with generating the
+
+26
+00:01:37.910 --> 00:01:40.740
+pattern for the underlying wooden structure.
+
+27
+00:01:40.750 --> 00:01:44.060
+Now this material is interesting because it includes a bunch
+
+28
+00:01:44.060 --> 00:01:46.120
+of techniques that we haven't taken a look at it.
+
+29
+00:01:46.120 --> 00:01:49.810
+The previous work for examples and it builds on a couple of things that I've
+
+30
+00:01:49.810 --> 00:01:53.950
+talked about in the video series but I haven't used for the other work for examples
+
+31
+00:01:54.140 --> 00:01:57.280
+for example how to create more advanced patterns,
+
+32
+00:01:57.280 --> 00:01:59.150
+which is what we are going to start with now
+
+33
+00:01:59.340 --> 00:02:01.370
+because first for the one structure,
+
+34
+00:02:01.370 --> 00:02:07.160
+you want some horizontal bars and for this I'm going to use the
+
+35
+00:02:08.039 --> 00:02:08.860
+position
+
+36
+00:02:09.000 --> 00:02:09.860
+coordinates
+
+37
+00:02:10.440 --> 00:02:13.620
+to detach the structure from the object itself but fix
+
+38
+00:02:13.620 --> 00:02:17.850
+it in place and what I want from these position coordinates
+
+39
+00:02:18.940 --> 00:02:20.950
+is the zet component
+
+40
+00:02:22.140 --> 00:02:26.550
+because the horizontal bars are going to be along this axis.
+
+41
+00:02:27.440 --> 00:02:29.260
+Let's collapse this node.
+
+42
+00:02:30.040 --> 00:02:31.560
+And so I add and
+
+43
+00:02:32.040 --> 00:02:35.360
+a multiply known to scale
+
+44
+00:02:36.540 --> 00:02:37.560
+the component up.
+
+45
+00:02:38.440 --> 00:02:40.090
+And actually I'm going to add in
+
+46
+00:02:41.140 --> 00:02:44.460
+a value input node to control the scale value
+
+47
+00:02:45.240 --> 00:02:47.960
+and now I want to repeat these coordinates
+
+48
+00:02:48.440 --> 00:02:49.050
+by
+
+49
+00:02:49.160 --> 00:02:50.960
+adding in another math node
+
+50
+00:02:52.540 --> 00:02:56.050
+and I said it to the ping pong operation
+
+51
+00:02:56.440 --> 00:02:58.360
+as you have seen me doing before
+
+52
+00:02:59.040 --> 00:03:02.660
+and when I set the scale to one and make sure that these
+
+53
+00:03:03.440 --> 00:03:07.460
+black lines are exactly zero and the white lines are exactly at one.
+
+54
+00:03:07.470 --> 00:03:10.060
+So I can fix the minimum maximum values
+
+55
+00:03:10.640 --> 00:03:15.260
+and now there's value, input node controls basically the frequency of these bars
+
+56
+00:03:15.740 --> 00:03:19.850
+and now we have the base texture for these bars already done
+
+57
+00:03:21.540 --> 00:03:24.750
+What I want to do to add some more control
+
+58
+00:03:25.340 --> 00:03:28.060
+is getting a Rgb curves known
+
+59
+00:03:29.540 --> 00:03:33.460
+and now I can exactly control the profile of these bars.
+
+60
+00:03:34.140 --> 00:03:35.550
+Let me do something like this.
+
+61
+00:03:35.940 --> 00:03:37.560
+You can still change that later on.
+
+62
+00:03:39.040 --> 00:03:43.450
+And this is the black parts are going to be the gap between the bars
+
+63
+00:03:43.840 --> 00:03:45.260
+and the white parts are going to be the
+
+64
+00:03:45.260 --> 00:03:48.550
+bars and I already included some roundness to the edge
+
+65
+00:03:49.140 --> 00:03:51.260
+which we're going to use later for the height map.
+
+66
+00:03:51.840 --> 00:03:53.960
+Let's move this out of the way for now
+
+67
+00:03:55.440 --> 00:03:56.160
+and
+
+68
+00:03:57.040 --> 00:03:59.460
+also add some vertical bars.
+
+69
+00:03:59.940 --> 00:04:02.590
+Now this is going to work in a similar way
+
+70
+00:04:02.600 --> 00:04:05.460
+but now I don't want to use the position coordinates
+
+71
+00:04:06.940 --> 00:04:10.150
+because that's not going to work for the other direction
+
+72
+00:04:11.940 --> 00:04:13.040
+because if you think about it,
+
+73
+00:04:13.040 --> 00:04:17.459
+I will have walls that are placed perpendicular to this one.
+
+74
+00:04:18.040 --> 00:04:21.550
+And if I would just take the Y component of the world coordinates
+
+75
+00:04:22.240 --> 00:04:25.560
+to get the component along this axis,
+
+76
+00:04:26.440 --> 00:04:29.560
+it would not work the same way for a
+
+77
+00:04:30.140 --> 00:04:32.560
+while that is repeated around his axis.
+
+78
+00:04:33.040 --> 00:04:35.810
+So instead I have to use coordinates that are stuck
+
+79
+00:04:35.810 --> 00:04:39.170
+to the surface for a rotation along these access.
+
+80
+00:04:39.180 --> 00:04:42.550
+And I'm going to use generated coordinates for that.
+
+81
+00:04:43.240 --> 00:04:46.310
+So that's adding another separate exposition on and
+
+82
+00:04:46.310 --> 00:04:48.750
+here because it's a different coordinate space.
+
+83
+00:04:48.750 --> 00:04:50.860
+I'm going to just use the X coordinates.
+
+84
+00:04:51.340 --> 00:04:51.550
+Mhm.
+
+85
+00:04:52.140 --> 00:04:53.360
+It's collapsed these again.
+
+86
+00:04:54.840 --> 00:05:00.360
+And then I do the exact same thing as with the horizontal bars I multiply
+
+87
+00:05:01.840 --> 00:05:03.760
+and use ping pong.
+
+88
+00:05:05.440 --> 00:05:08.560
+uh this value note again, let's go for 15
+
+89
+00:05:08.940 --> 00:05:10.560
+And the Ping Pong to one.
+
+90
+00:05:10.940 --> 00:05:12.650
+Because what I want is to have
+
+91
+00:05:13.140 --> 00:05:15.420
+vertical bars that are much more spars and
+
+92
+00:05:15.420 --> 00:05:18.280
+have larger gaps than the horizontal bars.
+
+93
+00:05:18.290 --> 00:05:22.460
+And now that's adding a map range known.
+
+94
+00:05:24.740 --> 00:05:26.450
+And with that map range note, now
+
+95
+00:05:27.140 --> 00:05:28.360
+we can change
+
+96
+00:05:29.140 --> 00:05:31.150
+where these bars actually are.
+
+97
+00:05:31.840 --> 00:05:36.360
+The bars are going to be placed very thin along one of these axes.
+
+98
+00:05:36.840 --> 00:05:37.310
+And for that,
+
+99
+00:05:37.310 --> 00:05:40.310
+I don't want to use the exact same technique I've been using
+
+100
+00:05:40.310 --> 00:05:46.560
+with this RgB curve to control the gaps by just moving them directly
+
+101
+00:05:47.040 --> 00:05:50.760
+because that would mean that the profile would end up very
+
+102
+00:05:51.140 --> 00:05:52.700
+squished on the side
+
+103
+00:05:52.810 --> 00:05:54.350
+and the control would be worse.
+
+104
+00:05:55.040 --> 00:05:55.760
+So instead
+
+105
+00:05:56.240 --> 00:06:02.860
+I'm going to first use a map range note. And for that define the range
+
+106
+00:06:03.740 --> 00:06:06.350
+as something else. For example, here I'm going to take
+
+107
+00:06:07.340 --> 00:06:09.160
+.2 and .1
+
+108
+00:06:10.340 --> 00:06:11.310
+as the inputs.
+
+109
+00:06:11.740 --> 00:06:18.060
+And that way I can nicely select the outer and inner edge of the profile.
+
+110
+00:06:18.540 --> 00:06:20.780
+And because I'm clamping the value here,
+
+111
+00:06:20.790 --> 00:06:24.090
+this whole area is exactly zero and the
+
+112
+00:06:24.100 --> 00:06:27.960
+area inside without the transition is exactly one.
+
+113
+00:06:29.840 --> 00:06:35.860
+And now still I can control the profile of this transition with an Rgb curve
+
+114
+00:06:39.040 --> 00:06:41.650
+and now I can make it more like this
+
+115
+00:06:42.140 --> 00:06:44.860
+and this is pretty much the same technique as here.
+
+116
+00:06:45.340 --> 00:06:50.560
+But now I have a more convenient way of controlling the transition range
+
+117
+00:06:51.540 --> 00:06:54.660
+and now we have the vertical bars taken care of as well
+
+118
+00:06:55.440 --> 00:06:58.560
+as you can see they are approximately the same with but
+
+119
+00:06:59.440 --> 00:07:02.870
+one has much larger gaps between them.
+
+120
+00:07:02.880 --> 00:07:09.250
+Next let's just take care of the third and final element that we have in the
+
+121
+00:07:09.940 --> 00:07:12.460
+wooden structure, which are the bolts
+
+122
+00:07:12.840 --> 00:07:15.750
+that said exactly at the cross section of those bars.
+
+123
+00:07:16.140 --> 00:07:18.410
+And because of the fact that they are supposed
+
+124
+00:07:18.410 --> 00:07:23.550
+to exactly use those positions of the cross sections,
+
+125
+00:07:23.940 --> 00:07:27.130
+I can actually take the coordinates directly
+
+126
+00:07:27.140 --> 00:07:30.150
+from both those horizontal and vertical bars.
+
+127
+00:07:30.160 --> 00:07:35.460
+So for the bolts, I'm going to build a new coordinate system
+
+128
+00:07:36.240 --> 00:07:37.100
+based on
+
+129
+00:07:37.450 --> 00:07:38.550
+the coordinates I have
+
+130
+00:07:39.040 --> 00:07:40.870
+by using a combined X Y Z node.
+
+131
+00:07:41.340 --> 00:07:43.660
+And now let's see what do we need.
+
+132
+00:07:44.440 --> 00:07:47.950
+I'm going to just take the scaled up coordinates and
+
+133
+00:07:48.540 --> 00:07:51.750
+let's see this one is going to be my Y coordinate
+
+134
+00:07:52.440 --> 00:07:53.090
+And
+
+135
+00:07:53.460 --> 00:07:56.760
+this scaled up, one is going to be my x coordinate
+
+136
+00:07:57.340 --> 00:07:58.450
+long this direction.
+
+137
+00:07:58.840 --> 00:08:01.060
+So for now let's just plug those in here.
+
+138
+00:08:02.940 --> 00:08:06.960
+And that's actually swapped these around. So it is a little bit more readable.
+
+139
+00:08:08.840 --> 00:08:10.060
+And let's take a look.
+
+140
+00:08:10.840 --> 00:08:14.760
+Okay, so these are going to be the coordinates for my bolts.
+
+141
+00:08:15.340 --> 00:08:18.360
+Let's use a vector math operation
+
+142
+00:08:19.240 --> 00:08:22.660
+because what I want to do is create cells
+
+143
+00:08:23.040 --> 00:08:25.650
+where each cell contains a bolt
+
+144
+00:08:26.040 --> 00:08:29.460
+and taking a look at these patterns. That means the
+
+145
+00:08:29.840 --> 00:08:31.550
+the edges of these cells
+
+146
+00:08:31.940 --> 00:08:33.559
+have to be exactly
+
+147
+00:08:34.240 --> 00:08:41.159
+in the center of these black areas here. And if I just use the stretched coordinates
+
+148
+00:08:42.539 --> 00:08:43.950
+that I have here now,
+
+149
+00:08:45.140 --> 00:08:48.160
+I can simply use the fraction operation
+
+150
+00:08:50.140 --> 00:08:50.460
+mhm
+
+151
+00:08:51.140 --> 00:08:56.150
+to get exactly those smaller cell departments for the bolts.
+
+152
+00:08:56.640 --> 00:08:58.370
+But this is getting a little bit difficult
+
+153
+00:08:58.370 --> 00:09:01.390
+to handle because you don't really see what we
+
+154
+00:09:01.390 --> 00:09:06.360
+are doing and what I want to do to help with that is at a math known
+
+155
+00:09:08.840 --> 00:09:11.450
+and combine these two height maps
+
+156
+00:09:13.440 --> 00:09:14.960
+with the maximum operation.
+
+157
+00:09:15.740 --> 00:09:19.170
+So you can actually see what the whole pattern is going to look like.
+
+158
+00:09:19.180 --> 00:09:21.350
+And now we can see where the bolts are going to sit
+
+159
+00:09:21.940 --> 00:09:23.390
+which is exactly here.
+
+160
+00:09:23.400 --> 00:09:28.450
+And these are supposed to be the centers of the cells that we need here.
+
+161
+00:09:30.340 --> 00:09:31.360
+Let's take a look.
+
+162
+00:09:33.340 --> 00:09:34.620
+And as you can see that's
+
+163
+00:09:35.040 --> 00:09:36.060
+not the case
+
+164
+00:09:37.240 --> 00:09:40.360
+right now they're on the edges of where we need them.
+
+165
+00:09:40.840 --> 00:09:42.760
+And also they are not the right size.
+
+166
+00:09:43.140 --> 00:09:46.040
+And the reason for that is that the ping pong operation
+
+167
+00:09:46.040 --> 00:09:50.460
+that we're using to create the bars goes from 0 to 1
+
+168
+00:09:51.340 --> 00:09:52.750
+And then back to zero again.
+
+169
+00:09:53.340 --> 00:09:59.060
+But the length between these edges here is exactly two and not one.
+
+170
+00:09:59.940 --> 00:10:01.950
+But what the fraction operation does
+
+171
+00:10:03.540 --> 00:10:05.850
+Is only go from 0 to 1
+
+172
+00:10:06.510 --> 00:10:08.150
+And then again from 0 to 1.
+
+173
+00:10:08.540 --> 00:10:12.560
+So the length of these cells is half the size
+
+174
+00:10:12.940 --> 00:10:18.460
+of the length between these edges here, which is exactly what you can see here.
+
+175
+00:10:19.240 --> 00:10:23.560
+So we have to do to counter this is adding another math note here,
+
+176
+00:10:25.160 --> 00:10:26.660
+That divides by two
+
+177
+00:10:27.640 --> 00:10:29.460
+to stretch the whole thing out
+
+178
+00:10:30.240 --> 00:10:31.860
+and with the same thing
+
+179
+00:10:32.340 --> 00:10:34.350
+and do the same thing for the other component.
+
+180
+00:10:34.840 --> 00:10:37.750
+Now the cells are the right size as you can see here
+
+181
+00:10:38.240 --> 00:10:40.190
+but they are still not the correct spot.
+
+182
+00:10:40.520 --> 00:10:42.170
+They need to be shifted
+
+183
+00:10:42.490 --> 00:10:43.160
+in the
+
+184
+00:10:43.540 --> 00:10:44.650
+X direction.
+
+185
+00:10:46.040 --> 00:10:49.850
+So the positions of the bolts are actually in the center of these cells.
+
+186
+00:10:50.240 --> 00:10:55.660
+And to do that, you can simply after this divide operation, add in a
+
+187
+00:10:57.640 --> 00:10:59.160
+subtract operation.
+
+188
+00:10:59.840 --> 00:11:02.660
+And by subtracting 0.5,
+
+189
+00:11:03.340 --> 00:11:08.460
+the fraction operation is going to exactly be shifted by half
+
+190
+00:11:11.440 --> 00:11:12.660
+as you can see here.
+
+191
+00:11:13.640 --> 00:11:14.950
+If I subtract zero,
+
+192
+00:11:15.120 --> 00:11:17.450
+it is the same as if I subtracted one
+
+193
+00:11:18.240 --> 00:11:21.150
+Because the fraction Operation Wraps around at one.
+
+194
+00:11:22.140 --> 00:11:26.160
+If I go to 0.5 it's going to be exactly shifted by half
+
+195
+00:11:26.840 --> 00:11:27.420
+which is
+
+196
+00:11:27.610 --> 00:11:28.640
+exactly what I need.
+
+197
+00:11:29.020 --> 00:11:29.660
+And now
+
+198
+00:11:30.340 --> 00:11:31.860
+if we take a look at these,
+
+199
+00:11:32.840 --> 00:11:35.900
+you can see that the centers of these cross sections
+
+200
+00:11:35.900 --> 00:11:39.160
+are all exactly in the center of these cells.
+
+201
+00:11:40.440 --> 00:11:44.950
+So now you've already taken care of the correct positioning of the bolts
+
+202
+00:11:45.210 --> 00:11:47.550
+and we only have to create the balls themselves.
+
+203
+00:11:48.040 --> 00:11:50.460
+You can simply do that by subtracting
+
+204
+00:11:51.740 --> 00:11:54.050
+A vector of 0.5
+
+205
+00:11:55.040 --> 00:11:56.420
+and both wine
+
+206
+00:11:56.670 --> 00:11:57.760
+X axis
+
+207
+00:11:58.940 --> 00:12:01.460
+to center the coordinate system
+
+208
+00:12:02.040 --> 00:12:03.260
+that we get from this
+
+209
+00:12:04.040 --> 00:12:05.550
+exactly in each cell.
+
+210
+00:12:05.690 --> 00:12:06.950
+And now we can
+
+211
+00:12:07.440 --> 00:12:10.760
+use another vector math notes, set to length
+
+212
+00:12:12.640 --> 00:12:14.260
+to get the radius in there.
+
+213
+00:12:14.740 --> 00:12:18.660
+And here we can see that these are not exactly circles.
+
+214
+00:12:19.040 --> 00:12:23.280
+These shapes are more elliptical and the reason for that is that it is stretched.
+
+215
+00:12:23.290 --> 00:12:25.160
+You can simply counter that by
+
+216
+00:12:25.740 --> 00:12:26.920
+multiplying
+
+217
+00:12:27.080 --> 00:12:28.860
+with a vector that you have to
+
+218
+00:12:29.240 --> 00:12:32.150
+choose depending on the geometry.
+
+219
+00:12:32.640 --> 00:12:34.160
+Let's just call for something
+
+220
+00:12:35.040 --> 00:12:38.160
+like this. We can still take a look at what it looks like
+
+221
+00:12:39.040 --> 00:12:43.140
+and right now we still have this gradient which we are going to use later,
+
+222
+00:12:43.150 --> 00:12:46.450
+but for now I want to see what the ball is going to look like
+
+223
+00:12:47.140 --> 00:12:53.050
+and for that I'm going to convert it into an actual bullion mosque by simply using the
+
+224
+00:12:53.440 --> 00:12:54.760
+less than operation.
+
+225
+00:12:55.340 --> 00:12:57.530
+We can choose the radius of the balls and you
+
+226
+00:12:57.530 --> 00:12:59.860
+can see that it is still a little bit stretched.
+
+227
+00:13:00.340 --> 00:13:02.160
+Let's go for something like four
+
+228
+00:13:04.240 --> 00:13:06.550
+and now it looks much more circular.
+
+229
+00:13:07.140 --> 00:13:09.060
+And now to take another look at
+
+230
+00:13:09.440 --> 00:13:12.050
+how this looks like in the whole picture.
+
+231
+00:13:12.840 --> 00:13:13.760
+Let's just
+
+232
+00:13:15.040 --> 00:13:20.950
+subtract the mask of the bolts that we have generated from the mosque of the bars
+
+233
+00:13:21.440 --> 00:13:22.340
+and here we go,
+
+234
+00:13:22.340 --> 00:13:24.550
+you can see that the bulls are in exactly the right
+
+235
+00:13:24.550 --> 00:13:27.350
+place so we can move on to the next part.
+
+236
+00:13:28.140 --> 00:13:31.890
+Let me just slim down this preview. So we have more space to work with.
+
+237
+00:13:31.900 --> 00:13:34.030
+It's already getting a little bit crowded here.
+
+238
+00:13:34.040 --> 00:13:38.460
+These notes here by the way are just for preview so we can see what we are doing.
+
+239
+00:13:39.240 --> 00:13:43.860
+So let's go ahead and start mixing the PBR maps from these base textures.
+
+240
+00:13:44.940 --> 00:13:50.360
+What I want is a mask of where the wood and the bolts are going to be
+
+241
+00:13:51.440 --> 00:13:55.660
+for the balls. I already have exactly that with this less than known.
+
+242
+00:13:56.040 --> 00:13:58.560
+But for the would I have to still
+
+243
+00:13:58.940 --> 00:13:59.960
+generate something
+
+244
+00:14:01.640 --> 00:14:04.060
+and for that I'm going to use the greater than node
+
+245
+00:14:05.240 --> 00:14:06.040
+Set it to
+
+246
+00:14:06.170 --> 00:14:07.460
+greater than zero.
+
+247
+00:14:10.440 --> 00:14:11.250
+And just
+
+248
+00:14:12.540 --> 00:14:16.350
+for the horizontal bars, use this uh part of the RGB curves note
+
+249
+00:14:17.640 --> 00:14:21.100
+and for the vertical bars, I'm going to do pretty much the same thing.
+
+250
+00:14:21.110 --> 00:14:25.050
+But here I'm going to already grab this output because there
+
+251
+00:14:25.740 --> 00:14:28.350
+it is already scaled to the right range.
+
+252
+00:14:29.540 --> 00:14:31.360
+I have the individual mosques
+
+253
+00:14:32.540 --> 00:14:33.760
+for both the boards
+
+254
+00:14:35.240 --> 00:14:38.660
+and I'm going to combine them with another maximum note.
+
+255
+00:14:40.140 --> 00:14:43.350
+This mosque now only contains the
+
+256
+00:14:43.740 --> 00:14:45.500
+Values of zero and one
+
+257
+00:14:45.620 --> 00:14:46.660
+where the
+
+258
+00:14:46.770 --> 00:14:48.180
+wood is going to be
+
+259
+00:14:48.460 --> 00:14:50.060
+including the bolts right now.
+
+260
+00:14:51.140 --> 00:14:55.360
+So to mix a color map, we're going to first
+
+261
+00:14:57.640 --> 00:15:01.150
+makes the background color with the wood colour,
+
+262
+00:15:04.140 --> 00:15:05.660
+which is just going to be some
+
+263
+00:15:06.240 --> 00:15:07.280
+brownish color
+
+264
+00:15:07.590 --> 00:15:09.860
+for the background. I'm just going to choose black for now
+
+265
+00:15:11.540 --> 00:15:14.060
+And then in a second step, we're going to
+
+266
+00:15:14.740 --> 00:15:16.450
+mixing the bolts as well
+
+267
+00:15:22.040 --> 00:15:22.910
+using some
+
+268
+00:15:23.110 --> 00:15:24.050
+gravestone.
+
+269
+00:15:25.040 --> 00:15:25.240
+Yeah,
+
+270
+00:15:25.840 --> 00:15:27.360
+we can still adjust those later
+
+271
+00:15:28.740 --> 00:15:32.550
+and that is the base pattern. Already taken care of.
+
+272
+00:15:33.240 --> 00:15:35.360
+And now it's for the first time.
+
+273
+00:15:36.140 --> 00:15:37.460
+Take a look at the shader
+
+274
+00:15:42.040 --> 00:15:46.460
+and for now it's nothing too exciting because we only have the color
+
+275
+00:15:46.460 --> 00:15:49.860
+map mixed and it doesn't contain a lot of information right now,
+
+276
+00:15:50.240 --> 00:15:54.460
+but I do already want to add in another property of the material which is that the
+
+277
+00:15:54.940 --> 00:15:58.960
+spaces in between the bars are going to be transparent and
+
+278
+00:15:59.940 --> 00:16:02.270
+be able to have light shining through them.
+
+279
+00:16:02.390 --> 00:16:05.960
+So what I do for that is at in a transparent BST afternoon
+
+280
+00:16:07.040 --> 00:16:07.820
+and
+
+281
+00:16:07.980 --> 00:16:08.860
+mix it
+
+282
+00:16:10.240 --> 00:16:11.210
+with the shader
+
+283
+00:16:11.540 --> 00:16:13.450
+and now I need a mask off these halls
+
+284
+00:16:14.240 --> 00:16:19.760
+which coincidentally is exactly the same mask as I have for the would initially,
+
+285
+00:16:21.640 --> 00:16:23.050
+which is exactly this,
+
+286
+00:16:24.740 --> 00:16:25.760
+this is just the
+
+287
+00:16:26.140 --> 00:16:30.730
+inverse of a mosque for the holes so I can just use it like that,
+
+288
+00:16:30.740 --> 00:16:33.990
+I only have to take care of the order of
+
+289
+00:16:34.120 --> 00:16:36.060
+the shader is that I mixed together
+
+290
+00:16:36.840 --> 00:16:40.770
+and this already gives me the right result. The problem now just is that
+
+291
+00:16:41.840 --> 00:16:44.680
+for evey transparency is not enabled for the shader
+
+292
+00:16:44.870 --> 00:16:47.960
+as you can see in cycles. It already is transparent
+
+293
+00:16:48.540 --> 00:16:51.410
+but to enable it in even as well you can simply scroll
+
+294
+00:16:51.410 --> 00:16:56.270
+down in the material settings and set the blend mode to something else
+
+295
+00:16:57.940 --> 00:17:00.680
+for this shader of a clip will do just
+
+296
+00:17:00.680 --> 00:17:04.060
+fine because there's no semi transparency going to be involved
+
+297
+00:17:04.640 --> 00:17:06.859
+so it just selected and as you can see
+
+298
+00:17:07.440 --> 00:17:08.550
+it works as it should
+
+299
+00:17:09.240 --> 00:17:10.410
+and while I'm already at it,
+
+300
+00:17:10.530 --> 00:17:13.890
+I'm going to add another functionality to the shader which is
+
+301
+00:17:14.000 --> 00:17:16.170
+something similar to back face culling.
+
+302
+00:17:16.640 --> 00:17:21.680
+I don't want the backside of the shader to be or influencing the rendering at all.
+
+303
+00:17:21.690 --> 00:17:25.160
+So I'm just going to add another mixture later known.
+
+304
+00:17:29.840 --> 00:17:35.820
+But what I am going to mix with is just an empty shader which is just going to be black.
+
+305
+00:17:35.830 --> 00:17:38.860
+And as the factor, I'm going to use the geometry node
+
+306
+00:17:39.240 --> 00:17:41.060
+and the back facing
+
+307
+00:17:41.840 --> 00:17:42.460
+input,
+
+308
+00:17:43.040 --> 00:17:46.900
+which just returns a one when you're looking at the back side of the face.
+
+309
+00:17:47.340 --> 00:17:49.950
+Now let's get back to the wooden shader itself.
+
+310
+00:17:50.740 --> 00:17:55.690
+We're going to set it up for the use with cycles and displacement.
+
+311
+00:17:55.700 --> 00:17:58.450
+So what we need is going to be a height map.
+
+312
+00:17:58.840 --> 00:18:02.920
+This had map is also going to make it look more interesting and Evie,
+
+313
+00:18:02.930 --> 00:18:08.080
+because we are going to use the displacement also for creating a normal map.
+
+314
+00:18:08.090 --> 00:18:12.670
+But one thing after the other, let's start setting together the height map here.
+
+315
+00:18:14.440 --> 00:18:17.560
+We already have the profile of these bars
+
+316
+00:18:18.140 --> 00:18:19.270
+with these curves.
+
+317
+00:18:21.440 --> 00:18:26.860
+So each one of these maps here is already a height map for the individual elements.
+
+318
+00:18:27.440 --> 00:18:31.270
+The only problem is that they are set between zero and 1
+
+319
+00:18:32.040 --> 00:18:33.590
+and for the horizontal Boris
+
+320
+00:18:34.140 --> 00:18:36.060
+you actually have to also keep in mind
+
+321
+00:18:36.070 --> 00:18:39.900
+that this graph is going into negative infinity,
+
+322
+00:18:39.910 --> 00:18:40.660
+practically.
+
+323
+00:18:40.670 --> 00:18:44.460
+So that is something to keep in mind when putting together the height map.
+
+324
+00:18:45.240 --> 00:18:49.770
+So first of all, let's select the correct ranges for the values
+
+325
+00:18:51.740 --> 00:18:54.370
+the easiest way to do that is. Again using a map range known.
+
+326
+00:18:54.470 --> 00:18:56.060
+So that's just simply
+
+327
+00:18:56.440 --> 00:18:57.670
+plug these in here.
+
+328
+00:18:58.540 --> 00:18:59.560
+I'm going to already
+
+329
+00:19:00.140 --> 00:19:01.270
+the second one.
+
+330
+00:19:02.840 --> 00:19:05.130
+Let's go somewhere a little bit more space.
+
+331
+00:19:05.140 --> 00:19:11.510
+And now you can simply select the height of the top and the bottom
+
+332
+00:19:11.510 --> 00:19:16.060
+part of the mosque by selecting the two men and two max values.
+
+333
+00:19:16.440 --> 00:19:21.380
+This is where we are able to control the whole depth profile of the shader.
+
+334
+00:19:21.390 --> 00:19:24.170
+So you have to be a little bit more careful
+
+335
+00:19:24.540 --> 00:19:27.250
+when selecting these values because you can
+
+336
+00:19:27.250 --> 00:19:30.140
+easily get intersections of different elements.
+
+337
+00:19:30.150 --> 00:19:32.670
+What I'm going to do is place the
+
+338
+00:19:33.440 --> 00:19:34.500
+vertical bars
+
+339
+00:19:34.840 --> 00:19:37.550
+directly behind the horizontal bars
+
+340
+00:19:38.040 --> 00:19:38.670
+and
+
+341
+00:19:39.040 --> 00:19:41.350
+let's see what we have. These are the vertical bars.
+
+342
+00:19:41.350 --> 00:19:43.860
+So these are going to be a little bit lower in height.
+
+343
+00:19:44.240 --> 00:19:48.860
+So let's select the lower end of them as 0.3
+
+344
+00:19:50.240 --> 00:19:52.270
+And the upper end is 0.4.
+
+345
+00:19:53.040 --> 00:19:53.270
+Yeah,
+
+346
+00:19:54.940 --> 00:19:58.100
+Now the horizontal bars are going to be sitting right on top of them.
+
+347
+00:19:58.110 --> 00:20:00.550
+So they are going to start at 0.4
+
+348
+00:20:01.040 --> 00:20:03.460
+And then end at 0.5.
+
+349
+00:20:04.040 --> 00:20:07.760
+Let's combine these two maps by using the maximum node.
+
+350
+00:20:08.140 --> 00:20:10.770
+So the one on top is actually going to be
+
+351
+00:20:12.240 --> 00:20:12.860
+used
+
+352
+00:20:13.340 --> 00:20:17.060
+and now you can see that the vertical bars are gone.
+
+353
+00:20:18.040 --> 00:20:19.170
+The reason for that is
+
+354
+00:20:19.640 --> 00:20:23.060
+that the map range known for the horizontal Boris is clamped.
+
+355
+00:20:23.640 --> 00:20:29.960
+So the minimum value is going to be 0.4 for all of the gaps between the bars.
+
+356
+00:20:30.340 --> 00:20:32.350
+So here it is actually important
+
+357
+00:20:32.740 --> 00:20:37.660
+that we have these negative values to be able to include the
+
+358
+00:20:38.140 --> 00:20:41.350
+to be able to include the vertical bars using the maximum note.
+
+359
+00:20:42.840 --> 00:20:46.350
+So instead of clamping, I'm just going to leave it as it is.
+
+360
+00:20:47.340 --> 00:20:48.170
+And here we go,
+
+361
+00:20:49.340 --> 00:20:52.550
+the vertical bars show up. And additionally
+
+362
+00:20:52.940 --> 00:20:56.060
+the gaps that were in the negative space
+
+363
+00:20:56.840 --> 00:20:58.360
+on this note still
+
+364
+00:20:59.040 --> 00:21:01.520
+Are now on another level,
+
+365
+00:21:01.530 --> 00:21:07.260
+which is 0.3 because of using the maximum operation with this texture.
+
+366
+00:21:08.540 --> 00:21:08.770
+Yeah,
+
+367
+00:21:09.540 --> 00:21:15.270
+So 0.3 is going to be the height that the gaps are going to be at.
+
+368
+00:21:16.040 --> 00:21:17.650
+And now it's already
+
+369
+00:21:18.140 --> 00:21:21.670
+Use these four a displacement map to see what we get.
+
+370
+00:21:22.340 --> 00:21:24.170
+So it's out in a displacement. Known
+
+371
+00:21:24.640 --> 00:21:26.350
+choose this as the hide map
+
+372
+00:21:27.040 --> 00:21:28.560
+and plug it into the output.
+
+373
+00:21:32.840 --> 00:21:34.850
+So right now it is way too high.
+
+374
+00:21:37.140 --> 00:21:38.060
+Let's go back
+
+375
+00:21:38.440 --> 00:21:40.660
+quite a bit started to 0.1.
+
+376
+00:21:41.440 --> 00:21:43.620
+And you can see that the displacement map already
+
+377
+00:21:43.620 --> 00:21:46.170
+nicely gives us a normal map for these bars
+
+378
+00:21:48.340 --> 00:21:51.060
+where the profile can still be defined
+
+379
+00:21:51.440 --> 00:21:52.590
+by these curved notes.
+
+380
+00:21:53.040 --> 00:21:55.860
+But for now I'm just going to go for something as simple.
+
+381
+00:21:56.740 --> 00:21:59.950
+There is one thing left to include into the height map,
+
+382
+00:22:00.840 --> 00:22:02.310
+which are the bolts.
+
+383
+00:22:02.550 --> 00:22:04.460
+They should also have some detail.
+
+384
+00:22:05.640 --> 00:22:09.410
+And what I want to do here is have some in Dent,
+
+385
+00:22:09.420 --> 00:22:11.460
+the height map where the bolts are going to be
+
+386
+00:22:12.240 --> 00:22:13.560
+to define the height
+
+387
+00:22:14.440 --> 00:22:17.670
+of these bolts. I'm going to use another map range note.
+
+388
+00:22:20.040 --> 00:22:23.160
+And now I'm going to use the radio information
+
+389
+00:22:23.540 --> 00:22:25.550
+from the center to outwards
+
+390
+00:22:26.240 --> 00:22:27.590
+at the position of the bolts.
+
+391
+00:22:28.140 --> 00:22:28.350
+Mhm.
+
+392
+00:22:30.740 --> 00:22:32.170
+Let's just plug that in here.
+
+393
+00:22:32.640 --> 00:22:32.840
+Yeah.
+
+394
+00:22:34.140 --> 00:22:37.610
+And now we can define the level of the bolts.
+
+395
+00:22:39.340 --> 00:22:44.260
+I'm going to set the two men and two max temporarily to zero and one
+
+396
+00:22:44.640 --> 00:22:47.270
+to be able to actually see what I'm doing.
+
+397
+00:22:48.340 --> 00:22:49.450
+And now
+
+398
+00:22:50.440 --> 00:22:51.760
+we can select
+
+399
+00:22:52.440 --> 00:22:53.760
+where the
+
+400
+00:22:54.540 --> 00:22:55.950
+and then it is going to be.
+
+401
+00:22:57.440 --> 00:23:01.260
+And the inner radius here should be exactly the
+
+402
+00:23:01.260 --> 00:23:04.850
+same radius that we have for the bolts themselves.
+
+403
+00:23:05.340 --> 00:23:09.960
+So I'm just going to add in a value note to control both at the same time.
+
+404
+00:23:10.440 --> 00:23:14.060
+This is 0.12. So let's select the same thing
+
+405
+00:23:16.040 --> 00:23:18.070
+and let's get this done at the
+
+406
+00:23:18.210 --> 00:23:19.160
+from men.
+
+407
+00:23:21.240 --> 00:23:23.460
+So when we increase the radius of the bolts,
+
+408
+00:23:24.040 --> 00:23:26.660
+that's going to affect both the mask
+
+409
+00:23:26.780 --> 00:23:27.760
+and the height map.
+
+410
+00:23:28.840 --> 00:23:31.400
+Now we have to choose the from max
+
+411
+00:23:32.540 --> 00:23:34.760
+as something slightly higher.
+
+412
+00:23:36.340 --> 00:23:38.670
+And this is going to find the transition
+
+413
+00:23:39.440 --> 00:23:42.770
+now to be able to still change this radius
+
+414
+00:23:44.540 --> 00:23:48.260
+without having to manual adapt from max all the time.
+
+415
+00:23:49.340 --> 00:23:51.860
+I'm just going to use this value again
+
+416
+00:23:52.240 --> 00:23:56.670
+And at a small value on top like .02,
+
+417
+00:23:58.440 --> 00:23:59.550
+let's grab the value
+
+418
+00:24:00.740 --> 00:24:02.060
+and plug it in there.
+
+419
+00:24:03.740 --> 00:24:06.950
+Maybe points. They were too a little bit small. Let's take point
+
+420
+00:24:07.540 --> 00:24:08.670
+0.5.
+
+421
+00:24:09.040 --> 00:24:11.570
+And now we still have to define the correct
+
+422
+00:24:11.750 --> 00:24:14.440
+minimum and maximum for the actual height
+
+423
+00:24:14.720 --> 00:24:15.460
+of this map.
+
+424
+00:24:17.440 --> 00:24:20.950
+And now we have to think back of the height map that we have here.
+
+425
+00:24:21.440 --> 00:24:22.460
+So the
+
+426
+00:24:23.440 --> 00:24:25.860
+place where the bolts are going to set is here
+
+427
+00:24:26.340 --> 00:24:31.460
+Where the maximum of a hype map is reached at 0.5.
+
+428
+00:24:33.140 --> 00:24:36.860
+So the maximum of this map here should also be 0.5.
+
+429
+00:24:38.840 --> 00:24:39.810
+And as the minimum,
+
+430
+00:24:39.810 --> 00:24:43.750
+I'm going to choose something slightly lower to have some small Indian.
+
+431
+00:24:43.750 --> 00:24:45.770
+Let's go for 0.48.
+
+432
+00:24:48.540 --> 00:24:51.860
+And as you can see this is barely even visible anymore
+
+433
+00:24:53.740 --> 00:24:57.960
+And that's why I still kept it on zero and one to define the
+
+434
+00:24:58.340 --> 00:24:59.060
+range.
+
+435
+00:24:59.940 --> 00:25:01.670
+So we could actually see what we are doing.
+
+436
+00:25:02.240 --> 00:25:06.170
+Let's combine it into the height map by using this time a minimum
+
+437
+00:25:06.640 --> 00:25:07.360
+operation
+
+438
+00:25:07.940 --> 00:25:10.780
+because now we want to lower the height in the correct parts.
+
+439
+00:25:11.640 --> 00:25:12.360
+So that's
+
+440
+00:25:12.840 --> 00:25:14.270
+choose the right maps to combine
+
+441
+00:25:16.640 --> 00:25:20.560
+and you can't really see that it works but it does believe me,
+
+442
+00:25:21.140 --> 00:25:24.720
+I can prove that by simply plugging the new height
+
+443
+00:25:24.720 --> 00:25:27.460
+map into the height input of the displacement node.
+
+444
+00:25:28.540 --> 00:25:28.770
+Okay.
+
+445
+00:25:29.740 --> 00:25:33.550
+And if you take a look, you can see that works just as it should
+
+446
+00:25:35.940 --> 00:25:40.170
+if you want to you can also change the interpolation type to make, it
+
+447
+00:25:40.740 --> 00:25:42.270
+is smoother transition.
+
+448
+00:25:44.440 --> 00:25:47.350
+Yeah, that's the basic structure already taken care of
+
+449
+00:25:48.140 --> 00:25:49.970
+And now that we see what we are doing,
+
+450
+00:25:49.980 --> 00:25:53.360
+let's just delete these notes that were just for preview.
+
+451
+00:25:54.140 --> 00:25:58.160
+Next I want to add some more variation and interest to the shader.
+
+452
+00:25:58.840 --> 00:26:03.060
+So let's first add a little bit of a pattern onto the horizontal bars
+
+453
+00:26:03.640 --> 00:26:05.670
+which are the main part of the shader itself.
+
+454
+00:26:08.040 --> 00:26:10.350
+And for that I'm just going to grab the
+
+455
+00:26:10.840 --> 00:26:12.550
+object coordinates this time
+
+456
+00:26:13.340 --> 00:26:15.650
+I just want to add a simple stripe pattern.
+
+457
+00:26:15.650 --> 00:26:21.050
+So what I'm going to do is the exact same thing again that I used for the wooden bars.
+
+458
+00:26:22.040 --> 00:26:25.960
+Just the separate X, Y. Z. You are going to grab the X coordinate
+
+459
+00:26:28.640 --> 00:26:30.170
+at a multiply
+
+460
+00:26:30.740 --> 00:26:31.670
+operation
+
+461
+00:26:32.140 --> 00:26:33.270
+to scale it up
+
+462
+00:26:35.840 --> 00:26:39.860
+The Ping Pong operation said to a scale of one
+
+463
+00:26:40.340 --> 00:26:41.770
+to get the pattern.
+
+464
+00:26:42.540 --> 00:26:46.170
+And let's choose a input value node
+
+465
+00:26:48.040 --> 00:26:52.360
+At 200 to get a high frequency stripe pattern.
+
+466
+00:26:52.740 --> 00:26:53.420
+This pattern.
+
+467
+00:26:53.420 --> 00:26:57.230
+I want to include into the color map of these horizontal
+
+468
+00:26:57.230 --> 00:26:59.880
+bars to make it look a little bit more interesting.
+
+469
+00:26:59.880 --> 00:27:02.550
+And the same over the whole bar,
+
+470
+00:27:03.040 --> 00:27:05.950
+I'm going to just use a map range known
+
+471
+00:27:07.340 --> 00:27:13.670
+and choose this output from the ping pong note of the horizontal bars as the value.
+
+472
+00:27:15.440 --> 00:27:17.340
+What that means is that I'm going to
+
+473
+00:27:17.440 --> 00:27:18.350
+mix
+
+474
+00:27:18.840 --> 00:27:21.270
+The two men and two max values
+
+475
+00:27:21.740 --> 00:27:26.660
+along the range of the center and the edge of these bars.
+
+476
+00:27:28.340 --> 00:27:32.660
+So if I just plug the stripe pattern that I just generated
+
+477
+00:27:33.740 --> 00:27:35.270
+Into the two max,
+
+478
+00:27:35.940 --> 00:27:37.210
+it's going to look like this.
+
+479
+00:27:38.140 --> 00:27:39.100
+And now I can
+
+480
+00:27:39.220 --> 00:27:40.590
+choose with the two men
+
+481
+00:27:43.240 --> 00:27:45.060
+where these edges here go.
+
+482
+00:27:46.840 --> 00:27:48.160
+And if we take a look back
+
+483
+00:27:48.840 --> 00:27:51.270
+this is the center of the bars.
+
+484
+00:27:53.440 --> 00:27:56.350
+And now I can select where the edges of the Boris are.
+
+485
+00:27:59.240 --> 00:28:00.670
+I'm just going decided to one.
+
+486
+00:28:02.140 --> 00:28:04.560
+So we just get these striped in dense.
+
+487
+00:28:05.140 --> 00:28:08.770
+I'm also going to set it to smooth step which
+
+488
+00:28:08.770 --> 00:28:10.510
+makes the whole pattern look a little bit small,
+
+489
+00:28:10.510 --> 00:28:10.960
+smooth.
+
+490
+00:28:11.340 --> 00:28:14.550
+But right now it is only smooth along this axis.
+
+491
+00:28:15.040 --> 00:28:18.550
+The stripes themselves have still a hard edge.
+
+492
+00:28:20.540 --> 00:28:21.950
+And to change that,
+
+493
+00:28:23.140 --> 00:28:24.350
+you can for example,
+
+494
+00:28:24.350 --> 00:28:28.430
+just use an RGB curves now to control the whole profile of these tribes
+
+495
+00:28:28.610 --> 00:28:31.670
+and then you can control how they are actually supposed to look like.
+
+496
+00:28:31.680 --> 00:28:37.060
+And now this map is what I'm going to use to provide the base color map for the wood.
+
+497
+00:28:37.740 --> 00:28:40.260
+I'm just going to use a color um for this.
+
+498
+00:28:41.040 --> 00:28:42.360
+Let's take the correct input
+
+499
+00:28:42.840 --> 00:28:44.060
+and take a look at it,
+
+500
+00:28:45.440 --> 00:28:50.060
+maybe like this and then plug them into the input for the wooden colour.
+
+501
+00:28:53.840 --> 00:28:57.070
+And now there's a little bit more interest to the pattern itself.
+
+502
+00:28:57.080 --> 00:29:00.140
+But for me these stripes are a little bit to synchronous.
+
+503
+00:29:00.150 --> 00:29:03.260
+So what I want to do is add some randomness
+
+504
+00:29:03.640 --> 00:29:04.390
+into the mix.
+
+505
+00:29:04.940 --> 00:29:05.170
+Yeah.
+
+506
+00:29:06.540 --> 00:29:11.760
+And what I want to do here is at a random angle for each bar
+
+507
+00:29:12.240 --> 00:29:15.360
+and what we need to be able to do that is
+
+508
+00:29:15.940 --> 00:29:17.260
+a random value
+
+509
+00:29:18.040 --> 00:29:19.270
+for each cell
+
+510
+00:29:19.840 --> 00:29:21.270
+that these bars are in.
+
+511
+00:29:21.640 --> 00:29:25.960
+So again, I'm just going to use the coordinates that I use for the horizontal bars.
+
+512
+00:29:27.240 --> 00:29:29.550
+and then I'm going to add a math note
+
+513
+00:29:31.040 --> 00:29:32.660
+that I said to snap
+
+514
+00:29:35.740 --> 00:29:38.910
+and the snap operation simply snaps the values
+
+515
+00:29:39.040 --> 00:29:41.170
+repeatedly in a certain range
+
+516
+00:29:41.740 --> 00:29:43.560
+where you can choose the increment.
+
+517
+00:29:47.640 --> 00:29:50.470
+And if you think back to the fact that we
+
+518
+00:29:50.470 --> 00:29:54.560
+are using a ping pong operation to define the bars,
+
+519
+00:29:55.240 --> 00:29:58.560
+You can see that again. We have to use an increment of two
+
+520
+00:29:59.140 --> 00:30:01.960
+because the height of the cells that the bars are in
+
+521
+00:30:02.340 --> 00:30:03.430
+is to
+
+522
+00:30:03.540 --> 00:30:06.060
+let's just choose to and as you can see
+
+523
+00:30:07.540 --> 00:30:10.360
+these increments here have the exact right height
+
+524
+00:30:11.040 --> 00:30:14.060
+and to generate a random value out of this.
+
+525
+00:30:14.540 --> 00:30:16.460
+We can simply use a white noise.
+
+526
+00:30:17.440 --> 00:30:21.500
+Just change the dimension to one because that is what we have.
+
+527
+00:30:21.500 --> 00:30:23.170
+We have a simple value map
+
+528
+00:30:24.240 --> 00:30:29.160
+and now we got random colors for all the individual cells of these wooden bars.
+
+529
+00:30:29.640 --> 00:30:34.950
+Now you could use those colors to add a variation for example in the color of the bars.
+
+530
+00:30:35.440 --> 00:30:39.420
+But what I want to do is simply add a variation
+
+531
+00:30:39.420 --> 00:30:43.180
+in the rotation of this pattern that I just created.
+
+532
+00:30:43.190 --> 00:30:46.450
+So let's put these random values on the side for now
+
+533
+00:30:47.140 --> 00:30:47.800
+and
+
+534
+00:30:48.120 --> 00:30:49.170
+at a
+
+535
+00:30:49.540 --> 00:30:50.950
+vector. A Take note
+
+536
+00:30:52.240 --> 00:30:55.170
+to the korean space that we're using to create this pattern.
+
+537
+00:30:55.740 --> 00:30:58.460
+And if I take a look back at the pattern itself,
+
+538
+00:31:00.340 --> 00:31:01.960
+you can see that now we can
+
+539
+00:31:02.640 --> 00:31:04.350
+control the rotation.
+
+540
+00:31:05.340 --> 00:31:08.360
+We don't need all of these parameters here. I'll simply
+
+541
+00:31:08.940 --> 00:31:11.360
+Change this to zero taxes
+
+542
+00:31:11.740 --> 00:31:15.760
+and this angle is now exactly what we are going to randomize.
+
+543
+00:31:16.240 --> 00:31:19.980
+If I just already take this random value and plug it in.
+
+544
+00:31:19.990 --> 00:31:25.090
+You can see that we already get a nice random rotation And
+
+545
+00:31:25.090 --> 00:31:28.360
+if you wanted to you could already keep it as this and
+
+546
+00:31:28.840 --> 00:31:30.460
+use this for the pattern.
+
+547
+00:31:31.940 --> 00:31:32.960
+But I still want to
+
+548
+00:31:33.440 --> 00:31:34.850
+map this
+
+549
+00:31:35.940 --> 00:31:38.670
+random angle into a different range
+
+550
+00:31:39.440 --> 00:31:41.270
+because the random values that
+
+551
+00:31:41.640 --> 00:31:45.290
+we have from this white noise texture are
+
+552
+00:31:45.300 --> 00:31:49.530
+all uniformly distributed between zero and one.
+
+553
+00:31:49.540 --> 00:31:52.950
+So there are no negative angles
+
+554
+00:31:53.540 --> 00:31:56.020
+and no angles greater than one.
+
+555
+00:31:56.270 --> 00:31:56.850
+Now
+
+556
+00:31:57.010 --> 00:31:58.060
+1 here
+
+557
+00:31:58.740 --> 00:32:02.750
+does not mean one degree because the angle
+
+558
+00:32:03.000 --> 00:32:04.860
+that this victory take note takes
+
+559
+00:32:05.840 --> 00:32:07.330
+when you plug something in
+
+560
+00:32:07.530 --> 00:32:08.590
+is in radiance.
+
+561
+00:32:10.240 --> 00:32:13.170
+Other than the value that you can select here which is in degrees.
+
+562
+00:32:14.840 --> 00:32:18.050
+So to get some more intuitive control
+
+563
+00:32:19.840 --> 00:32:22.170
+you can add a math notes set to
+
+564
+00:32:22.540 --> 00:32:23.560
+two radiance
+
+565
+00:32:24.840 --> 00:32:25.360
+and then
+
+566
+00:32:25.740 --> 00:32:28.670
+or we can choose here is a number of degrees.
+
+567
+00:32:30.640 --> 00:32:30.850
+Mhm.
+
+568
+00:32:33.040 --> 00:32:38.460
+Now obviously one degree is not that much. So the effect is way tuned down.
+
+569
+00:32:38.940 --> 00:32:39.660
+But now
+
+570
+00:32:40.340 --> 00:32:41.860
+by adding a
+
+571
+00:32:42.640 --> 00:32:44.560
+math known set to multiply
+
+572
+00:32:45.240 --> 00:32:47.630
+we can change the range of these values
+
+573
+00:32:48.380 --> 00:32:50.670
+instead of having one degree is the maximum
+
+574
+00:32:51.540 --> 00:32:52.950
+having something else like
+
+575
+00:32:53.940 --> 00:32:54.960
+60 degree.
+
+576
+00:32:55.340 --> 00:32:56.060
+But still
+
+577
+00:32:56.640 --> 00:32:58.350
+we don't have any negative angles.
+
+578
+00:32:58.940 --> 00:33:02.270
+So I'm also going to add in a subtract note
+
+579
+00:33:02.940 --> 00:33:04.770
+To subtract 0.5.
+
+580
+00:33:06.140 --> 00:33:10.360
+I do that before the multiplication. Because that means
+
+581
+00:33:11.140 --> 00:33:13.770
+if we just take a look at these two knows here.
+
+582
+00:33:14.140 --> 00:33:17.050
+The values that come out of here are between zero and 1.
+
+583
+00:33:17.540 --> 00:33:25.250
+And when I subtract the values that I get are between negative 0.5 and positive 0.5.
+
+584
+00:33:25.260 --> 00:33:27.670
+And when I then multiply with 60
+
+585
+00:33:28.240 --> 00:33:31.770
+Instead of getting values that are between zero and 60
+
+586
+00:33:32.140 --> 00:33:36.270
+I got values between negative 30 and positive 30.
+
+587
+00:33:36.640 --> 00:33:40.510
+So subtracting 0.5 simply centers the values around zero.
+
+588
+00:33:40.520 --> 00:33:45.040
+Now if you want to be able to control a little bit how these patterns look.
+
+589
+00:33:45.050 --> 00:33:46.360
+You can simply
+
+590
+00:33:47.640 --> 00:33:49.690
+you can simply add another node
+
+591
+00:33:49.920 --> 00:33:51.360
+right before
+
+592
+00:33:51.840 --> 00:33:54.960
+the snap values going to the white noise texture
+
+593
+00:33:56.440 --> 00:33:56.960
+and
+
+594
+00:33:57.320 --> 00:33:58.560
+add a value on top.
+
+595
+00:33:58.940 --> 00:34:04.270
+This essentially functions like choosing a seed because different values
+
+596
+00:34:04.640 --> 00:34:07.670
+give us different results for the random values
+
+597
+00:34:07.800 --> 00:34:09.090
+that the white noise gives us.
+
+598
+00:34:09.540 --> 00:34:13.560
+So if you don't like a specific pattern you can just choose something else here.
+
+599
+00:34:14.440 --> 00:34:15.850
+So let's take a look back
+
+600
+00:34:16.340 --> 00:34:17.400
+at the shader
+
+601
+00:34:17.639 --> 00:34:18.469
+we are creating
+
+602
+00:34:19.239 --> 00:34:19.750
+Mhm.
+
+603
+00:34:22.840 --> 00:34:25.060
+And this already gives us a little bit of variation
+
+604
+00:34:28.239 --> 00:34:31.960
+but this is still the simple material preview with Evie.
+
+605
+00:34:32.739 --> 00:34:36.250
+We are setting the shader up for cycles with displacement.
+
+606
+00:34:36.940 --> 00:34:40.550
+So right now displacement is not yet set up correctly.
+
+607
+00:34:40.560 --> 00:34:43.080
+And the reason why we don't have any displacement here right
+
+608
+00:34:43.080 --> 00:34:46.750
+now is that it is not enabled in the material settings.
+
+609
+00:34:48.139 --> 00:34:51.969
+The displacement that we plug into the material output note
+
+610
+00:34:53.340 --> 00:34:56.460
+is simply going to be converted as a normal map.
+
+611
+00:34:57.940 --> 00:35:02.260
+If you also want displacement, you have to change it to displacement and bump.
+
+612
+00:35:03.340 --> 00:35:07.260
+And now as you can see this height map is actually generating some
+
+613
+00:35:07.640 --> 00:35:09.560
+displacement in the geometry
+
+614
+00:35:10.440 --> 00:35:14.160
+and this is a little bit more going into the direction of what we want to create.
+
+615
+00:35:14.940 --> 00:35:19.760
+Actually, let's go out of the local view and take a look at the shader
+
+616
+00:35:20.240 --> 00:35:21.560
+in the scene setup.
+
+617
+00:35:22.740 --> 00:35:26.360
+These computers obviously struggling, which is understandable.
+
+618
+00:35:27.140 --> 00:35:28.970
+So let's create a render border.
+
+619
+00:35:34.640 --> 00:35:36.670
+And as you can see we can actually
+
+620
+00:35:38.040 --> 00:35:40.760
+the pattern that we were looking for.
+
+621
+00:35:41.510 --> 00:35:44.560
+The height map works nicely with the indians of the bolts.
+
+622
+00:35:45.540 --> 00:35:51.060
+We have transparency between the bars and the bars are one in front of the other
+
+623
+00:35:51.940 --> 00:35:53.760
+with the horizontal ones on top.
+
+624
+00:35:57.840 --> 00:36:01.550
+And we also have this very subtle stripe texture
+
+625
+00:36:02.130 --> 00:36:03.750
+that is randomly oriented.
+
+626
+00:36:05.230 --> 00:36:08.850
+But I do want to adjust some PBR maps of the principal PSD F
+
+627
+00:36:09.830 --> 00:36:11.780
+Western. Going to adjust the roughness
+
+628
+00:36:12.230 --> 00:36:13.160
+and make it higher.
+
+629
+00:36:14.630 --> 00:36:16.980
+I'm not going to add in a map that is different
+
+630
+00:36:16.980 --> 00:36:20.240
+across the shader because that is fitting with the general stylist.
+
+631
+00:36:20.240 --> 00:36:21.350
+Look that I'm going for.
+
+632
+00:36:21.830 --> 00:36:25.340
+And I also want the bolts to actually be metallic.
+
+633
+00:36:25.730 --> 00:36:29.960
+So I simply grab the mask of the bolts
+
+634
+00:36:30.630 --> 00:36:33.840
+and plug it into the metallic input of the
+
+635
+00:36:34.230 --> 00:36:35.750
+principal be sdf shader.
+
+636
+00:36:40.230 --> 00:36:42.750
+I do want to add some more variation.
+
+637
+00:36:45.930 --> 00:36:48.840
+Let's go back into the material preview and local view
+
+638
+00:36:50.430 --> 00:36:51.860
+to have it a little bit smoother.
+
+639
+00:36:52.830 --> 00:36:55.350
+And what I want to do is add in a
+
+640
+00:36:55.730 --> 00:36:59.350
+noise texture to affect the normals
+
+641
+00:36:59.930 --> 00:37:01.660
+because right now it looks very smooth
+
+642
+00:37:02.130 --> 00:37:04.810
+And here I'm actually going to use a different technique
+
+643
+00:37:04.810 --> 00:37:07.550
+that the one I have presented with the bump maps.
+
+644
+00:37:07.930 --> 00:37:10.050
+I am simply going to take the
+
+645
+00:37:11.030 --> 00:37:13.340
+normals from the geometry node
+
+646
+00:37:15.030 --> 00:37:16.850
+and then manipulate those
+
+647
+00:37:17.330 --> 00:37:20.660
+because the thing with the bump map is that it is not that easy to process
+
+648
+00:37:21.430 --> 00:37:22.740
+and simply
+
+649
+00:37:23.430 --> 00:37:26.820
+manipulating the normals directly is a little
+
+650
+00:37:26.820 --> 00:37:29.750
+bit easier on the computer and there's no
+
+651
+00:37:29.750 --> 00:37:33.150
+real need to need to use a bump map to just add some noise.
+
+652
+00:37:34.330 --> 00:37:35.650
+So what I do is just
+
+653
+00:37:36.930 --> 00:37:41.190
+create a noise texture. I'm going to use the position coordinates for this one.
+
+654
+00:37:41.200 --> 00:37:46.050
+So I'm just going to copy this geometry node and use the position coordinates.
+
+655
+00:37:48.630 --> 00:37:49.240
+And
+
+656
+00:37:49.360 --> 00:37:50.960
+now I'm going to take the
+
+657
+00:37:51.530 --> 00:37:52.340
+normals
+
+658
+00:37:53.130 --> 00:37:54.960
+and manipulate them with
+
+659
+00:37:56.330 --> 00:37:57.350
+makes RGb known
+
+660
+00:38:00.720 --> 00:38:04.530
+by plugging them in like this and using the linear light operation,
+
+661
+00:38:09.120 --> 00:38:12.750
+this very easily distorts the normals
+
+662
+00:38:13.120 --> 00:38:14.830
+without having to use a bump note.
+
+663
+00:38:19.520 --> 00:38:20.260
+And if we just
+
+664
+00:38:20.530 --> 00:38:22.150
+plug this into the normals,
+
+665
+00:38:25.120 --> 00:38:28.150
+you can see the effect of having some added noise.
+
+666
+00:38:30.820 --> 00:38:33.440
+Now this is not something I would recommend if you want
+
+667
+00:38:33.440 --> 00:38:36.720
+to go for pure realism but just to add some variation.
+
+668
+00:38:36.720 --> 00:38:38.740
+This is a nice and easy technique
+
+669
+00:38:39.420 --> 00:38:40.650
+and yeah, there's this
+
+670
+00:38:41.120 --> 00:38:43.250
+the first part of the shader done. We are
+
+671
+00:38:43.720 --> 00:38:45.250
+where we are creating the
+
+672
+00:38:46.420 --> 00:38:47.540
+wooden structure
+
+673
+00:38:47.830 --> 00:38:49.240
+for underneath the plaster.
+
+674
+00:38:50.320 --> 00:38:51.970
+Let's take a look how it looks
+
+675
+00:38:53.620 --> 00:38:58.030
+and as you can see now we have some nice variation in the surface.
+
+676
+00:39:01.720 --> 00:39:04.680
+Okay, so now that this part of the shader is done,
+
+677
+00:39:04.690 --> 00:39:06.830
+let's go ahead and take on the mask in
+
+678
+00:39:06.830 --> 00:39:09.750
+between the plaster and the wooden structure underneath.
+
+679
+00:39:10.520 --> 00:39:11.150
+For that.
+
+680
+00:39:11.620 --> 00:39:17.040
+I'm just going to copy over the notes set up that we already made for the wall
+
+681
+00:39:18.020 --> 00:39:18.910
+which is this.
+
+682
+00:39:19.920 --> 00:39:21.150
+I'm just going to do that by
+
+683
+00:39:21.820 --> 00:39:23.530
+copying with control C.
+
+684
+00:39:24.320 --> 00:39:25.840
+And paste them with control V.
+
+685
+00:39:26.520 --> 00:39:27.950
+And that works nicely here.
+
+686
+00:39:28.720 --> 00:39:32.040
+And I also gave the network for the wooden structure an additional frame
+
+687
+00:39:32.520 --> 00:39:33.950
+so we know what it is later on.
+
+688
+00:39:34.620 --> 00:39:36.330
+Okay, so for this part now
+
+689
+00:39:36.920 --> 00:39:42.160
+I want to set up the shader in a way that it is controllable with vertex colors.
+
+690
+00:39:42.170 --> 00:39:45.570
+I talked about that in the chapter about blending and masking.
+
+691
+00:39:45.580 --> 00:39:48.530
+I also already told you a little bit how to work with that
+
+692
+00:39:48.540 --> 00:39:51.740
+but here I want to go over it in a little bit more detail
+
+693
+00:39:52.220 --> 00:39:57.180
+and show you the individual steps so to be able to work with the vertex colors,
+
+694
+00:39:57.180 --> 00:40:00.760
+we first have to advertise, correlate to the object.
+
+695
+00:40:00.770 --> 00:40:02.240
+You can just do that in the
+
+696
+00:40:02.710 --> 00:40:03.820
+mesh settings here
+
+697
+00:40:04.410 --> 00:40:06.140
+and go to various courage
+
+698
+00:40:07.710 --> 00:40:08.760
+and click on the plus,
+
+699
+00:40:09.910 --> 00:40:12.230
+you can also turn off the flea just switching to
+
+700
+00:40:12.230 --> 00:40:15.110
+vertex paint mode and it automatically creates a layer.
+
+701
+00:40:15.110 --> 00:40:16.140
+Once you start painting
+
+702
+00:40:16.910 --> 00:40:20.500
+but you can also add multiple layers here and have
+
+703
+00:40:20.500 --> 00:40:23.440
+them control individual parts of the share for example.
+
+704
+00:40:24.610 --> 00:40:27.730
+So that's just going to solve you. So we know what we're doing for now
+
+705
+00:40:28.410 --> 00:40:30.140
+and go into vertex paint mode
+
+706
+00:40:30.610 --> 00:40:35.940
+to adjust these settings. You can go here into the active tool settings
+
+707
+00:40:37.510 --> 00:40:39.600
+and as you can see we have black as our
+
+708
+00:40:39.610 --> 00:40:42.240
+foreground color and white as our background call selected.
+
+709
+00:40:42.810 --> 00:40:45.030
+So once we start drawing is going to be
+
+710
+00:40:45.510 --> 00:40:46.640
+paint it black
+
+711
+00:40:47.010 --> 00:40:50.870
+and when you had in control it's using the background colors.
+
+712
+00:40:50.870 --> 00:40:54.530
+So it's going to be so it's going to be painting in white again.
+
+713
+00:40:55.910 --> 00:40:57.970
+So this is not running super smoothly.
+
+714
+00:40:57.980 --> 00:41:00.610
+And the reason for that is the high subdivision level
+
+715
+00:41:00.610 --> 00:41:04.240
+that we have applied to get an accurate displacement.
+
+716
+00:41:04.710 --> 00:41:08.570
+Now this subdivision level from the modifier does not affect
+
+717
+00:41:08.580 --> 00:41:12.110
+the resolution that you have available for vertex colors.
+
+718
+00:41:12.120 --> 00:41:14.720
+That is just the actual resolution of the mesh.
+
+719
+00:41:16.210 --> 00:41:20.140
+So switching it off for painting doesn't make a difference.
+
+720
+00:41:20.910 --> 00:41:24.830
+It's still going to be a little bit smoother afterwards when we apply the modifier.
+
+721
+00:41:25.710 --> 00:41:25.940
+Yeah.
+
+722
+00:41:26.410 --> 00:41:27.240
+As you can see here
+
+723
+00:41:28.310 --> 00:41:31.030
+but with the modifier you are not able to paint
+
+724
+00:41:31.030 --> 00:41:36.010
+in additional detail in between the actual points of the mesh
+
+725
+00:41:38.710 --> 00:41:41.440
+by the way. You can clear your canvas again
+
+726
+00:41:42.610 --> 00:41:44.530
+by pressing shift K.
+
+727
+00:41:45.110 --> 00:41:47.530
+With why does your foreground color selected
+
+728
+00:41:48.210 --> 00:41:51.980
+and you can simply swap the colors that you're using by pressing X.
+
+729
+00:41:51.990 --> 00:41:55.070
+So if I white is my foreground color and press shift K.
+
+730
+00:41:55.070 --> 00:41:57.030
+I get the complete white canvas again.
+
+731
+00:41:58.010 --> 00:41:58.820
+And I just
+
+732
+00:41:59.310 --> 00:42:00.620
+simply drawing
+
+733
+00:42:02.300 --> 00:42:04.220
+a very basic pattern
+
+734
+00:42:04.800 --> 00:42:05.820
+of black dots
+
+735
+00:42:06.500 --> 00:42:08.430
+and that's what we're going to use for the base
+
+736
+00:42:08.430 --> 00:42:11.620
+mask to mix between the plaster and the wooden structure.
+
+737
+00:42:12.500 --> 00:42:15.520
+So that's adam this vertical area that we just created
+
+738
+00:42:15.900 --> 00:42:18.810
+the regular name is always just call
+
+739
+00:42:21.300 --> 00:42:24.720
+and if you just add the viewer note to it, you can see
+
+740
+00:42:25.600 --> 00:42:28.120
+that is perfectly represented in the shader itself.
+
+741
+00:42:29.600 --> 00:42:34.060
+We can simply just use it as it is because it's just a black and white mask.
+
+742
+00:42:34.070 --> 00:42:38.020
+But if you wanted to you could actually even color coded
+
+743
+00:42:38.400 --> 00:42:41.580
+and use multiple mosques within one vertical
+
+744
+00:42:42.130 --> 00:42:45.020
+and then you can split the RGB channels like this
+
+745
+00:42:46.000 --> 00:42:47.520
+to have individual mosques
+
+746
+00:42:48.600 --> 00:42:50.620
+for different things. But here
+
+747
+00:42:50.810 --> 00:42:53.820
+it does not make a difference because it's just a black and white mosque.
+
+748
+00:42:54.300 --> 00:43:00.230
+And for now let's just set it up in a way that it very simply mixes between two shakers
+
+749
+00:43:00.800 --> 00:43:01.820
+for that. I just
+
+750
+00:43:02.400 --> 00:43:04.730
+combined the two shakers with a mixed note
+
+751
+00:43:07.600 --> 00:43:10.110
+and as the mixed factor,
+
+752
+00:43:10.120 --> 00:43:13.620
+I'm just gonna grab these vertex colors and plug them in here.
+
+753
+00:43:14.200 --> 00:43:16.020
+So let's take a look what this looks like now
+
+754
+00:43:17.100 --> 00:43:20.120
+and you can already see a couple of problems
+
+755
+00:43:20.800 --> 00:43:25.740
+the first one very obviously being that the transparency should not be everywhere,
+
+756
+00:43:25.750 --> 00:43:28.510
+but only where the wooden structure is exposed.
+
+757
+00:43:29.200 --> 00:43:30.730
+So we have to combine
+
+758
+00:43:31.100 --> 00:43:32.020
+this
+
+759
+00:43:32.700 --> 00:43:33.720
+vertex color
+
+760
+00:43:34.100 --> 00:43:37.520
+mask with the mask for the transparency as well.
+
+761
+00:43:39.400 --> 00:43:40.930
+So I just added another mode
+
+762
+00:43:41.400 --> 00:43:43.620
+and now set it to maximum
+
+763
+00:43:44.600 --> 00:43:46.430
+to combine it with the vertex colors
+
+764
+00:43:47.700 --> 00:43:49.820
+which gives us this mask as you can see.
+
+765
+00:43:51.900 --> 00:43:52.110
+Mhm
+
+766
+00:43:53.000 --> 00:43:57.620
+And now the transparency only happens in the area
+
+767
+00:43:58.200 --> 00:44:01.310
+where the when structure is actually exposed
+
+768
+00:44:01.790 --> 00:44:06.920
+but now because we're using a gradient mosque and not a sharp bullion mosque.
+
+769
+00:44:07.390 --> 00:44:07.710
+Yeah,
+
+770
+00:44:08.090 --> 00:44:11.020
+you can see that it doesn't make a difference which type of
+
+771
+00:44:11.020 --> 00:44:14.720
+transparency will use if you remember I said this to alpha clip
+
+772
+00:44:15.490 --> 00:44:18.100
+which just checks if the transparency is
+
+773
+00:44:18.590 --> 00:44:21.010
+above or below a certain threshold
+
+774
+00:44:21.790 --> 00:44:24.220
+but if it's dead for example, I use alpha blend.
+
+775
+00:44:24.990 --> 00:44:28.610
+It will actually also consider the values in between and looked like this
+
+776
+00:44:29.090 --> 00:44:34.270
+but later on we don't want to have a final gradient for the mosque.
+
+777
+00:44:34.280 --> 00:44:36.300
+So I'm just going to set this back to off
+
+778
+00:44:36.300 --> 00:44:38.810
+a cliff because this is a little bit more performant.
+
+779
+00:44:39.690 --> 00:44:43.320
+Okay, so let's address the next problem that we have which is that?
+
+780
+00:44:43.320 --> 00:44:47.810
+The height mask is still 100% taken from the structure
+
+781
+00:44:48.390 --> 00:44:52.520
+and this results in a messed up normal map for the parts where the plaster is.
+
+782
+00:44:52.530 --> 00:44:56.930
+So instead let's also mix the height maps together.
+
+783
+00:44:56.940 --> 00:45:00.300
+I just use a map range known to mix between them
+
+784
+00:45:00.990 --> 00:45:03.420
+and I use again the mosque that we created
+
+785
+00:45:03.590 --> 00:45:07.770
+as the value input and then mix between the
+
+786
+00:45:07.780 --> 00:45:11.100
+height map for the wooden structure which is this
+
+787
+00:45:15.590 --> 00:45:21.160
+And a height map for the plaster that we have yet to create. But let's
+
+788
+00:45:21.440 --> 00:45:23.600
+for now just keep it at one
+
+789
+00:45:26.490 --> 00:45:28.390
+and as you can see it blends between the height
+
+790
+00:45:28.390 --> 00:45:30.510
+maps and now it looks a little bit more accurate.
+
+791
+00:45:31.190 --> 00:45:34.910
+So now we've taken care of the most important parts of mixing these together.
+
+792
+00:45:35.290 --> 00:45:38.520
+Let's actually address the mosque itself which is
+
+793
+00:45:38.530 --> 00:45:41.710
+right now still the very simple gradient mosque.
+
+794
+00:45:42.590 --> 00:45:47.550
+I do want to keep the gradient for now to have a smooth fall off of the height map.
+
+795
+00:45:47.560 --> 00:45:49.890
+So for now I'm going to add in a map
+
+796
+00:45:49.890 --> 00:45:53.000
+range note to just adjust the range of this gradient.
+
+797
+00:45:53.490 --> 00:45:59.310
+I want the level of where it starts to be 100% wooden structure
+
+798
+00:45:59.790 --> 00:46:04.410
+To be when the value of the Vertex Colors is exactly 0.5.
+
+799
+00:46:05.080 --> 00:46:08.500
+So I set the from men as .5
+
+800
+00:46:09.680 --> 00:46:13.700
+And as you can see all the values that were 0.5 are now exactly zero.
+
+801
+00:46:15.080 --> 00:46:17.090
+And the map is getting a little bit sharper
+
+802
+00:46:17.780 --> 00:46:19.700
+and now I want to drag the upper
+
+803
+00:46:20.080 --> 00:46:24.210
+Limit a little bit lower to like 0.7.
+
+804
+00:46:25.680 --> 00:46:28.610
+So I still have this nice little transition
+
+805
+00:46:28.730 --> 00:46:29.300
+but it's
+
+806
+00:46:29.680 --> 00:46:31.410
+much sharper than it was before.
+
+807
+00:46:31.980 --> 00:46:36.710
+But also I'm going to change this to smooth step to have a more smooth transition
+
+808
+00:46:37.580 --> 00:46:41.210
+then to get the actual sharp bullying mosque,
+
+809
+00:46:41.680 --> 00:46:44.100
+I'm adding in a greater than node
+
+810
+00:46:45.280 --> 00:46:46.600
+set to zero.
+
+811
+00:46:47.180 --> 00:46:52.910
+So I get a mask of where it's exactly black and where it's anything more than black
+
+812
+00:46:53.580 --> 00:46:55.710
+and then I have this and this is going to
+
+813
+00:46:55.710 --> 00:46:59.700
+be the mosque that I'm using to mix between the shoulders
+
+814
+00:47:00.580 --> 00:47:01.300
+while
+
+815
+00:47:01.680 --> 00:47:05.400
+this gradient. I'm still going to use for the height map
+
+816
+00:47:07.880 --> 00:47:11.610
+and now it's already connected in the way I wanted this greater
+
+817
+00:47:11.610 --> 00:47:16.000
+than note goes into the reroute note that I'm using for the mosque
+
+818
+00:47:16.780 --> 00:47:18.300
+and if we take a look at this
+
+819
+00:47:18.680 --> 00:47:21.200
+you can see that now we have a sharp transition
+
+820
+00:47:22.380 --> 00:47:26.790
+but this mask right now is not reflecting any of the shader itself.
+
+821
+00:47:26.790 --> 00:47:29.000
+It's just the mask that we painted in
+
+822
+00:47:29.780 --> 00:47:33.410
+and it looks very artificial. So let's adjust it a little bit.
+
+823
+00:47:34.180 --> 00:47:38.410
+First I want to add just some variation by using a noise texture
+
+824
+00:47:39.880 --> 00:47:45.790
+and this noise texture. I'm going to use to adjust the vertex color map that I created
+
+825
+00:47:47.780 --> 00:47:50.500
+and here it is important that we have these gradients
+
+826
+00:47:51.780 --> 00:47:54.730
+even though we're getting rid of the gradients right after because
+
+827
+00:47:54.730 --> 00:47:58.430
+if we use this noise texture to adjust the gradient mosque,
+
+828
+00:47:58.440 --> 00:48:03.240
+we still have the information from inside and outside of the mosque.
+
+829
+00:48:03.250 --> 00:48:06.500
+I talked about that in the blending and masking video
+
+830
+00:48:06.970 --> 00:48:08.400
+and the way I want to
+
+831
+00:48:09.570 --> 00:48:12.990
+combined these maps is by adding the noise on top.
+
+832
+00:48:13.570 --> 00:48:16.000
+But if I simply use the noise as it is
+
+833
+00:48:17.370 --> 00:48:21.720
+you can see that it shifts everything to higher values which is not what I want.
+
+834
+00:48:21.730 --> 00:48:23.700
+So first I have to
+
+835
+00:48:25.470 --> 00:48:27.000
+is a subtract node
+
+836
+00:48:28.170 --> 00:48:31.890
+subtracting 0.5 to center the noise around zero
+
+837
+00:48:34.070 --> 00:48:35.390
+and then what I do
+
+838
+00:48:35.870 --> 00:48:39.700
+what you probably see me doing often is adding another multiply node
+
+839
+00:48:40.470 --> 00:48:42.500
+to scale the effect.
+
+840
+00:48:44.870 --> 00:48:46.280
+So I get higher
+
+841
+00:48:47.070 --> 00:48:48.900
+extremes of values.
+
+842
+00:48:50.270 --> 00:48:53.790
+And now if you take a look at the adjusted mask again you can see
+
+843
+00:48:53.790 --> 00:48:57.590
+that there is some variation with the noise which we can control with the scaling
+
+844
+00:48:58.170 --> 00:49:02.490
+and obviously you can control the size of this noise and all the parameters.
+
+845
+00:49:03.170 --> 00:49:04.090
+And next
+
+846
+00:49:04.570 --> 00:49:08.410
+I want to do some variation depending on the
+
+847
+00:49:08.410 --> 00:49:11.160
+base texture of the actual pattern that we use.
+
+848
+00:49:11.170 --> 00:49:13.780
+Because if we take a look back at the shader
+
+849
+00:49:14.970 --> 00:49:19.130
+you can see that this noise adds some variation and it looks a little bit nicer.
+
+850
+00:49:19.130 --> 00:49:20.190
+But still
+
+851
+00:49:20.870 --> 00:49:24.790
+it's not depending on the texture itself, it looks very unrealistic.
+
+852
+00:49:25.970 --> 00:49:29.900
+So let's add some dependency on the actual texture
+
+853
+00:49:30.770 --> 00:49:33.490
+and what I want to use for that is a
+
+854
+00:49:33.490 --> 00:49:36.400
+base texture of the structure that we're creating here.
+
+855
+00:49:37.370 --> 00:49:41.390
+And I want to make the distribution of the plaster
+
+856
+00:49:41.770 --> 00:49:44.400
+depending on these gaps
+
+857
+00:49:45.070 --> 00:49:46.690
+between the horizontal bars.
+
+858
+00:49:47.070 --> 00:49:48.750
+Because what the effect I want to create
+
+859
+00:49:48.750 --> 00:49:52.290
+is to have some plasters stuck in between there
+
+860
+00:49:52.770 --> 00:49:55.700
+and the base texture. A need for that is simply
+
+861
+00:49:56.370 --> 00:49:57.900
+the ping pong output
+
+862
+00:49:58.370 --> 00:50:00.310
+that were used for the horizontal bars
+
+863
+00:50:01.760 --> 00:50:06.770
+which has exactly what we need a high value in the center and low values outside
+
+864
+00:50:07.160 --> 00:50:11.270
+and for now I'm gonna add just this on top
+
+865
+00:50:12.060 --> 00:50:17.490
+but this is not going to be what we end up with because when we take a look at the shader,
+
+866
+00:50:17.860 --> 00:50:19.180
+it looks like this,
+
+867
+00:50:20.060 --> 00:50:23.080
+which you know, is interesting but not we wanted
+
+868
+00:50:24.860 --> 00:50:26.270
+so to adjust this,
+
+869
+00:50:27.760 --> 00:50:29.490
+I'm going to use a
+
+870
+00:50:30.360 --> 00:50:31.580
+Rgb curves. Note.
+
+871
+00:50:32.260 --> 00:50:32.580
+Yeah,
+
+872
+00:50:32.960 --> 00:50:40.070
+and because of the fact that this ping pong base texture goes from exactly 0 to 1,
+
+873
+00:50:40.760 --> 00:50:44.180
+we can simply control the whole profile of the curve
+
+874
+00:50:45.160 --> 00:50:46.080
+with his note
+
+875
+00:50:46.560 --> 00:50:49.490
+and you can see how much control I have over this now.
+
+876
+00:50:52.060 --> 00:50:53.770
+So first thing I want to do is
+
+877
+00:50:54.330 --> 00:50:55.490
+invert the shape
+
+878
+00:50:57.860 --> 00:51:01.490
+to get it more in the direction of what I was talking about and then
+
+879
+00:51:02.160 --> 00:51:08.190
+shape it a little bit more by adding a smooth curve on the end here, so we get these nice
+
+880
+00:51:08.760 --> 00:51:09.850
+round ing's
+
+881
+00:51:11.160 --> 00:51:12.470
+then I want to create a little bit of a
+
+882
+00:51:12.470 --> 00:51:16.080
+bump that actually goes inwards a little bit here,
+
+883
+00:51:18.160 --> 00:51:20.080
+but now the effect is way too strong
+
+884
+00:51:20.460 --> 00:51:23.190
+so I'll add another multiply node
+
+885
+00:51:23.560 --> 00:51:25.180
+to tune it down
+
+886
+00:51:26.060 --> 00:51:27.770
+and with this factor now
+
+887
+00:51:29.260 --> 00:51:32.980
+I can simply control how strong the effect is supposed to be.
+
+888
+00:51:33.660 --> 00:51:37.770
+So I do some more adjustments, I want to bump here to be a little bit more subtle
+
+889
+00:51:39.560 --> 00:51:40.490
+and
+
+890
+00:51:41.260 --> 00:51:44.440
+maybe the bump on top is not in the right position.
+
+891
+00:51:44.440 --> 00:51:47.190
+So let's put it a little bit more here
+
+892
+00:51:48.860 --> 00:51:51.680
+and yeah, this looks more like what I was aiming for
+
+893
+00:51:52.860 --> 00:51:55.580
+and this is already the basic set up for the mask done.
+
+894
+00:51:55.580 --> 00:51:59.580
+Let's see how this works when I actually use the vertex painting
+
+895
+00:52:01.950 --> 00:52:04.070
+and you can see that you have some very nice control
+
+896
+00:52:05.350 --> 00:52:10.770
+the noise affect the variation with the noise creates these islands of
+
+897
+00:52:11.750 --> 00:52:16.980
+plaster within areas that are actually completely black in the base mosque.
+
+898
+00:52:16.990 --> 00:52:20.180
+So if you want less of that you can tune it down.
+
+899
+00:52:24.450 --> 00:52:26.270
+But yes, just a very nice
+
+900
+00:52:26.750 --> 00:52:33.260
+effect to be able to just paint in with a simple mask, the material depending
+
+901
+00:52:33.850 --> 00:52:35.980
+on the base textures themselves
+
+902
+00:52:36.950 --> 00:52:40.070
+and you can use this effect for all sorts of things.
+
+903
+00:52:41.050 --> 00:52:45.070
+Now for this shader there's actually only one single thing left to do
+
+904
+00:52:46.250 --> 00:52:49.480
+apart from creating a frame for these notes
+
+905
+00:52:50.350 --> 00:52:54.970
+and that is integrating the height map correctly because right now
+
+906
+00:52:55.450 --> 00:52:59.560
+if you remember we still have this height simply set to one.
+
+907
+00:53:00.150 --> 00:53:05.970
+Also I said that I want to use the gradient that comes out of this map range. Note
+
+908
+00:53:06.350 --> 00:53:08.250
+to define the high profile
+
+909
+00:53:08.560 --> 00:53:10.270
+so let's grab another
+
+910
+00:53:10.850 --> 00:53:11.990
+color curves. Note
+
+911
+00:53:13.650 --> 00:53:18.180
+to be able to directly control the profile of this edge
+
+912
+00:53:18.750 --> 00:53:22.410
+and then another map range note to be able to set
+
+913
+00:53:22.420 --> 00:53:24.920
+the range of what the height is supposed to be.
+
+914
+00:53:24.920 --> 00:53:26.370
+So the low part
+
+915
+00:53:26.850 --> 00:53:29.180
+should be on top of the bars
+
+916
+00:53:29.350 --> 00:53:30.770
+which was at
+
+917
+00:53:31.150 --> 00:53:32.380
+0.5
+
+918
+00:53:32.950 --> 00:53:34.380
+and the top part
+
+919
+00:53:34.750 --> 00:53:37.270
+can then be chosen, I'm going to take it at
+
+920
+00:53:37.950 --> 00:53:39.270
+0.6
+
+921
+00:53:39.750 --> 00:53:44.370
+and this then I can simply plug into the height input for the
+
+922
+00:53:44.750 --> 00:53:46.180
+plaster which was here
+
+923
+00:53:48.850 --> 00:53:51.270
+and the height map that results out of this
+
+924
+00:53:52.150 --> 00:53:53.170
+looks like that then
+
+925
+00:53:53.750 --> 00:53:56.060
+which has done the full height map of the shader.
+
+926
+00:53:56.650 --> 00:53:58.570
+And if we take a look at the old thing,
+
+927
+00:53:59.750 --> 00:54:03.560
+you can see that it looks like this and we got like a nice edge on the sides
+
+928
+00:54:08.240 --> 00:54:11.060
+and now it even looks a little bit better when you're painting in the plaster
+
+929
+00:54:12.440 --> 00:54:16.550
+and it's very smooth again if you still have the subdivision on
+
+930
+00:54:17.840 --> 00:54:20.470
+it will be much more choppy.
+
+931
+00:54:22.540 --> 00:54:26.170
+But the subdivision is what you need if you want to take a look at the shader
+
+932
+00:54:26.740 --> 00:54:27.440
+in
+
+933
+00:54:27.600 --> 00:54:28.960
+cycles rendered view
+
+934
+00:54:32.440 --> 00:54:35.260
+because without the subdivision there will not be enough
+
+935
+00:54:36.240 --> 00:54:40.470
+geometry for the displacement to work with. So let's turn this back on
+
+936
+00:54:42.040 --> 00:54:44.170
+and you can see that this works quite well.
+
+937
+00:54:46.140 --> 00:54:50.250
+I'm just going to give the second wall the new material as well
+
+938
+00:54:51.040 --> 00:54:52.990
+as you can see there's not much of a difference.
+
+939
+00:54:53.440 --> 00:54:54.970
+Let's give this surrender.
+
+940
+00:54:58.140 --> 00:55:00.700
+And by the power of editing that was super fast for you.
+
+941
+00:55:00.710 --> 00:55:05.480
+It took five minutes for me with Denoix zing and here we go there.
+
+942
+00:55:05.480 --> 00:55:08.160
+The shader is with the whole scene
+
+943
+00:55:10.240 --> 00:55:10.860
+and yeah,
+
+944
+00:55:10.870 --> 00:55:15.160
+it looks slightly different than what I had which is mostly just the color choice
+
+945
+00:55:16.140 --> 00:55:20.060
+but there we are, you can do more adjustments or just
+
+946
+00:55:20.540 --> 00:55:21.560
+paint away
+
+947
+00:55:22.840 --> 00:55:28.260
+and yeah, this is the dynamic shading set up for the advanced wall shader

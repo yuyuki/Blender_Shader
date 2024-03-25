@@ -1,0 +1,541 @@
+WEBVTT
+
+0
+00:00:00.540 --> 00:00:01.490
+most shapes,
+
+1
+00:00:01.490 --> 00:00:06.360
+patterns and textures in general are not created a single string of operations.
+
+2
+00:00:07.040 --> 00:00:10.220
+Usually you have to combine separate segments and
+
+3
+00:00:10.230 --> 00:00:12.350
+there are multiple different ways to do so.
+
+4
+00:00:13.840 --> 00:00:18.680
+In this section we will go over the basics of how to combine textures and mosques.
+
+5
+00:00:18.690 --> 00:00:21.760
+So we can apply these methods in the following chapters.
+
+6
+00:00:22.640 --> 00:00:27.570
+This part is highly linked to the earlier section about general value control.
+
+7
+00:00:27.580 --> 00:00:30.110
+The main difference is that there we were
+
+8
+00:00:30.110 --> 00:00:34.160
+mostly working with constant values to add or multiply
+
+9
+00:00:34.540 --> 00:00:37.240
+well now I want to focus on the combination
+
+10
+00:00:37.240 --> 00:00:40.360
+of maps that are not constant over the surface.
+
+11
+00:00:40.370 --> 00:00:41.940
+As a simple example,
+
+12
+00:00:41.940 --> 00:00:46.060
+I'm just going to create two circular gradients that are overlapping.
+
+13
+00:00:46.540 --> 00:00:51.270
+I create these simply by shifting the currents with a subtract node and
+
+14
+00:00:51.270 --> 00:00:54.550
+then using a length note to get a map of the radius.
+
+15
+00:00:55.040 --> 00:00:58.310
+Let's invert the map by subtracting it from one.
+
+16
+00:00:58.320 --> 00:01:01.350
+So we get a circle with a radius of one that
+
+17
+00:01:01.350 --> 00:01:04.959
+has a value of zero on the edge and one the center
+
+18
+00:01:05.640 --> 00:01:09.310
+for Now I will just convert these circles into mosques with a
+
+19
+00:01:09.310 --> 00:01:13.120
+hard edge by using a math notes set to greater than zero.
+
+20
+00:01:13.130 --> 00:01:17.440
+These mosques now contain no other values than zero and
+
+21
+00:01:17.440 --> 00:01:21.430
+one no hidden negative values and no values in between.
+
+22
+00:01:21.440 --> 00:01:23.250
+As you can see in the graph view,
+
+23
+00:01:23.840 --> 00:01:28.680
+combining these masks is now comparable to simple boolean operations.
+
+24
+00:01:28.690 --> 00:01:31.430
+The simplest way of getting the union of both
+
+25
+00:01:31.430 --> 00:01:35.060
+shapes is using a math notes set to maximum
+
+26
+00:01:35.440 --> 00:01:38.650
+and for the intersection. Using it set to minimum
+
+27
+00:01:39.140 --> 00:01:42.750
+if you want to get a mask of where they are equal or different,
+
+28
+00:01:42.760 --> 00:01:44.260
+you can set it to compare.
+
+29
+00:01:45.040 --> 00:01:50.020
+Now let's delete the great then nodes and go back to the gradient information.
+
+30
+00:01:50.030 --> 00:01:54.960
+You can see how, where the two textures have the same value. It creates an edge
+
+31
+00:01:55.440 --> 00:01:58.660
+because we are still combining it with the minimum operation.
+
+32
+00:01:58.670 --> 00:02:01.210
+That edge can be easily smoothed out by
+
+33
+00:02:01.210 --> 00:02:04.520
+just using the smooth minimum or maximum instead.
+
+34
+00:02:04.530 --> 00:02:08.520
+What is unique about the maximum and minimum operations is
+
+35
+00:02:08.530 --> 00:02:11.960
+that the textures don't affect or overlay each other.
+
+36
+00:02:12.240 --> 00:02:16.460
+They are simply masked out by which one is greater or lesser.
+
+37
+00:02:16.740 --> 00:02:19.870
+But if you do want to have the textures affect each other.
+
+38
+00:02:19.880 --> 00:02:23.090
+You can simply use other operations to show this part.
+
+39
+00:02:23.090 --> 00:02:25.520
+Let me quickly add in the noise texture as well.
+
+40
+00:02:25.530 --> 00:02:30.450
+When I now add the noise on top you can see that it is applied over the whole circle.
+
+41
+00:02:30.840 --> 00:02:35.970
+There is just one issue that the average of these values is shifted as well,
+
+42
+00:02:35.980 --> 00:02:38.110
+increasing the size of the circle.
+
+43
+00:02:38.120 --> 00:02:41.800
+The reason for that is that the noise is centered around 0.5.
+
+44
+00:02:41.810 --> 00:02:46.460
+As we have seen before to counter that we can simply subtract 0.5
+
+45
+00:02:46.840 --> 00:02:49.450
+And now that the values are centered around zero.
+
+46
+00:02:49.840 --> 00:02:52.290
+We can also scale the effect of the noise
+
+47
+00:02:52.290 --> 00:02:55.670
+by adding a multiplication with a factor here.
+
+48
+00:02:55.670 --> 00:02:58.460
+You can also see the immense benefit of having
+
+49
+00:02:58.460 --> 00:03:01.930
+the additional great information and the negative values.
+
+50
+00:03:01.980 --> 00:03:06.460
+If we had clamped the circle textures back here to arrange between zero and one,
+
+51
+00:03:06.840 --> 00:03:10.160
+the noise would just as well have affected the black areas
+
+52
+00:03:10.640 --> 00:03:14.360
+and of course after centering its values around zero,
+
+53
+00:03:14.740 --> 00:03:18.160
+clapping the noise texture makes a huge difference as well.
+
+54
+00:03:18.940 --> 00:03:21.240
+So using the add operation,
+
+55
+00:03:21.250 --> 00:03:26.100
+offsets the values with the same strength independent on the value of the
+
+56
+00:03:26.100 --> 00:03:29.940
+other map as the strength of the noise is the same everywhere.
+
+57
+00:03:29.970 --> 00:03:32.560
+If you use the multiply operation instead,
+
+58
+00:03:32.600 --> 00:03:35.950
+the noise effect is also scaled with the gradient map
+
+59
+00:03:36.340 --> 00:03:39.680
+but now having the noise centered around zero is not doing
+
+60
+00:03:39.680 --> 00:03:43.360
+us a favor while adding zero does not change anything.
+
+61
+00:03:43.370 --> 00:03:45.280
+For multiplication.
+
+62
+00:03:45.310 --> 00:03:49.470
+The neutral element that does not change anything is multiplying by one.
+
+63
+00:03:49.480 --> 00:03:53.860
+So for this we want the values to be centered around one instead of zero.
+
+64
+00:03:54.040 --> 00:03:58.360
+I will however still keep this setup subtracting 0.5 1st
+
+65
+00:03:58.640 --> 00:04:01.100
+and then multiplying by a factor to adjust the
+
+66
+00:04:01.100 --> 00:04:04.670
+strength and then I just add one afterwards.
+
+67
+00:04:04.750 --> 00:04:09.560
+Otherwise the values just fly away. Keeping a sense of the order here is important.
+
+68
+00:04:09.940 --> 00:04:14.460
+You can always just go through the setup step by step and look at the value graph.
+
+69
+00:04:14.840 --> 00:04:18.050
+If you are not sure why something does not work as you expected
+
+70
+00:04:18.640 --> 00:04:21.209
+now that the values are centered around one,
+
+71
+00:04:21.220 --> 00:04:23.780
+you can see that it has the promised effect.
+
+72
+00:04:23.790 --> 00:04:26.360
+The strength of the noise depends on the radiant.
+
+73
+00:04:26.370 --> 00:04:31.150
+That also means that the effect that the edges zero and the shape stays the same.
+
+74
+00:04:31.540 --> 00:04:34.740
+Another thing I want to point out here is how to use the
+
+75
+00:04:34.740 --> 00:04:39.380
+additional information in the negative values to soften the edge of the shape,
+
+76
+00:04:39.390 --> 00:04:42.010
+you can just take another map range note and
+
+77
+00:04:42.010 --> 00:04:45.980
+set the interpolation to smooth or even smoother step.
+
+78
+00:04:45.990 --> 00:04:48.760
+The benefit of the negative values is that you then
+
+79
+00:04:48.760 --> 00:04:51.760
+can fade out the gradient beyond the initial edge.
+
+80
+00:04:52.040 --> 00:04:55.700
+So usually try to keep as much information in the texture
+
+81
+00:04:55.710 --> 00:05:00.160
+as long as possible without doing unnecessary clamping of the values
+
+82
+00:05:01.040 --> 00:05:06.180
+up to this point, we have only talked about value maps, transitioning to color maps.
+
+83
+00:05:06.190 --> 00:05:08.350
+Most of the concepts are the same.
+
+84
+00:05:08.360 --> 00:05:10.470
+Just instead of a single channel,
+
+85
+00:05:10.480 --> 00:05:13.240
+you have to deal with three channels at the same time.
+
+86
+00:05:13.250 --> 00:05:19.160
+The simplest way to apply color to a value map is using the color ramp note,
+
+87
+00:05:19.640 --> 00:05:22.950
+You can use it to define a color gradient that is
+
+88
+00:05:22.950 --> 00:05:26.660
+mapped until the input values in the range from 0-1.
+
+89
+00:05:27.040 --> 00:05:30.840
+It supports multiple different interpolation types and it is
+
+90
+00:05:30.840 --> 00:05:34.950
+very intuitive to use to combine multiple column maps.
+
+91
+00:05:34.960 --> 00:05:38.780
+You can technically use the vector math node as the
+
+92
+00:05:38.790 --> 00:05:42.170
+RGB channels are treated the same way as the X,
+
+93
+00:05:42.170 --> 00:05:43.060
+Y Z channels
+
+94
+00:05:43.440 --> 00:05:49.350
+but more convenient to use And specialist for blending colors is the mix RgB note.
+
+95
+00:05:49.740 --> 00:05:55.560
+It blends between two column maps based on a mask factor between zero and 1.
+
+96
+00:05:56.040 --> 00:05:58.200
+Apart from the mixed type,
+
+97
+00:05:58.210 --> 00:06:01.160
+it is also a bunch of other useful blend modes
+
+98
+00:06:01.170 --> 00:06:03.860
+that you may be familiar with from other software.
+
+99
+00:06:04.340 --> 00:06:07.020
+The general behavior that is always the same
+
+100
+00:06:07.030 --> 00:06:10.350
+is that the factor between zero and one always
+
+101
+00:06:10.350 --> 00:06:14.250
+controls the influence of the second color input while
+
+102
+00:06:14.250 --> 00:06:16.760
+the first input is used as the basis.
+
+103
+00:06:17.340 --> 00:06:23.460
+I will not go over all blend modes but just as an example overlay is a very nice way of
+
+104
+00:06:23.460 --> 00:06:27.260
+both brightening and darkening in color with a texture that
+
+105
+00:06:27.260 --> 00:06:31.260
+is centered around 0.5 without blowing out whites or blacks.
+
+106
+00:06:31.940 --> 00:06:35.660
+You can also use the mix RGB no to process value maps
+
+107
+00:06:36.040 --> 00:06:38.010
+but it is a bit less efficient and you
+
+108
+00:06:38.010 --> 00:06:41.020
+can substitute all the operations that it supports.
+
+109
+00:06:41.030 --> 00:06:42.660
+Also using Math notes.
+
+110
+00:06:43.140 --> 00:06:46.260
+Some are very obvious like add and multiply.
+
+111
+00:06:46.740 --> 00:06:48.660
+I was a less obvious like overly.
+
+112
+00:06:49.340 --> 00:06:51.720
+I'm not going to go over them here but the
+
+113
+00:06:51.720 --> 00:06:54.320
+one that I want to point out is the simple mixed
+
+114
+00:06:54.320 --> 00:06:56.890
+mode for the values it might not be in the
+
+115
+00:06:56.890 --> 00:07:00.020
+name but you can simply use the map range node,
+
+116
+00:07:00.030 --> 00:07:04.980
+fulfill the exact same task for values as the mixed note does for colours,
+
+117
+00:07:05.050 --> 00:07:09.160
+you simply have to plug in the factor into the value input
+
+118
+00:07:09.340 --> 00:07:14.180
+and the two maps into the two men and two max inputs.
+
+119
+00:07:14.270 --> 00:07:19.430
+Leave the from inputs at zero and one and make sure it is still on linear
+
+120
+00:07:19.760 --> 00:07:21.900
+and as you can see there is no difference
+
+121
+00:07:22.050 --> 00:07:26.530
+that is as much as I want to say about combining and blending textures and masks.
+
+122
+00:07:26.530 --> 00:07:27.060
+For now,
+
+123
+00:07:27.140 --> 00:07:31.960
+the operation you want to use is highly depending on what you want to achieve.
+
+124
+00:07:32.340 --> 00:07:35.250
+So I recommend getting more familiar how different
+
+125
+00:07:35.250 --> 00:07:38.490
+maps combined with the individual operations that I have
+
+126
+00:07:38.490 --> 00:07:41.660
+shown and observing the results with the value graph
+
+127
+00:07:41.660 --> 00:07:44.360
+tool to see more easily what to expect.
+
+128
+00:07:44.370 --> 00:07:48.280
+It is generally a good tip to try and stay aware of where the map is
+
+129
+00:07:48.280 --> 00:07:53.760
+zero and where it is one as those two are the important levels for multiplication,
+
+130
+00:07:53.770 --> 00:07:55.760
+addition and some other operations,
+
+131
+00:07:55.940 --> 00:07:58.060
+and they are usually easy to recognize.
+
+132
+00:07:58.540 --> 00:08:01.560
+I will talk about how to use these methods for masking
+
+133
+00:08:01.560 --> 00:08:05.020
+and blending together multiple different shooters in a later chapter,
+
+134
+00:08:05.030 --> 00:08:07.560
+I will also be using them a lot in the examples.

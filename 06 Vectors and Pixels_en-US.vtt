@@ -1,0 +1,389 @@
+WEBVTT
+
+0
+00:00:00.440 --> 00:00:04.640
+to understand where to start when you're trying to create a shade from scratch.
+
+1
+00:00:04.650 --> 00:00:08.760
+It is actually helpful to look at how an image texture is treated in a shader.
+
+2
+00:00:08.770 --> 00:00:12.950
+So let's take a look at this simple setup. I have an image texture up here,
+
+3
+00:00:13.440 --> 00:00:14.850
+you might recognize this guy
+
+4
+00:00:15.640 --> 00:00:18.250
+and a material preview with a plane here.
+
+5
+00:00:18.640 --> 00:00:21.760
+Now we just add an image texture node and select the image
+
+6
+00:00:22.240 --> 00:00:25.070
+as you can see. Apart from a couple of options.
+
+7
+00:00:25.080 --> 00:00:30.920
+The only input is this vector socket, but even if we don't plug anything into it,
+
+8
+00:00:31.090 --> 00:00:33.160
+the texture is mapped onto the surface.
+
+9
+00:00:33.540 --> 00:00:36.660
+The reason this works is that it's actually grabbing
+
+10
+00:00:36.660 --> 00:00:39.150
+the UV map that is generated with a plane.
+
+11
+00:00:39.540 --> 00:00:43.420
+If I just quickly add another UV map and change it a little bit,
+
+12
+00:00:43.430 --> 00:00:49.190
+you can see that the UV map that is taken is just the one that is selected as active.
+
+13
+00:00:49.200 --> 00:00:50.760
+And if I delete both,
+
+14
+00:00:51.340 --> 00:00:53.460
+the texture does not get mapped at all
+
+15
+00:00:54.040 --> 00:00:56.920
+because the image texture node needs some coordinates to
+
+16
+00:00:56.920 --> 00:00:59.170
+be able to map this texture onto the surface.
+
+17
+00:00:59.740 --> 00:01:03.960
+So let's go back one step and take a look at how this mapping works.
+
+18
+00:01:04.340 --> 00:01:06.860
+I just go to input UV map
+
+19
+00:01:07.440 --> 00:01:08.960
+and if I plug it in here
+
+20
+00:01:09.640 --> 00:01:12.060
+as you can see, the result does not change.
+
+21
+00:01:12.840 --> 00:01:14.960
+So let's look at the UV map itself.
+
+22
+00:01:15.340 --> 00:01:17.880
+If you think back to how I've actresses played,
+
+23
+00:01:17.890 --> 00:01:21.410
+this translates into a two dimensional map of X and Y
+
+24
+00:01:21.410 --> 00:01:25.160
+values a range from 0 to 1 on each axis.
+
+25
+00:01:25.160 --> 00:01:29.560
+Accordingly. The red part of the color goes from 0 to 1 on the X axis
+
+26
+00:01:29.940 --> 00:01:32.140
+and the green part on the y axis.
+
+27
+00:01:32.240 --> 00:01:35.240
+And if we look at how this is mapped now we
+
+28
+00:01:35.240 --> 00:01:38.180
+can see that the bottom left corner of the image is
+
+29
+00:01:38.180 --> 00:01:41.990
+mapped in the position 00 and the top right corner to
+
+30
+00:01:41.990 --> 00:01:46.560
+the position 11 and everything in between is mapped accordingly.
+
+31
+00:01:47.240 --> 00:01:50.150
+So let's look more in detail of this coordinate map.
+
+32
+00:01:50.540 --> 00:01:52.340
+Contrary to the image texture
+
+33
+00:01:52.510 --> 00:01:54.460
+that shows a clear picks elation.
+
+34
+00:01:55.030 --> 00:01:58.960
+The coordinate map is a continuous gradient without any steps
+
+35
+00:01:59.640 --> 00:02:02.880
+and no matter how far you zoom in every surface
+
+36
+00:02:02.880 --> 00:02:06.150
+point has its own coordinate values assigned to it.
+
+37
+00:02:06.160 --> 00:02:10.350
+The pics elation happens only when we introduced the image texture
+
+38
+00:02:11.039 --> 00:02:12.660
+for every surface point
+
+39
+00:02:13.240 --> 00:02:15.660
+the image texture node looks up the color
+
+40
+00:02:15.660 --> 00:02:18.250
+of the pixel that corresponds to the position.
+
+41
+00:02:18.840 --> 00:02:21.550
+So you can think of an image texture as a
+
+42
+00:02:21.560 --> 00:02:25.350
+look up table where the image texture node takes coordinates,
+
+43
+00:02:25.360 --> 00:02:30.450
+decides which pixel belongs to that position and then displays the according color
+
+44
+00:02:30.840 --> 00:02:35.060
+and the smugness of the texture that you can see in the material preview
+
+45
+00:02:35.440 --> 00:02:38.050
+is caused by the interpolation setting
+
+46
+00:02:38.180 --> 00:02:39.280
+that is set to linear
+
+47
+00:02:39.390 --> 00:02:41.860
+as means to soften the pixel asian effect.
+
+48
+00:02:41.870 --> 00:02:44.860
+You can change this the closest to see the true pixels.
+
+49
+00:02:45.540 --> 00:02:48.340
+The task of a procedural texture and blender
+
+50
+00:02:48.340 --> 00:02:51.570
+now is to replace this image texture node
+
+51
+00:02:51.580 --> 00:02:57.180
+with a function that calculates the color on the spot rather than looking it up.
+
+52
+00:02:57.190 --> 00:02:59.450
+The difference can be described as the difference
+
+53
+00:02:59.450 --> 00:03:03.060
+between a look up table and a mathematical function
+
+54
+00:03:03.440 --> 00:03:07.850
+where the coordinate values are used directly to calculate the texture
+
+55
+00:03:08.540 --> 00:03:11.150
+instead of looking up the color from the image texture
+
+56
+00:03:11.540 --> 00:03:12.600
+to be clear.
+
+57
+00:03:12.610 --> 00:03:16.990
+The term procedural texture does not directly imply that it has to
+
+58
+00:03:16.990 --> 00:03:21.240
+be This way an image texture can also be created procedurally.
+
+59
+00:03:21.250 --> 00:03:25.760
+And as a matter of fact the image texture that I've been using here
+
+60
+00:03:26.140 --> 00:03:28.200
+has also been created procedurally.
+
+61
+00:03:28.480 --> 00:03:30.530
+As you can see if I zoom in.
+
+62
+00:03:30.750 --> 00:03:32.900
+I don't get the same exhalation anymore.
+
+63
+00:03:33.000 --> 00:03:37.750
+The way this works is comparable to vector graphics opposed to pixel graphics.
+
+64
+00:03:38.140 --> 00:03:42.440
+These high resolutions are not achieved with large file sizes
+
+65
+00:03:42.670 --> 00:03:44.680
+but by calculating it on the spot.
+
+66
+00:03:45.010 --> 00:03:47.300
+The note graph in here that generates the
+
+67
+00:03:47.300 --> 00:03:50.210
+image which might look quite threatening as the first
+
+68
+00:03:50.210 --> 00:03:52.690
+site holds all the information of how the
+
+69
+00:03:52.690 --> 00:03:55.440
+shapes are drawn and not the shapes themselves.
+
+70
+00:03:55.580 --> 00:04:00.460
+But if I zoom in really closely you can see a different type of picks elation here.
+
+71
+00:04:00.640 --> 00:04:03.780
+If you look closely it is not connected to the same grid
+
+72
+00:04:03.790 --> 00:04:07.080
+that you would get from an image texture but it's rather curved.
+
+73
+00:04:07.090 --> 00:04:10.530
+The reason this happens is the technique that I'm using to
+
+74
+00:04:10.530 --> 00:04:14.090
+generate these shapes and something I will go into later.
+
+75
+00:04:14.100 --> 00:04:19.360
+But in theory a procedural texture like this can have any level of detail.
+
+76
+00:04:19.540 --> 00:04:21.660
+Let me just add in a Musgrave texture
+
+77
+00:04:21.839 --> 00:04:23.880
+that generates a lot of noise
+
+78
+00:04:24.150 --> 00:04:24.710
+and
+
+79
+00:04:24.850 --> 00:04:25.760
+if I zoom in
+
+80
+00:04:26.240 --> 00:04:28.060
+the detail just keeps coming.
+
+81
+00:04:28.940 --> 00:04:33.860
+Another advantage of procedural textures like this is that they don't repeat over
+
+82
+00:04:33.870 --> 00:04:38.600
+a larger surface areas like image textures do which gives you tiling artifacts.
+
+83
+00:04:38.810 --> 00:04:42.410
+The texture coordinates used to generate the texture don't need to be
+
+84
+00:04:42.410 --> 00:04:45.460
+between zero and one like they do for an image texture.
+
+85
+00:04:45.840 --> 00:04:50.830
+If I just scale this Musgrave texture however I want there is no repetition.
+
+86
+00:04:50.840 --> 00:04:56.150
+That can be incredibly useful when shading larger areas or creating a shader.
+
+87
+00:04:56.160 --> 00:04:58.950
+That should be versatile for several situations.
+
+88
+00:04:59.440 --> 00:05:00.700
+As a conclusion,
+
+89
+00:05:00.710 --> 00:05:03.110
+the main takeaway here is that even for
+
+90
+00:05:03.110 --> 00:05:07.380
+image textures the basis are continuous coordinates and
+
+91
+00:05:07.380 --> 00:05:12.610
+a procedural texture fills the gap with an algorithm to be generated on the spot.
+
+92
+00:05:12.620 --> 00:05:16.150
+So there has to be some type of input that the algorithm can use
+
+93
+00:05:16.540 --> 00:05:20.760
+and this is usually the texture coordinate space but on top of coordinates.
+
+94
+00:05:20.770 --> 00:05:22.750
+Also, other inputs can be used.
+
+95
+00:05:23.140 --> 00:05:26.350
+For example you can incorporate the objects geometry
+
+96
+00:05:26.360 --> 00:05:28.860
+within the shader but we'll go into this later

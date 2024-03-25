@@ -1,0 +1,709 @@
+WEBVTT
+
+0
+00:00:00.040 --> 00:00:02.620
+So let's start with the first work, for example,
+
+1
+00:00:02.620 --> 00:00:08.550
+where I'm going to show you how to create this wall shader from start to finish
+
+2
+00:00:08.940 --> 00:00:10.860
+so you can see every step of the way
+
+3
+00:00:11.340 --> 00:00:14.040
+and I'm still going to explain everything that I do.
+
+4
+00:00:14.050 --> 00:00:19.050
+Yeah, this wall shader is quite simple for the first one that I show you
+
+5
+00:00:19.740 --> 00:00:24.660
+and um it basically has two main aspects
+
+6
+00:00:24.660 --> 00:00:28.560
+to it which is one the general surface structure
+
+7
+00:00:29.340 --> 00:00:29.960
+and then
+
+8
+00:00:30.540 --> 00:00:31.160
+there's
+
+9
+00:00:31.840 --> 00:00:35.860
+gradient towards the edge which makes it look more used.
+
+10
+00:00:36.540 --> 00:00:38.550
+And the cool thing about that is that
+
+11
+00:00:38.940 --> 00:00:41.660
+when I changed the scale of this plane,
+
+12
+00:00:42.640 --> 00:00:47.860
+the effect scales along with it but the structure does not, it's not distorted.
+
+13
+00:00:49.040 --> 00:00:52.550
+This also works from within the added view as well
+
+14
+00:00:53.940 --> 00:00:55.050
+as you can see here.
+
+15
+00:00:56.640 --> 00:00:58.760
+Okay, so let's start by just
+
+16
+00:00:59.540 --> 00:01:01.250
+deleting this, adding in a new plane
+
+17
+00:01:02.740 --> 00:01:03.660
+and
+
+18
+00:01:05.840 --> 00:01:08.260
+looking it up with the standard material.
+
+19
+00:01:08.940 --> 00:01:12.360
+We're just going to ignore this principle be sdf for now
+
+20
+00:01:12.940 --> 00:01:15.460
+and take a look at what um
+
+21
+00:01:15.940 --> 00:01:17.560
+tax records we want to use.
+
+22
+00:01:18.640 --> 00:01:19.060
+So
+
+23
+00:01:19.440 --> 00:01:24.660
+as I said with the tax recording space, which should change with the geometry,
+
+24
+00:01:25.540 --> 00:01:27.060
+I want to use
+
+25
+00:01:27.740 --> 00:01:28.960
+generated coronets
+
+26
+00:01:30.440 --> 00:01:33.760
+because these just sticks to the surface as
+
+27
+00:01:33.910 --> 00:01:36.650
+I want, I want the gradient to appear.
+
+28
+00:01:39.540 --> 00:01:40.260
+It's just
+
+29
+00:01:40.840 --> 00:01:43.060
+go back a few steps and
+
+30
+00:01:43.840 --> 00:01:45.450
+first start with
+
+31
+00:01:47.240 --> 00:01:48.650
+adding a vector math known
+
+32
+00:01:49.400 --> 00:01:52.760
+and centering the coordinates by subtracting
+
+33
+00:01:53.440 --> 00:01:54.160
+0.5
+
+34
+00:01:55.140 --> 00:02:00.750
+because first the coordinates started going from 0 to 1 on the X and Y axis
+
+35
+00:02:01.640 --> 00:02:04.060
+and I want to center the origin
+
+36
+00:02:04.440 --> 00:02:06.060
+towards the middle of the plane.
+
+37
+00:02:06.740 --> 00:02:11.930
+Now the coordinates go from negative .5 to positive .5 in both directions.
+
+38
+00:02:11.940 --> 00:02:15.460
+And I'll just add an a multiply known
+
+39
+00:02:16.440 --> 00:02:23.060
+to make them go from negative 12 positive one by multiplying by 24 X and Y.
+
+40
+00:02:23.440 --> 00:02:27.550
+And also I'm going to multiply by zero for the component
+
+41
+00:02:28.040 --> 00:02:31.270
+because I don't want to consider the component at all because this
+
+42
+00:02:31.270 --> 00:02:34.660
+shader is only going to be for flat surfaces like this.
+
+43
+00:02:35.240 --> 00:02:38.260
+And then let me add in a absolute note
+
+44
+00:02:39.440 --> 00:02:41.260
+which as you can already see
+
+45
+00:02:41.740 --> 00:02:43.560
+as these gradients
+
+46
+00:02:44.440 --> 00:02:45.820
+on both the X
+
+47
+00:02:45.940 --> 00:02:49.360
+and the Y axis is going from the center towards the edge.
+
+48
+00:02:49.940 --> 00:02:57.460
+So I already have both these and I can just split those up by using the separate Xy Xena
+
+49
+00:02:58.640 --> 00:03:01.710
+and as you can see on the X component we have
+
+50
+00:03:01.720 --> 00:03:05.260
+this gradient from the center to the edge in the X direction
+
+51
+00:03:06.940 --> 00:03:11.460
+and in the Y component, the same thing for the for the Y direction.
+
+52
+00:03:12.740 --> 00:03:14.450
+Now to combine those
+
+53
+00:03:14.840 --> 00:03:16.660
+into the shape that I need
+
+54
+00:03:19.040 --> 00:03:20.450
+I can just add in a
+
+55
+00:03:20.940 --> 00:03:21.750
+math noon
+
+56
+00:03:22.640 --> 00:03:24.860
+and set that thing to maximum
+
+57
+00:03:26.540 --> 00:03:28.660
+plug in both X and Y component.
+
+58
+00:03:29.040 --> 00:03:31.400
+And as you can see already I have this
+
+59
+00:03:31.840 --> 00:03:32.760
+shape where
+
+60
+00:03:33.140 --> 00:03:36.110
+depending on which part of the plane I'm in,
+
+61
+00:03:36.450 --> 00:03:38.450
+I get this gradient towards the edge
+
+62
+00:03:40.440 --> 00:03:42.760
+which is already looking quite good.
+
+63
+00:03:42.770 --> 00:03:47.660
+So if I just added a colorado know to control a little bit this gradient
+
+64
+00:03:49.340 --> 00:03:51.650
+you can see that it has the wanted effect.
+
+65
+00:03:53.440 --> 00:03:56.460
+Now I do want to smooth out the
+
+66
+00:03:56.840 --> 00:04:01.550
+edges here because right now they're very harsh and I want to have like uh
+
+67
+00:04:02.320 --> 00:04:04.410
+certain curvature here on the edges.
+
+68
+00:04:05.440 --> 00:04:07.940
+So instead of just the maximum node,
+
+69
+00:04:07.950 --> 00:04:10.560
+I'm going to change that to the smooth maximum node.
+
+70
+00:04:11.840 --> 00:04:17.450
+And now I have nice full control over the radius of this smoothing here.
+
+71
+00:04:20.640 --> 00:04:22.160
+All right. And that's already
+
+72
+00:04:23.540 --> 00:04:27.050
+pretty much the mask for this edge. Taken care of
+
+73
+00:04:28.640 --> 00:04:31.050
+one thing that I do want to add to this edge
+
+74
+00:04:31.060 --> 00:04:35.450
+is some kind of variation by adding in a noise texture.
+
+75
+00:04:38.440 --> 00:04:39.360
+And
+
+76
+00:04:40.340 --> 00:04:46.550
+just before I apply the colorado operation, I want to add this noise on top.
+
+77
+00:04:47.440 --> 00:04:47.640
+Yeah,
+
+78
+00:04:50.640 --> 00:04:54.750
+but I don't want to offset the complete mosque. I just want to
+
+79
+00:04:55.440 --> 00:04:59.460
+At the noise on top so I need the noise to be centered around zero
+
+80
+00:05:00.340 --> 00:05:03.660
+And we're due for that. It's just that i subtract .5
+
+81
+00:05:06.740 --> 00:05:07.960
+as you can see here.
+
+82
+00:05:08.740 --> 00:05:14.350
+It's all in the positive values, subtracting .5 centuries around zero. Getting
+
+83
+00:05:15.540 --> 00:05:18.260
+basically have the values into the negative area
+
+84
+00:05:19.340 --> 00:05:22.850
+and yeah, then I can also add in a multiply known
+
+85
+00:05:24.840 --> 00:05:28.650
+to scale this effect up and down.
+
+86
+00:05:32.440 --> 00:05:33.960
+Yeah. And if I add it now,
+
+87
+00:05:35.340 --> 00:05:38.660
+the overall values don't get uh
+
+88
+00:05:39.040 --> 00:05:41.460
+offset but just distorted.
+
+89
+00:05:44.140 --> 00:05:49.060
+And so does the mosque that I get. And you can already see how this is going to
+
+90
+00:05:50.040 --> 00:05:51.150
+look later on.
+
+91
+00:05:53.440 --> 00:05:57.360
+I do want to change the scale of this mosque because I think the effect
+
+92
+00:05:59.740 --> 00:06:00.760
+looks better this way.
+
+93
+00:06:01.140 --> 00:06:01.760
+Okay,
+
+94
+00:06:03.440 --> 00:06:06.670
+now let's move on to the overall surface structure.
+
+95
+00:06:06.680 --> 00:06:09.050
+I'm just going to use another noise texture
+
+96
+00:06:12.040 --> 00:06:14.960
+And to get a nice effect with this one.
+
+97
+00:06:14.960 --> 00:06:19.060
+I'm going to crank the roughness all the way up to one
+
+98
+00:06:21.240 --> 00:06:23.850
+and now I get this nice
+
+99
+00:06:24.640 --> 00:06:26.050
+shifting of detail
+
+100
+00:06:26.840 --> 00:06:28.060
+with this slider
+
+101
+00:06:29.640 --> 00:06:31.260
+without really uh
+
+102
+00:06:31.840 --> 00:06:35.650
+changing the overall look but rather just the love of detail,
+
+103
+00:06:39.040 --> 00:06:41.260
+I'm just going to put that to five for now
+
+104
+00:06:44.140 --> 00:06:47.700
+and yeah, now it's time to actually worry a little bit about the,
+
+105
+00:06:47.710 --> 00:06:49.260
+about the shading itself.
+
+106
+00:06:50.940 --> 00:06:53.660
+I'm first going to add in a bump known
+
+107
+00:06:54.040 --> 00:06:54.550
+to get
+
+108
+00:06:55.240 --> 00:06:57.060
+to give the whole thing a little bit of
+
+109
+00:06:57.640 --> 00:06:58.460
+bumpiness
+
+110
+00:06:58.630 --> 00:06:59.760
+surface structure
+
+111
+00:07:02.140 --> 00:07:05.650
+and we're just gonna put this into the height input
+
+112
+00:07:05.660 --> 00:07:08.260
+and connect the normal input to the shader node.
+
+113
+00:07:11.740 --> 00:07:12.120
+Also,
+
+114
+00:07:12.120 --> 00:07:16.140
+I'm just going to quickly rotate the plane on the X axis 90
+
+115
+00:07:16.140 --> 00:07:20.050
+degrees because the wall is going to be standing up straight like this
+
+116
+00:07:21.440 --> 00:07:24.350
+and there we go. We got those surface structure already.
+
+117
+00:07:25.840 --> 00:07:27.160
+It's just a little bit
+
+118
+00:07:28.740 --> 00:07:34.560
+too much, little bit harsh. So I'm going to crack down the distance, way way down
+
+119
+00:07:35.540 --> 00:07:37.060
+2 0.2
+
+120
+00:07:37.540 --> 00:07:38.260
+for now
+
+121
+00:07:39.340 --> 00:07:41.050
+that I also want the
+
+122
+00:07:41.440 --> 00:07:44.760
+structured to affect the roughness
+
+123
+00:07:45.240 --> 00:07:49.760
+and to gain some easy control over the minimum and maximum values
+
+124
+00:07:50.240 --> 00:07:51.260
+that this
+
+125
+00:07:51.740 --> 00:07:55.060
+roughness is supposed to have. I just added a map range. Known
+
+126
+00:07:56.240 --> 00:07:58.360
+plug that into the rap roughness here
+
+127
+00:08:00.440 --> 00:08:02.260
+and then she was like
+
+128
+00:08:03.040 --> 00:08:04.750
+.7.5.
+
+129
+00:08:15.240 --> 00:08:18.230
+You can always tweet those settings to what you think looks
+
+130
+00:08:18.230 --> 00:08:20.850
+best or what you want your plaster to look like.
+
+131
+00:08:21.640 --> 00:08:26.350
+Okay, so let's finally worry about the actual color map
+
+132
+00:08:28.440 --> 00:08:32.059
+and my approach for this one is just going to be
+
+133
+00:08:32.539 --> 00:08:37.460
+a final mix. Known that mixes between the
+
+134
+00:08:38.640 --> 00:08:39.450
+hi
+
+135
+00:08:39.940 --> 00:08:43.059
+tone and the low tone on the edge.
+
+136
+00:08:48.340 --> 00:08:49.260
+Maybe like this
+
+137
+00:08:51.640 --> 00:08:53.160
+can see later on if that works.
+
+138
+00:08:55.940 --> 00:08:58.660
+And I'm basically going to use this mosque here.
+
+139
+00:09:00.940 --> 00:09:02.260
+Still compiling. Here we go.
+
+140
+00:09:03.240 --> 00:09:06.960
+Now this doesn't look too great. But uh, bear with me.
+
+141
+00:09:09.940 --> 00:09:11.560
+No, I can just
+
+142
+00:09:12.940 --> 00:09:17.160
+and called the surface structure as well. And I'm going to do that by using
+
+143
+00:09:18.040 --> 00:09:18.860
+a
+
+144
+00:09:18.990 --> 00:09:20.050
+linear light
+
+145
+00:09:21.440 --> 00:09:22.250
+operation
+
+146
+00:09:23.140 --> 00:09:28.060
+because that already takes into account that I have a noise texture that is
+
+147
+00:09:29.340 --> 00:09:31.950
+Centered around .5,
+
+148
+00:09:33.340 --> 00:09:35.760
+which is essentially the same
+
+149
+00:09:37.440 --> 00:09:38.760
+thing that I did here
+
+150
+00:09:41.840 --> 00:09:46.630
+just using this color mix notes. So these operations are basically the same.
+
+151
+00:09:46.640 --> 00:09:49.550
+This this one is just a little bit more efficient
+
+152
+00:09:50.040 --> 00:09:52.050
+but takes a little bit more time to set up.
+
+153
+00:09:56.640 --> 00:10:00.340
+And now the surface structure also informs this
+
+154
+00:10:00.340 --> 00:10:02.250
+gradient here and it looks a little bit
+
+155
+00:10:03.140 --> 00:10:04.060
+more fitting
+
+156
+00:10:08.840 --> 00:10:10.360
+and now you want to just
+
+157
+00:10:10.740 --> 00:10:12.060
+tweak everything.
+
+158
+00:10:12.940 --> 00:10:13.660
+Maybe
+
+159
+00:10:14.340 --> 00:10:16.650
+the contrast of the causes a little bit too much.
+
+160
+00:10:20.940 --> 00:10:23.550
+But the basic idea works fine.
+
+161
+00:10:27.240 --> 00:10:29.660
+The one thing that we haven't
+
+162
+00:10:30.540 --> 00:10:36.260
+taken care of here is that the structure still scale with the plane
+
+163
+00:10:36.840 --> 00:10:39.060
+and that's because we haven't defined any
+
+164
+00:10:39.740 --> 00:10:43.380
+coordinates to use here, so it just falls back to the standard coordinates.
+
+165
+00:10:44.840 --> 00:10:46.550
+But what I want to use here
+
+166
+00:10:46.940 --> 00:10:49.960
+is something else which is the
+
+167
+00:10:52.940 --> 00:10:54.390
+global coordinates
+
+168
+00:10:55.240 --> 00:10:56.460
+in the geometry note.
+
+169
+00:11:00.840 --> 00:11:02.360
+And as you can see now,
+
+170
+00:11:05.240 --> 00:11:07.060
+it works just as intended.
+
+171
+00:11:12.840 --> 00:11:14.660
+And right now
+
+172
+00:11:15.940 --> 00:11:18.630
+the texture is like a little bit stylized.
+
+173
+00:11:18.630 --> 00:11:24.460
+If you want something more realistic, you can just crank up the detail level here.
+
+174
+00:11:26.940 --> 00:11:28.650
+Still not super realistic.
+
+175
+00:11:29.240 --> 00:11:31.550
+But I thought the shade would be a nice start
+
+176
+00:11:32.140 --> 00:11:35.460
+for the examples to see the whole workflow.

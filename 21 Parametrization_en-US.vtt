@@ -1,0 +1,533 @@
+WEBVTT
+
+0
+00:00:00.140 --> 00:00:04.530
+the goal of good perimeter ization is usually to be able to condense
+
+1
+00:00:04.530 --> 00:00:08.260
+the notes set up into an easy to use and flexible node group
+
+2
+00:00:08.840 --> 00:00:12.750
+but it is generally advisable in any notes set up to
+
+3
+00:00:12.760 --> 00:00:16.860
+keep key inputs of the network exposed as input notes.
+
+4
+00:00:16.910 --> 00:00:19.960
+Even if it is just for the sake of readability
+
+5
+00:00:20.140 --> 00:00:21.170
+in this video,
+
+6
+00:00:21.170 --> 00:00:24.740
+I want to talk about the key concepts of identifying
+
+7
+00:00:24.740 --> 00:00:29.160
+the essential functionality to expose these parameters from a notary
+
+8
+00:00:29.340 --> 00:00:32.759
+and how to set them up in a sensible and user friendly way.
+
+9
+00:00:33.140 --> 00:00:35.710
+This chapter also has its own work for example,
+
+10
+00:00:35.710 --> 00:00:38.820
+where I show how I created the wooden floorboards,
+
+11
+00:00:38.840 --> 00:00:42.240
+that also includes how to parameter tries the main set up
+
+12
+00:00:42.240 --> 00:00:45.260
+in a note group to reuse it for other shakers.
+
+13
+00:00:45.740 --> 00:00:49.740
+The main idea behind parameter rising a shading setup is to be
+
+14
+00:00:49.740 --> 00:00:51.740
+able to control its properties with
+
+15
+00:00:51.740 --> 00:00:55.170
+a simplified and structured subset of parameters
+
+16
+00:00:55.370 --> 00:00:58.190
+instead of having to access the set up directly.
+
+17
+00:00:58.210 --> 00:01:02.570
+In certain cases this is as simple as exposing a parameter that is
+
+18
+00:01:02.580 --> 00:01:07.760
+already available in the notary to be accessed specifically as an input parameter.
+
+19
+00:01:08.140 --> 00:01:09.660
+In other cases however,
+
+20
+00:01:09.670 --> 00:01:12.460
+changing a single value on its own can
+
+21
+00:01:12.460 --> 00:01:16.060
+break the functionality of the setup and multiple values
+
+22
+00:01:16.060 --> 00:01:17.870
+in the no tree has to be driven
+
+23
+00:01:17.870 --> 00:01:22.060
+with the same parameter to retain a consistent functionality
+
+24
+00:01:22.440 --> 00:01:26.850
+and that is where parameters, Chatur really shows its advantages.
+
+25
+00:01:27.240 --> 00:01:31.060
+The result can easily be influenced without having to access
+
+26
+00:01:31.060 --> 00:01:33.750
+or even know how to use the whole notes set up
+
+27
+00:01:34.440 --> 00:01:39.630
+Parramatta. Ization not only makes a shader, much more flexible and customizable.
+
+28
+00:01:39.640 --> 00:01:44.660
+It also breaks its main functionality down into easily understandable terms.
+
+29
+00:01:45.040 --> 00:01:48.390
+This is crucial in a team with multiple people or even when
+
+30
+00:01:48.390 --> 00:01:50.950
+you're working on a complex notes set up on your own.
+
+31
+00:01:51.440 --> 00:01:54.140
+So while you are working on a note set up,
+
+32
+00:01:54.150 --> 00:01:57.230
+it is very useful to keep essential control of
+
+33
+00:01:57.240 --> 00:02:00.610
+the features that you implement accessible as parameters,
+
+34
+00:02:00.620 --> 00:02:04.220
+not every single value that you can choose in the setup
+
+35
+00:02:04.230 --> 00:02:07.550
+is worth being elevated to the position of a parameter though
+
+36
+00:02:07.940 --> 00:02:11.260
+for example, when your notes set up is using a noise texture,
+
+37
+00:02:11.640 --> 00:02:15.580
+not necessarily everyone of the inputs of this noise texture that
+
+38
+00:02:15.580 --> 00:02:18.960
+you can freely choose should be promoted to an input node.
+
+39
+00:02:19.340 --> 00:02:23.150
+You should focus on what the main functionality of the noises about
+
+40
+00:02:23.160 --> 00:02:27.460
+and make a selection what input would be useful to change later on
+
+41
+00:02:27.840 --> 00:02:31.050
+the others can be chosen as fixed default values.
+
+42
+00:02:31.440 --> 00:02:34.460
+So try to already, while you're working,
+
+43
+00:02:34.470 --> 00:02:38.460
+think about what values you might want to be able to dynamically change in the
+
+44
+00:02:38.460 --> 00:02:42.960
+future and assign them with a parameter by giving them an input value node.
+
+45
+00:02:43.340 --> 00:02:45.780
+How many different parameters a shader should
+
+46
+00:02:45.780 --> 00:02:48.760
+have is definitely a matter of preference
+
+47
+00:02:49.140 --> 00:02:53.580
+but I personally like to keep the number of dedicated parameters to control
+
+48
+00:02:53.580 --> 00:02:55.830
+the network down to a minimum while
+
+49
+00:02:55.830 --> 00:02:58.650
+still keeping the essential functionality accessible.
+
+50
+00:02:58.660 --> 00:03:01.630
+Having a set of parameters controlling the note tree that
+
+51
+00:03:01.630 --> 00:03:05.530
+is predefined to make it flexible and easy to control,
+
+52
+00:03:05.540 --> 00:03:08.500
+adds a lot of value to the shader and it is not
+
+53
+00:03:08.500 --> 00:03:12.350
+as trivial as it may seem in cases of more complex setups.
+
+54
+00:03:13.440 --> 00:03:17.570
+A crucial point about intuitive parameters is to calibrate their
+
+55
+00:03:17.570 --> 00:03:20.820
+behavior to something that makes sense for the use case
+
+56
+00:03:20.940 --> 00:03:25.560
+a lot of the time it makes sense. Do not just use a parameter as it is
+
+57
+00:03:25.700 --> 00:03:30.260
+without altering it, but calibrating its behavior to be more intuitive.
+
+58
+00:03:30.540 --> 00:03:33.480
+That behavior is mostly based on the range
+
+59
+00:03:33.480 --> 00:03:35.960
+and interpolation of how the value is used.
+
+60
+00:03:36.040 --> 00:03:41.560
+So usually just shifting and scaling the values range with math nose or a map range.
+
+61
+00:03:41.560 --> 00:03:41.950
+Note
+
+62
+00:03:42.340 --> 00:03:46.490
+is the easiest way to adapt its behavior but depending on
+
+63
+00:03:46.490 --> 00:03:50.350
+the functionality you are intending to drive with the parameter,
+
+64
+00:03:50.360 --> 00:03:53.760
+it might be needed to completely change the way it behaves.
+
+65
+00:03:54.240 --> 00:03:59.460
+That starts with simply inverting a parameter by subtracting it from one
+
+66
+00:03:59.940 --> 00:04:04.520
+Essentially swapping what means 100% and 0%.
+
+67
+00:04:04.530 --> 00:04:09.280
+Or for example dividing one by the parameter that can be used
+
+68
+00:04:09.280 --> 00:04:13.360
+for example to instead of defining the size of vector cells,
+
+69
+00:04:13.370 --> 00:04:17.160
+defining the number of cells that fit in one direction.
+
+70
+00:04:17.440 --> 00:04:21.380
+In this example it is also a good option to use the round
+
+71
+00:04:21.380 --> 00:04:26.350
+operation to only allow discrete values of whole numbers for the parameter input.
+
+72
+00:04:26.740 --> 00:04:30.580
+That makes the parameter easier to handle and communicates
+
+73
+00:04:30.580 --> 00:04:32.950
+more clearly how it is supposed to be used.
+
+74
+00:04:33.540 --> 00:04:36.570
+You can even make modest create requirements to the values
+
+75
+00:04:36.800 --> 00:04:39.590
+for example only allowing multiples of two
+
+76
+00:04:39.600 --> 00:04:42.510
+by dividing by two before the rounding operation
+
+77
+00:04:42.700 --> 00:04:44.960
+and multiplying by two afterwards
+
+78
+00:04:45.740 --> 00:04:49.430
+instead of two, that could of course be any other value as well.
+
+79
+00:04:49.440 --> 00:04:53.580
+Which you can define with another value input note for example.
+
+80
+00:04:53.590 --> 00:04:57.210
+And in that way you can use all different math operations
+
+81
+00:04:57.210 --> 00:05:01.160
+to get all sorts of specific behavior for an input parameter.
+
+82
+00:05:01.540 --> 00:05:05.490
+Another useful operation, for example is the exponential function.
+
+83
+00:05:05.500 --> 00:05:06.660
+With this operation.
+
+84
+00:05:06.660 --> 00:05:08.690
+I want to dive just a little bit into
+
+85
+00:05:08.690 --> 00:05:12.290
+the mathematics behind it when I plugged the parameter X
+
+86
+00:05:12.300 --> 00:05:16.690
+into the exponents input of the power operation that gives
+
+87
+00:05:16.690 --> 00:05:21.160
+the result and exponential behavior and that looks like this
+
+88
+00:05:21.540 --> 00:05:26.030
+depending on the base value of the note that I just set it to hear
+
+89
+00:05:26.040 --> 00:05:31.950
+that resulting value is doubled for every step of one of the input parameter.
+
+90
+00:05:32.440 --> 00:05:34.800
+That means the higher the value gets,
+
+91
+00:05:34.810 --> 00:05:40.770
+the faster it rises because here it is always doubled after just one more step.
+
+92
+00:05:40.780 --> 00:05:46.380
+And that can nicely be used to generate high precision for the controls for example,
+
+93
+00:05:46.380 --> 00:05:48.780
+to control the scale of a texture.
+
+94
+00:05:48.790 --> 00:05:51.060
+Using an exponential conversion,
+
+95
+00:05:51.340 --> 00:05:54.660
+negative values don't result in a negative scale
+
+96
+00:05:54.840 --> 00:05:58.260
+but just a factory that gets smaller and smaller.
+
+97
+00:05:58.270 --> 00:06:00.920
+The deeper I go into the negative values.
+
+98
+00:06:00.930 --> 00:06:04.950
+And in the other direction for high positive values.
+
+99
+00:06:05.080 --> 00:06:07.800
+The fact arises increasingly quickly.
+
+100
+00:06:07.810 --> 00:06:10.950
+For some applications like here, for example,
+
+101
+00:06:11.140 --> 00:06:17.360
+this behavior is more intuitive as the rate increases, adapts to the actual values
+
+102
+00:06:17.940 --> 00:06:22.460
+while the linear behavior seems to slow down for high factors.
+
+103
+00:06:22.940 --> 00:06:26.420
+By modular early nesting different operation types.
+
+104
+00:06:26.420 --> 00:06:28.290
+To modify the parameter,
+
+105
+00:06:28.360 --> 00:06:30.990
+you can this way create all sorts of
+
+106
+00:06:30.990 --> 00:06:33.780
+different behavior styles for an input parameter.
+
+107
+00:06:34.060 --> 00:06:38.960
+That's just as a simple example, take a look at this parametric bubble wrap shader.
+
+108
+00:06:39.240 --> 00:06:44.160
+This shader has three simple parameters that I specified as value inputs,
+
+109
+00:06:44.340 --> 00:06:49.650
+a division number, a random height factor and a variation parameter.
+
+110
+00:06:50.040 --> 00:06:52.740
+These parameters are not directly used in
+
+111
+00:06:52.740 --> 00:06:55.100
+the note that controls their functionality.
+
+112
+00:06:55.110 --> 00:06:58.530
+They are calibrated to a sensible operation range.
+
+113
+00:06:58.540 --> 00:07:02.200
+The division parameter is rounded to whole numbers to prevent any
+
+114
+00:07:02.200 --> 00:07:05.460
+inputs that result in a non discrete number of bubbles.
+
+115
+00:07:05.640 --> 00:07:08.120
+This parameter is used to control a whole
+
+116
+00:07:08.120 --> 00:07:10.650
+bunch of other operations in the notes system.
+
+117
+00:07:10.840 --> 00:07:11.970
+Most importantly,
+
+118
+00:07:11.980 --> 00:07:15.700
+it controls the way the coordinates are mapped into cells that
+
+119
+00:07:15.700 --> 00:07:20.410
+works with the huge jewel scale and fraction operation for the cellulitis
+
+120
+00:07:20.590 --> 00:07:23.760
+and the snap operation for the sell position.
+
+121
+00:07:24.140 --> 00:07:29.860
+But for the increments here, the parameter has to be inverted by dividing one by it
+
+122
+00:07:30.240 --> 00:07:34.880
+to retrieve the size of the cells instead of the number of cells per unit.
+
+123
+00:07:35.640 --> 00:07:40.190
+The random height parameter has to be inverted between zero and one because
+
+124
+00:07:40.190 --> 00:07:44.460
+it makes more sense to have maximum variation with a value of one
+
+125
+00:07:44.940 --> 00:07:51.180
+and not a variation at all at zero which is the exact opposite of what it was before.
+
+126
+00:07:51.190 --> 00:07:54.150
+The variation parameter has to be calibrated to.
+
+127
+00:07:54.540 --> 00:07:57.450
+But here the effect is gone for an input of one.
+
+128
+00:07:57.510 --> 00:07:59.920
+So to have the parameter make more sense.
+
+129
+00:08:00.250 --> 00:08:05.250
+I am adding a value of one to have no effect when the parameter is actually zero.
+
+130
+00:08:05.640 --> 00:08:10.040
+This is just a small example to show how these parameters come together.
+
+131
+00:08:10.050 --> 00:08:14.300
+Usually you want to define the system of parameters while you're working on the
+
+132
+00:08:14.300 --> 00:08:18.060
+set up and you can see me do that more in the workflow examples.

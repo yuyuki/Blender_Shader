@@ -1,0 +1,1949 @@
+WEBVTT
+
+0
+00:00:00.340 --> 00:00:01.150
+Hey there.
+
+1
+00:00:01.220 --> 00:00:05.950
+This work for example, we're going to take a look at how this what shade works.
+
+2
+00:00:06.640 --> 00:00:10.430
+It's still quite a simple shader but it already includes
+
+3
+00:00:10.440 --> 00:00:13.560
+a bunch of the things from chapters 12 and three.
+
+4
+00:00:13.570 --> 00:00:15.770
+So it's a very nice shader to take a look at
+
+5
+00:00:15.770 --> 00:00:19.150
+here and there's a bunch of unique things about it.
+
+6
+00:00:19.640 --> 00:00:21.950
+The main thing is that
+
+7
+00:00:22.940 --> 00:00:24.460
+I'll just duplicate this
+
+8
+00:00:25.040 --> 00:00:26.150
+one more here.
+
+9
+00:00:26.840 --> 00:00:28.360
+You can see that when I
+
+10
+00:00:29.240 --> 00:00:33.560
+just turn off the scene lights and seen where to go into the material preview.
+
+11
+00:00:34.840 --> 00:00:37.450
+You can see that it's actually following
+
+12
+00:00:38.040 --> 00:00:39.660
+the rings of a tree.
+
+13
+00:00:41.040 --> 00:00:44.160
+And if you change the actual geometry,
+
+14
+00:00:45.840 --> 00:00:46.650
+you can see
+
+15
+00:00:48.640 --> 00:00:52.360
+That the texture itself stays in three d. space.
+
+16
+00:00:54.540 --> 00:00:55.560
+So you can just
+
+17
+00:00:56.540 --> 00:00:58.160
+do any modeling work.
+
+18
+00:01:00.640 --> 00:01:02.260
+The texture is still in place.
+
+19
+00:01:03.040 --> 00:01:05.349
+Okay, so let's go into local view
+
+20
+00:01:07.140 --> 00:01:08.960
+delete this shader in here
+
+21
+00:01:09.340 --> 00:01:11.950
+And create a new one. For a fresh start.
+
+22
+00:01:13.240 --> 00:01:16.260
+We're going to keep this principle BSD are from the side for now.
+
+23
+00:01:17.340 --> 00:01:20.950
+And start by taking a look at what coordinate space we want to use.
+
+24
+00:01:20.960 --> 00:01:23.530
+If you think back to the video about coordinate space,
+
+25
+00:01:23.540 --> 00:01:28.590
+you might already know that what we want to use here is the object coordinate space.
+
+26
+00:01:28.600 --> 00:01:30.960
+I just adding the texture coordinate node
+
+27
+00:01:32.040 --> 00:01:35.040
+and take a look at this so you can see
+
+28
+00:01:35.040 --> 00:01:40.690
+that the texture space sticks to the objects rotation,
+
+29
+00:01:40.700 --> 00:01:41.850
+location and scale.
+
+30
+00:01:43.040 --> 00:01:44.970
+But if I change anything
+
+31
+00:01:45.130 --> 00:01:46.060
+from
+
+32
+00:01:46.440 --> 00:01:47.490
+with an added mode,
+
+33
+00:01:49.840 --> 00:01:53.460
+it's still locked to the objects location,
+
+34
+00:01:54.940 --> 00:01:59.160
+which is exactly what we want for the rings to be fixed.
+
+35
+00:01:59.540 --> 00:02:02.560
+So, let's start out by using these object coordinates
+
+36
+00:02:03.340 --> 00:02:06.850
+to create the basic ring texture
+
+37
+00:02:07.240 --> 00:02:09.360
+which is what the whole shed is based on.
+
+38
+00:02:10.240 --> 00:02:15.310
+And already while I'm working you can see that. I try to keep the layout clean.
+
+39
+00:02:15.320 --> 00:02:19.560
+So this note with a lot of outputs where I only need one.
+
+40
+00:02:19.570 --> 00:02:22.750
+I just collapsed the note by pressing control age
+
+41
+00:02:23.440 --> 00:02:26.650
+so it only shows the object space which is what I need.
+
+42
+00:02:27.340 --> 00:02:30.460
+That makes the whole no gravel little bit less cluttered.
+
+43
+00:02:31.040 --> 00:02:35.660
+Okay first we have to decide what orientation these rings are supposed to have.
+
+44
+00:02:37.040 --> 00:02:41.860
+Let's take a look at this object uh reset the rotation.
+
+45
+00:02:42.640 --> 00:02:45.460
+So it's actually oriented in the
+
+46
+00:02:45.940 --> 00:02:47.160
+world space as well.
+
+47
+00:02:48.240 --> 00:02:50.920
+And you can see that this is the X coordinate
+
+48
+00:02:51.280 --> 00:02:52.760
+and this is the Y. Direction.
+
+49
+00:02:53.240 --> 00:02:59.670
+So what I will be going for is orienting the rings so their axis is along the X. Axis.
+
+50
+00:02:59.680 --> 00:03:03.160
+And then the rings are created in this orientation.
+
+51
+00:03:05.540 --> 00:03:10.410
+And what I do to achieve that is just creating a separate X. Y. Z.
+
+52
+00:03:10.410 --> 00:03:14.450
+Note to split the space into the three components
+
+53
+00:03:15.740 --> 00:03:17.450
+and then I put it back together.
+
+54
+00:03:18.040 --> 00:03:20.490
+But I only use two of these components
+
+55
+00:03:20.710 --> 00:03:21.660
+which means that
+
+56
+00:03:22.040 --> 00:03:26.750
+the third component doesn't play any role anymore. Which is what I want because the
+
+57
+00:03:27.240 --> 00:03:28.260
+X coordinate
+
+58
+00:03:28.940 --> 00:03:31.890
+should not have any impact on the texture because it's
+
+59
+00:03:31.890 --> 00:03:34.460
+going to be the same along the whole axis.
+
+60
+00:03:35.940 --> 00:03:36.780
+So if I just
+
+61
+00:03:37.110 --> 00:03:39.450
+ignore the X. Component take the
+
+62
+00:03:40.240 --> 00:03:42.460
+why and the zet component here
+
+63
+00:03:43.940 --> 00:03:48.160
+which are going to be the new accident Y component of this coordinate here.
+
+64
+00:03:49.940 --> 00:03:50.860
+You can see
+
+65
+00:03:51.240 --> 00:03:55.050
+that I have a nice texture map which is X and Y
+
+66
+00:03:56.640 --> 00:03:59.550
+at the orientation of this profile
+
+67
+00:03:59.940 --> 00:04:01.900
+and it does not change along the whole axis.
+
+68
+00:04:02.740 --> 00:04:04.750
+I'll just create a new frame here.
+
+69
+00:04:06.040 --> 00:04:06.750
+Call in
+
+70
+00:04:08.340 --> 00:04:10.950
+coordinates so we later know what this is.
+
+71
+00:04:13.340 --> 00:04:13.550
+Mhm
+
+72
+00:04:14.140 --> 00:04:16.149
+And then let's start getting those rings.
+
+73
+00:04:17.540 --> 00:04:19.360
+I just create a vector math node
+
+74
+00:04:20.540 --> 00:04:22.060
+and set it to length
+
+75
+00:04:22.640 --> 00:04:24.350
+to get the radius
+
+76
+00:04:24.740 --> 00:04:27.950
+from the X axis. And you can already see how this is going to turn out
+
+77
+00:04:29.640 --> 00:04:31.160
+and think about this is
+
+78
+00:04:31.940 --> 00:04:34.460
+if I did not have these notes here,
+
+79
+00:04:35.340 --> 00:04:36.360
+just mute them.
+
+80
+00:04:37.040 --> 00:04:39.590
+You can see that it looks a whole lot different
+
+81
+00:04:39.600 --> 00:04:41.960
+because now the X component plays a role as well
+
+82
+00:04:42.840 --> 00:04:44.850
+into the length that I have here
+
+83
+00:04:46.440 --> 00:04:49.560
+And so I have like a spherical
+
+84
+00:04:50.240 --> 00:04:51.460
+gradients here
+
+85
+00:04:51.840 --> 00:04:55.260
+but I do not want to sphere, I do want a cylinder
+
+86
+00:04:56.340 --> 00:04:57.680
+and to do to do that.
+
+87
+00:04:57.680 --> 00:05:01.560
+I just have to eliminate the X component which is exactly what I did here.
+
+88
+00:05:02.840 --> 00:05:04.100
+And as you can see,
+
+89
+00:05:04.310 --> 00:05:06.110
+I get this nice cylindrical
+
+90
+00:05:06.340 --> 00:05:07.550
+gradient here
+
+91
+00:05:08.120 --> 00:05:09.230
+and how to turn this
+
+92
+00:05:09.370 --> 00:05:10.650
+gradient into rings.
+
+93
+00:05:11.440 --> 00:05:14.560
+I can just do the old trick with repetition
+
+94
+00:05:15.140 --> 00:05:20.060
+by adding a couple of math nodes where I set the first one to multiply
+
+95
+00:05:21.140 --> 00:05:22.760
+to just increase
+
+96
+00:05:23.840 --> 00:05:25.480
+how quickly this
+
+97
+00:05:25.940 --> 00:05:27.500
+gradient rises.
+
+98
+00:05:30.440 --> 00:05:31.960
+You can adjust that later still
+
+99
+00:05:32.640 --> 00:05:34.160
+and another math known
+
+100
+00:05:35.040 --> 00:05:37.160
+which I said to fraction.
+
+101
+00:05:40.040 --> 00:05:42.650
+And then you can see I already have this repetition
+
+102
+00:05:44.940 --> 00:05:46.460
+and I can just scale it
+
+103
+00:05:47.040 --> 00:05:48.860
+with the multiplication factor.
+
+104
+00:05:53.540 --> 00:05:55.360
+And this is basically going to be
+
+105
+00:05:55.600 --> 00:05:57.650
+the input for the amount of rings
+
+106
+00:05:58.640 --> 00:05:59.700
+that are created.
+
+107
+00:05:59.810 --> 00:06:00.650
+So
+
+108
+00:06:01.940 --> 00:06:06.050
+I just choose something and call this note here
+
+109
+00:06:07.440 --> 00:06:08.060
+brings.
+
+110
+00:06:10.340 --> 00:06:14.060
+It was just just an arbitrary number for the amount of rings that we get.
+
+111
+00:06:15.640 --> 00:06:15.850
+Mm.
+
+112
+00:06:16.840 --> 00:06:17.730
+So right now
+
+113
+00:06:17.870 --> 00:06:20.950
+this is a very sharp gradient which starts over again.
+
+114
+00:06:21.740 --> 00:06:23.360
+That is due to the fraction here.
+
+115
+00:06:24.140 --> 00:06:25.830
+And I want something a little bit smoother.
+
+116
+00:06:25.830 --> 00:06:28.850
+So instead of fraction I choose ping pong.
+
+117
+00:06:31.740 --> 00:06:34.650
+But I want to set this factor to one again.
+
+118
+00:06:35.240 --> 00:06:35.960
+So I get
+
+119
+00:06:36.440 --> 00:06:38.450
+a value of one at the maximum
+
+120
+00:06:39.640 --> 00:06:40.560
+of these rings
+
+121
+00:06:41.840 --> 00:06:43.660
+and this looks a little bit nicer already.
+
+122
+00:06:44.340 --> 00:06:46.860
+Let's frame these also
+
+123
+00:06:47.940 --> 00:06:48.800
+quite rings.
+
+124
+00:06:49.640 --> 00:06:52.760
+And yeah, that's basically already the first step
+
+125
+00:06:53.340 --> 00:06:55.350
+to creating the texture of this
+
+126
+00:06:55.940 --> 00:06:56.560
+shader.
+
+127
+00:06:57.340 --> 00:07:01.060
+And now the next thing I want to do is create some variation in the pattern.
+
+128
+00:07:01.440 --> 00:07:06.250
+Because right now these rings are completely straight And these variations in
+
+129
+00:07:06.250 --> 00:07:11.660
+the texture itself only come through the changes in the geometry.
+
+130
+00:07:14.040 --> 00:07:16.160
+And what I do to get some variation
+
+131
+00:07:16.840 --> 00:07:21.550
+is thumping around with the coordinates that I use for the whole texture.
+
+132
+00:07:21.940 --> 00:07:26.050
+And just to get some nice distortion and the pattern.
+
+133
+00:07:27.440 --> 00:07:29.060
+What I do is adding
+
+134
+00:07:29.540 --> 00:07:30.560
+a noise texture
+
+135
+00:07:33.140 --> 00:07:35.560
+and warping the coronets with this texture
+
+136
+00:07:37.240 --> 00:07:42.760
+and the easiest way to do that is using a color. Mixed note is set to linear light.
+
+137
+00:07:43.840 --> 00:07:46.450
+So if I just have the linear light here,
+
+138
+00:07:48.250 --> 00:07:50.410
+the values don't shift overall.
+
+139
+00:07:50.630 --> 00:07:52.960
+If I were to simply add these values,
+
+140
+00:07:53.440 --> 00:07:56.350
+the overall value to it shift as well as you can see here
+
+141
+00:07:57.740 --> 00:07:59.060
+and something you can see here
+
+142
+00:07:59.640 --> 00:08:02.840
+is that there's noise texture is weirdly stretched.
+
+143
+00:08:02.850 --> 00:08:06.570
+That's because we haven't given it any specific coordinates yet.
+
+144
+00:08:06.580 --> 00:08:09.150
+Right now it's just using the generated coordinates.
+
+145
+00:08:09.940 --> 00:08:13.260
+So instead let me just grab the objects coordinates again.
+
+146
+00:08:14.940 --> 00:08:16.560
+I just copy this. Not over
+
+147
+00:08:17.640 --> 00:08:20.660
+so that we have nice separate strings of notes.
+
+148
+00:08:21.540 --> 00:08:23.250
+And now it's not stretched anymore.
+
+149
+00:08:23.840 --> 00:08:26.260
+I'll just change a little bit of there's a nice texture
+
+150
+00:08:26.840 --> 00:08:28.960
+to be more fitting with the rest of the texture,
+
+151
+00:08:29.640 --> 00:08:32.659
+add a little bit of distortion into this texture as well.
+
+152
+00:08:33.929 --> 00:08:34.720
+And
+
+153
+00:08:36.240 --> 00:08:39.360
+now it's time to take a look at the resulting texture here
+
+154
+00:08:40.940 --> 00:08:43.159
+and this is obviously way too much.
+
+155
+00:08:43.840 --> 00:08:44.560
+So
+
+156
+00:08:45.140 --> 00:08:48.350
+instead of variation, we get a completely new pattern.
+
+157
+00:08:49.540 --> 00:08:53.260
+So what we have to do is dialed the linear light factor way down.
+
+158
+00:08:54.840 --> 00:08:55.760
+And as you can see
+
+159
+00:08:57.040 --> 00:09:01.560
+If we just give it a little bit of a factor of like 0.03.
+
+160
+00:09:03.140 --> 00:09:05.960
+It looks much nicer and it gives it a little bit of variation.
+
+161
+00:09:07.040 --> 00:09:09.860
+Just just the right amount to make the texture look more appealing.
+
+162
+00:09:10.740 --> 00:09:11.060
+Mhm.
+
+163
+00:09:12.040 --> 00:09:13.860
+So let's grab these nodes again,
+
+164
+00:09:15.140 --> 00:09:16.360
+give them a frame
+
+165
+00:09:17.140 --> 00:09:20.560
+and name the frame. So we know what it is. Later on
+
+166
+00:09:22.840 --> 00:09:27.070
+next you want to give these rings some variation but
+
+167
+00:09:27.070 --> 00:09:30.290
+not in the pattern itself but in the values.
+
+168
+00:09:30.300 --> 00:09:32.160
+Because right now all of the
+
+169
+00:09:32.840 --> 00:09:34.660
+lower parts of these grooves
+
+170
+00:09:35.240 --> 00:09:35.960
+are
+
+171
+00:09:36.440 --> 00:09:37.640
+Exactly zero
+
+172
+00:09:38.030 --> 00:09:40.660
+and the highest points are all exactly one.
+
+173
+00:09:42.340 --> 00:09:44.580
+Which later on when we want to use this texture
+
+174
+00:09:44.580 --> 00:09:48.060
+here to create color or bump map or whatever map
+
+175
+00:09:48.740 --> 00:09:50.560
+we want to have some variation.
+
+176
+00:09:51.040 --> 00:09:51.660
+So
+
+177
+00:09:52.140 --> 00:09:55.350
+to do that I just add in another noise texture
+
+178
+00:09:57.140 --> 00:10:01.460
+which is going to be responsible for the value control of this texture.
+
+179
+00:10:02.240 --> 00:10:06.350
+And here as well. I'm going to take the same object coordinates.
+
+180
+00:10:07.730 --> 00:10:09.560
+I just copy over the note. In fact.
+
+181
+00:10:11.140 --> 00:10:13.060
+And now I have to combine this
+
+182
+00:10:13.640 --> 00:10:15.560
+with the ring texture.
+
+183
+00:10:16.340 --> 00:10:20.060
+And I used for this here a map range noon
+
+184
+00:10:20.740 --> 00:10:26.950
+because the effect that I want to create is creating variation in the black lines.
+
+185
+00:10:27.740 --> 00:10:30.950
+So in the darkest points of the grooves
+
+186
+00:10:31.440 --> 00:10:34.560
+I want the variation but at the top I don't want any variation at all.
+
+187
+00:10:35.040 --> 00:10:37.640
+So we have the same maximum everywhere
+
+188
+00:10:37.810 --> 00:10:38.960
+which is exactly one.
+
+189
+00:10:39.940 --> 00:10:42.060
+But then variation in the lower part
+
+190
+00:10:42.640 --> 00:10:43.960
+and what I do for that
+
+191
+00:10:44.840 --> 00:10:52.060
+it's just grabbing the ring texture and the noise texture I put into the two men input
+
+192
+00:10:52.640 --> 00:10:55.440
+which is responsible for the values
+
+193
+00:10:55.790 --> 00:10:58.160
+that the lowest part of the map is mapped to.
+
+194
+00:10:59.540 --> 00:11:00.760
+And as you can see
+
+195
+00:11:01.440 --> 00:11:03.660
+it gives us exactly what I described earlier.
+
+196
+00:11:04.040 --> 00:11:05.400
+The highest points
+
+197
+00:11:06.040 --> 00:11:07.450
+are not influenced by this
+
+198
+00:11:08.040 --> 00:11:08.660
+mapping,
+
+199
+00:11:09.940 --> 00:11:14.650
+but the darkest points are all mapped to this noise texture here.
+
+200
+00:11:18.040 --> 00:11:22.060
+But I do want to have some more control over how this variation is supposed to look.
+
+201
+00:11:23.040 --> 00:11:25.160
+So I want to create some
+
+202
+00:11:26.040 --> 00:11:29.460
+more control over this noise texture with a color ramp.
+
+203
+00:11:32.540 --> 00:11:36.650
+I just said it to beast. Plan to get a little bit more of a smooth result
+
+204
+00:11:39.040 --> 00:11:41.950
+and then play around with the distribution of these stops
+
+205
+00:11:43.140 --> 00:11:44.460
+to see
+
+206
+00:11:45.140 --> 00:11:46.550
+when I get a pattern that I like.
+
+207
+00:11:47.240 --> 00:11:48.460
+Which is probably around here.
+
+208
+00:11:49.740 --> 00:11:51.360
+And now we have some nice variation
+
+209
+00:11:51.740 --> 00:11:53.960
+where some of these groups just fade out
+
+210
+00:11:55.040 --> 00:11:55.760
+again,
+
+211
+00:11:57.140 --> 00:11:58.270
+creating a frame,
+
+212
+00:11:58.540 --> 00:11:59.360
+naming it
+
+213
+00:12:00.040 --> 00:12:00.960
+radiation.
+
+214
+00:12:02.340 --> 00:12:03.360
+And moving on
+
+215
+00:12:03.940 --> 00:12:07.060
+now we have the main base texture. Pretty much finished.
+
+216
+00:12:08.140 --> 00:12:11.650
+And we can go ahead and create a color map out of this.
+
+217
+00:12:13.740 --> 00:12:15.660
+So I just pick a color ramp.
+
+218
+00:12:16.440 --> 00:12:17.660
+Use the sector
+
+219
+00:12:19.440 --> 00:12:21.150
+and create some colors.
+
+220
+00:12:21.540 --> 00:12:23.590
+I'll just go for something like this. But again.
+
+221
+00:12:23.840 --> 00:12:26.250
+And she's be supplying here to have a smoother result.
+
+222
+00:12:26.940 --> 00:12:28.760
+And let's just take a look at this.
+
+223
+00:12:29.240 --> 00:12:31.850
+Okay, This is maybe a little bit too much contrast
+
+224
+00:12:34.340 --> 00:12:36.260
+and a little bit too much separation.
+
+225
+00:12:38.240 --> 00:12:39.460
+And this looks a bit better.
+
+226
+00:12:40.940 --> 00:12:44.060
+Good. We're going to get come back to the color later on.
+
+227
+00:12:44.640 --> 00:12:46.650
+But I want to already give it a frame
+
+228
+00:12:48.140 --> 00:12:49.060
+and then what colour
+
+229
+00:12:50.040 --> 00:12:50.760
+next?
+
+230
+00:12:51.140 --> 00:12:54.730
+Let's take a look at the normal map. I just take the same texture here.
+
+231
+00:12:54.730 --> 00:12:57.160
+Plugging into the height of a bump node
+
+232
+00:12:58.140 --> 00:12:59.460
+and choose this normal.
+
+233
+00:13:01.440 --> 00:13:05.660
+Let's connect these and first time take a look at the actual shader
+
+234
+00:13:06.240 --> 00:13:08.000
+and yeah, this looks pretty awful.
+
+235
+00:13:08.010 --> 00:13:12.660
+But the main reason is that this bump note is way too cranked up
+
+236
+00:13:13.340 --> 00:13:17.750
+So let's go away lower to 0.01.
+
+237
+00:13:19.140 --> 00:13:20.250
+And this looks better.
+
+238
+00:13:20.740 --> 00:13:23.650
+But the profile of these grooves is way off.
+
+239
+00:13:24.540 --> 00:13:26.660
+It's just linear in both directions.
+
+240
+00:13:27.840 --> 00:13:32.190
+So to get more of a smooth curve on the top,
+
+241
+00:13:32.200 --> 00:13:36.380
+we can simply use RgB curves to control the profile of the height.
+
+242
+00:13:36.390 --> 00:13:37.460
+So right now
+
+243
+00:13:37.940 --> 00:13:42.860
+the profile is exactly this linear and then it goes down again
+
+244
+00:13:43.640 --> 00:13:46.550
+but we can control both sides at the same time
+
+245
+00:13:47.640 --> 00:13:49.160
+by just using this curve.
+
+246
+00:13:49.840 --> 00:13:56.650
+And what I try to do now is just get the slope of this curve about zero at the top.
+
+247
+00:13:58.440 --> 00:14:00.450
+So we have a smooth curve here.
+
+248
+00:14:02.540 --> 00:14:04.960
+And now the fact that the value
+
+249
+00:14:05.440 --> 00:14:09.160
+Off the top of this group is is still always one
+
+250
+00:14:10.140 --> 00:14:12.850
+really plays into our hands because now we know that
+
+251
+00:14:12.860 --> 00:14:15.560
+the value is always going to be mapped here.
+
+252
+00:14:16.140 --> 00:14:18.450
+If it were to change along the texture
+
+253
+00:14:19.140 --> 00:14:23.250
+that it might come out like here or somewhere else on this curve
+
+254
+00:14:23.840 --> 00:14:25.360
+and the slope would not be
+
+255
+00:14:25.940 --> 00:14:26.860
+zero anymore.
+
+256
+00:14:28.420 --> 00:14:29.960
+Then the smoothness would break
+
+257
+00:14:31.040 --> 00:14:32.170
+and it wouldn't work anymore.
+
+258
+00:14:32.210 --> 00:14:36.350
+So it's nice to still have the maximum at one at all times.
+
+259
+00:14:37.340 --> 00:14:40.960
+That's again give this a frame, call it normals
+
+260
+00:14:41.840 --> 00:14:45.950
+and move on to the next PBR map which is the roughness
+
+261
+00:14:46.540 --> 00:14:47.830
+for the roughness I'm
+
+262
+00:14:47.990 --> 00:14:50.860
+for now just going to use the same base texture
+
+263
+00:14:51.940 --> 00:14:52.150
+mm
+
+264
+00:14:52.540 --> 00:14:54.460
+and add in a color ramp.
+
+265
+00:14:58.740 --> 00:15:00.060
+Let's just plug it in here
+
+266
+00:15:00.640 --> 00:15:02.460
+and play around with the values.
+
+267
+00:15:06.440 --> 00:15:09.650
+What I want to do is flip this around
+
+268
+00:15:12.840 --> 00:15:14.550
+so we have more
+
+269
+00:15:15.540 --> 00:15:17.160
+glossy nous at the top
+
+270
+00:15:19.140 --> 00:15:21.560
+but this is obviously way too much.
+
+271
+00:15:22.640 --> 00:15:24.760
+So let's style that a little bit
+
+272
+00:15:25.240 --> 00:15:26.050
+higher.
+
+273
+00:15:26.640 --> 00:15:28.350
+Get some more roughness in here.
+
+274
+00:15:32.340 --> 00:15:35.660
+You can obviously still do adjustments when you're creating the shade of yourself.
+
+275
+00:15:37.940 --> 00:15:40.840
+So this is the basis of the whole shader finished.
+
+276
+00:15:40.850 --> 00:15:43.760
+Now I want to do some more variations and tricks.
+
+277
+00:15:44.840 --> 00:15:49.060
+The first thing for that I want to do is create a gradient
+
+278
+00:15:49.840 --> 00:15:52.960
+along this beam of wood
+
+279
+00:15:53.940 --> 00:15:56.360
+going from the center outwards
+
+280
+00:15:56.740 --> 00:15:59.760
+to create some variation in the color.
+
+281
+00:16:02.740 --> 00:16:05.350
+And to do that. I start out with
+
+282
+00:16:05.740 --> 00:16:07.450
+the texture coordinates
+
+283
+00:16:09.240 --> 00:16:12.960
+which I'm going to use the generated ones for now
+
+284
+00:16:14.440 --> 00:16:17.260
+because I want this shaded to be dynamic
+
+285
+00:16:17.640 --> 00:16:20.850
+and adjust to the object itself. So when I
+
+286
+00:16:21.540 --> 00:16:23.360
+changed the geometry
+
+287
+00:16:23.840 --> 00:16:24.660
+of this
+
+288
+00:16:25.540 --> 00:16:27.760
+piece of wood to more of a
+
+289
+00:16:28.840 --> 00:16:31.060
+more the shape of a beam for example,
+
+290
+00:16:32.140 --> 00:16:33.660
+I wanted still to be
+
+291
+00:16:34.140 --> 00:16:37.260
+working the same way with the gradient
+
+292
+00:16:38.140 --> 00:16:40.580
+and the generated corners,
+
+293
+00:16:40.580 --> 00:16:45.270
+give me exactly that they always adjust to the bounding box of the object.
+
+294
+00:16:45.840 --> 00:16:48.770
+They go from 0 to 1 on each axis.
+
+295
+00:16:50.740 --> 00:16:52.150
+So it's collapsed this again
+
+296
+00:16:53.940 --> 00:16:56.660
+and then create the gradient from this.
+
+297
+00:16:57.940 --> 00:16:59.850
+I just separate the components
+
+298
+00:17:00.840 --> 00:17:04.190
+and as you can see, I already got the right one.
+
+299
+00:17:04.200 --> 00:17:08.460
+I want to use the X component to create my gradient along this direction.
+
+300
+00:17:11.040 --> 00:17:12.560
+And where do to just
+
+301
+00:17:13.040 --> 00:17:15.170
+center and mirror of this gradient
+
+302
+00:17:15.640 --> 00:17:17.859
+is using a couple of math nodes.
+
+303
+00:17:18.440 --> 00:17:22.760
+First subtracting 0.5 to center the gradient
+
+304
+00:17:23.740 --> 00:17:24.460
+around zero.
+
+305
+00:17:25.240 --> 00:17:27.760
+Then I use the absolute
+
+306
+00:17:28.840 --> 00:17:29.950
+operation
+
+307
+00:17:30.440 --> 00:17:32.560
+To mirror the gradient around zero
+
+308
+00:17:33.740 --> 00:17:35.170
+than a multiplication
+
+309
+00:17:37.140 --> 00:17:38.060
+by two
+
+310
+00:17:40.040 --> 00:17:44.170
+To make sure that the edges are at the value of one again.
+
+311
+00:17:47.140 --> 00:17:47.870
+And
+
+312
+00:17:48.020 --> 00:17:50.950
+that is mostly now I can just add a color ramp,
+
+313
+00:17:51.340 --> 00:17:52.060
+two
+
+314
+00:17:53.040 --> 00:17:56.460
+adjust the exact profile of this gradient.
+
+315
+00:17:57.020 --> 00:17:59.360
+There's a nice string of operations
+
+316
+00:17:59.740 --> 00:18:00.550
+to create
+
+317
+00:18:00.940 --> 00:18:04.660
+centered and mirrored gradients from a coronary vector
+
+318
+00:18:05.240 --> 00:18:07.060
+that's just frame and name this again.
+
+319
+00:18:10.140 --> 00:18:12.560
+And let's now use it on the column map.
+
+320
+00:18:13.740 --> 00:18:14.670
+I just add a name
+
+321
+00:18:14.900 --> 00:18:15.660
+to be known.
+
+322
+00:18:18.440 --> 00:18:20.890
+Let's take a look at the result here and
+
+323
+00:18:21.540 --> 00:18:23.850
+and for the blending mode. I choose overlay.
+
+324
+00:18:25.440 --> 00:18:28.170
+Just to give some simple color variation
+
+325
+00:18:30.040 --> 00:18:31.270
+and now you can just
+
+326
+00:18:31.640 --> 00:18:33.560
+adjust however you want the
+
+327
+00:18:34.240 --> 00:18:35.260
+factor here.
+
+328
+00:18:35.840 --> 00:18:37.060
+So we have some
+
+329
+00:18:37.540 --> 00:18:41.350
+brighter areas outwards and a darker center
+
+330
+00:18:43.340 --> 00:18:45.170
+Just set this to 0.4
+
+331
+00:18:48.840 --> 00:18:51.270
+and this gives just some nice variation too.
+
+332
+00:18:51.940 --> 00:18:54.550
+Change the look of the whole shader a little bit.
+
+333
+00:18:55.140 --> 00:18:58.560
+Another thing to change the look of the colors
+
+334
+00:18:59.140 --> 00:19:02.770
+but I want to do is give the edges some emphasis
+
+335
+00:19:03.540 --> 00:19:04.810
+on this scene is
+
+336
+00:19:04.910 --> 00:19:09.660
+set up for cycles in general. So what I'm going to use is the point in this
+
+337
+00:19:11.740 --> 00:19:13.280
+from the geometry known,
+
+338
+00:19:13.420 --> 00:19:16.770
+which is only available in cycles at the moment.
+
+339
+00:19:19.940 --> 00:19:20.460
+I just
+
+340
+00:19:21.240 --> 00:19:23.670
+selected and hide the rest.
+
+341
+00:19:25.040 --> 00:19:27.560
+No, you can't see anything because we're in E V.
+
+342
+00:19:28.500 --> 00:19:31.050
+The amount. So let's just swap this to rendered
+
+343
+00:19:32.340 --> 00:19:34.860
+which is set up for the cycles engine right now
+
+344
+00:19:36.640 --> 00:19:40.960
+and you still can't see a lot. And the reason for that is the point in itself.
+
+345
+00:19:42.140 --> 00:19:46.460
+It's quite low contrast till let's just add in a map range. Note
+
+346
+00:19:47.440 --> 00:19:49.250
+to be able to change
+
+347
+00:19:49.360 --> 00:19:50.460
+the mapping of this.
+
+348
+00:19:50.940 --> 00:19:53.850
+I'm just going to increase the minimum
+
+349
+00:19:56.740 --> 00:19:58.660
+and you can already see what this does.
+
+350
+00:19:59.240 --> 00:20:01.670
+Let's decrease the maximum
+
+351
+00:20:04.640 --> 00:20:06.770
+and this looks about what we need.
+
+352
+00:20:07.140 --> 00:20:08.550
+So it's just grab these
+
+353
+00:20:09.140 --> 00:20:10.960
+another mixer to be known
+
+354
+00:20:11.440 --> 00:20:13.770
+to this string of color operations
+
+355
+00:20:15.440 --> 00:20:16.460
+and then
+
+356
+00:20:17.340 --> 00:20:18.360
+put this on top.
+
+357
+00:20:19.340 --> 00:20:23.170
+Well this I don't want to use overlay because they don't want to darken
+
+358
+00:20:23.540 --> 00:20:27.200
+the faces in any way because of the point of this.
+
+359
+00:20:27.210 --> 00:20:30.670
+I only want to add some lighting on the edges.
+
+360
+00:20:32.240 --> 00:20:34.670
+So what I'm going to use here is just the color dodge.
+
+361
+00:20:35.940 --> 00:20:39.270
+As you can see. This gives some quite subtle
+
+362
+00:20:39.740 --> 00:20:41.770
+emphasis on the edges here,
+
+363
+00:20:43.040 --> 00:20:45.670
+which is only going to be visible in cycles rendered view.
+
+364
+00:20:46.440 --> 00:20:47.760
+But with that set up,
+
+365
+00:20:47.760 --> 00:20:51.050
+let's go back into the material preview because there are
+
+366
+00:20:51.050 --> 00:20:52.670
+still a couple of things that I want to do
+
+367
+00:20:54.440 --> 00:20:55.010
+first.
+
+368
+00:20:55.210 --> 00:20:55.800
+Again,
+
+369
+00:20:57.040 --> 00:20:58.270
+I just framed this
+
+370
+00:20:58.740 --> 00:21:01.460
+and the next thing I want to do is
+
+371
+00:21:02.140 --> 00:21:04.060
+at a gradient of dirt
+
+372
+00:21:04.540 --> 00:21:08.240
+that is dynamic and depending on the height,
+
+373
+00:21:08.260 --> 00:21:11.260
+so there is a gradient of dirt from the ground up
+
+374
+00:21:11.740 --> 00:21:14.950
+and what I do for that is just using a
+
+375
+00:21:15.840 --> 00:21:16.860
+simple,
+
+376
+00:21:17.240 --> 00:21:18.670
+diffuse shader
+
+377
+00:21:20.940 --> 00:21:22.560
+and mixing it together
+
+378
+00:21:24.240 --> 00:21:25.670
+with the wood shed. Er
+
+379
+00:21:26.340 --> 00:21:26.960
+I just
+
+380
+00:21:27.740 --> 00:21:30.260
+turn this into a dirty color
+
+381
+00:21:31.540 --> 00:21:35.680
+and for now I put the factor to zero because I don't want an overall dirt,
+
+382
+00:21:35.690 --> 00:21:38.170
+I just want the map from the ground up
+
+383
+00:21:38.540 --> 00:21:43.850
+and to get that. I use again some texture coordinates first
+
+384
+00:21:44.440 --> 00:21:47.170
+but this time I'm not going to use any of these
+
+385
+00:21:47.640 --> 00:21:51.830
+on the texture coordinate note because I want the gradient to be
+
+386
+00:21:51.840 --> 00:21:55.970
+because I want the gradient to be fixed in the world coordinates.
+
+387
+00:21:55.980 --> 00:21:56.960
+So instead,
+
+388
+00:21:57.440 --> 00:22:00.050
+what I use is the geometry note again
+
+389
+00:22:00.640 --> 00:22:03.550
+and the position coordinates here,
+
+390
+00:22:04.540 --> 00:22:05.950
+let's collapse this note again
+
+391
+00:22:07.540 --> 00:22:09.850
+and separate these components
+
+392
+00:22:10.740 --> 00:22:15.660
+To choose the correct one. So I want the grading to go upwards from the ground
+
+393
+00:22:16.340 --> 00:22:21.260
+and to get that, I choose the zet component and now you can see
+
+394
+00:22:21.740 --> 00:22:26.270
+that from the height zero on where the three cursor is placed right now
+
+395
+00:22:26.840 --> 00:22:28.850
+the gradient goes upwards.
+
+396
+00:22:29.640 --> 00:22:31.050
+So if I just place
+
+397
+00:22:31.740 --> 00:22:32.960
+this beam
+
+398
+00:22:33.640 --> 00:22:34.720
+on the ground,
+
+399
+00:22:34.970 --> 00:22:37.560
+let's just add in a plane. So we see what we do.
+
+400
+00:22:38.540 --> 00:22:40.670
+You can see that as the gradient going up
+
+401
+00:22:41.340 --> 00:22:42.060
+and
+
+402
+00:22:42.740 --> 00:22:45.560
+wherever I position this beam
+
+403
+00:22:46.740 --> 00:22:48.960
+by sinking into the ground or pull it upwards.
+
+404
+00:22:49.810 --> 00:22:52.170
+The position of the gradient stays the same
+
+405
+00:22:52.540 --> 00:22:56.130
+and that's going to be crucial to have this effect depending on the ground level
+
+406
+00:22:56.270 --> 00:22:57.460
+to adjust
+
+407
+00:22:58.140 --> 00:22:59.980
+the gradient. I just choose another
+
+408
+00:23:00.160 --> 00:23:01.170
+my brains known
+
+409
+00:23:02.340 --> 00:23:02.960
+and
+
+410
+00:23:03.440 --> 00:23:06.260
+if the ground was a little bit lower now
+
+411
+00:23:08.540 --> 00:23:12.110
+I could just simply adjust this year in the map range. Note
+
+412
+00:23:12.640 --> 00:23:14.670
+by choosing the from men
+
+413
+00:23:15.540 --> 00:23:18.060
+as this new position of the ground
+
+414
+00:23:18.740 --> 00:23:24.670
+and then you can select the height of this gradient by just choosing the from max.
+
+415
+00:23:25.040 --> 00:23:28.360
+Another thing that we can already adjust here is I don't
+
+416
+00:23:28.360 --> 00:23:33.670
+want the dirt texture to be 100% opaque on top of the
+
+417
+00:23:34.140 --> 00:23:35.060
+wood texture
+
+418
+00:23:35.440 --> 00:23:37.770
+so you can just set the maximum
+
+419
+00:23:38.240 --> 00:23:39.350
+of its capacity
+
+420
+00:23:40.040 --> 00:23:41.780
+By changing the two max
+
+421
+00:23:42.340 --> 00:23:42.960
+value.
+
+422
+00:23:43.540 --> 00:23:45.850
+So I just select 0.8.
+
+423
+00:23:46.540 --> 00:23:47.950
+If I just plug this in here
+
+424
+00:23:48.540 --> 00:23:50.850
+you can see there's probably the opposite way around.
+
+425
+00:23:51.340 --> 00:23:55.900
+It is but that doesn't matter. We can just change these values around here.
+
+426
+00:23:55.900 --> 00:23:57.760
+Select .8 for the minimum
+
+427
+00:23:58.740 --> 00:24:00.060
+and zero for the maximum
+
+428
+00:24:00.940 --> 00:24:01.770
+and there we go.
+
+429
+00:24:03.240 --> 00:24:08.270
+Now there's a subtle gradient from the bottom up which is just
+
+430
+00:24:08.940 --> 00:24:10.560
+to the height of the object itself
+
+431
+00:24:12.140 --> 00:24:16.670
+and that's the shader. Almost done. There's one last thing I want to do
+
+432
+00:24:17.540 --> 00:24:18.460
+after
+
+433
+00:24:18.940 --> 00:24:20.350
+framing these
+
+434
+00:24:21.140 --> 00:24:22.550
+and that last thing
+
+435
+00:24:23.040 --> 00:24:26.530
+comes into play when I have multiple objects because I just
+
+436
+00:24:26.710 --> 00:24:28.350
+duplicate this beam. You can see
+
+437
+00:24:29.040 --> 00:24:31.460
+it has the exact same pattern
+
+438
+00:24:31.840 --> 00:24:36.000
+and there's really no reason to have the same texture because it's all procedural.
+
+439
+00:24:36.010 --> 00:24:36.850
+So
+
+440
+00:24:37.440 --> 00:24:40.860
+there's no problem with having the same image texture all the time.
+
+441
+00:24:41.530 --> 00:24:42.960
+And to change this
+
+442
+00:24:43.740 --> 00:24:45.450
+we can simply use the
+
+443
+00:24:45.840 --> 00:24:47.270
+object in florida
+
+444
+00:24:49.240 --> 00:24:53.560
+which has the capability of giving us a random value per object.
+
+445
+00:24:54.240 --> 00:24:57.360
+And we can use that to change around this pattern.
+
+446
+00:24:57.840 --> 00:25:03.270
+The easiest thing to do this now is to change the noise texture.
+
+447
+00:25:03.740 --> 00:25:03.940
+Yeah
+
+448
+00:25:04.540 --> 00:25:05.770
+into 40.
+
+449
+00:25:06.140 --> 00:25:08.560
+It gives us an additional dimension
+
+450
+00:25:09.440 --> 00:25:11.360
+that influences this pattern.
+
+451
+00:25:11.740 --> 00:25:12.760
+And if I just
+
+452
+00:25:13.140 --> 00:25:16.170
+plug in the random value to the w input of this
+
+453
+00:25:16.540 --> 00:25:18.670
+for a dimensional noise texture. Now
+
+454
+00:25:19.840 --> 00:25:20.680
+you can see
+
+455
+00:25:20.950 --> 00:25:22.770
+that the random value influences
+
+456
+00:25:23.740 --> 00:25:24.960
+the pattern as well.
+
+457
+00:25:25.440 --> 00:25:27.690
+But right now they're all very similar.
+
+458
+00:25:27.690 --> 00:25:30.660
+Still you can see that some of them are really similar
+
+459
+00:25:31.440 --> 00:25:32.460
+others less.
+
+460
+00:25:33.640 --> 00:25:39.360
+But the reason for that is that this noise texture is still smooth along this axis
+
+461
+00:25:39.930 --> 00:25:42.060
+and the scale is quite low.
+
+462
+00:25:43.040 --> 00:25:43.670
+Then
+
+463
+00:25:44.040 --> 00:25:46.490
+a smaller change in this dimension
+
+464
+00:25:46.600 --> 00:25:48.960
+does not make much of a difference in the pattern.
+
+465
+00:25:49.340 --> 00:25:53.060
+So what I want to do to counter that is adding another math note.
+
+466
+00:25:54.340 --> 00:25:56.170
+And setting it to multiply
+
+467
+00:25:57.440 --> 00:26:00.080
+That way we can change the range of this
+
+468
+00:26:00.080 --> 00:26:03.770
+random value which is itself between zero and 1
+
+469
+00:26:04.740 --> 00:26:06.420
+Do we between zero and
+
+470
+00:26:06.800 --> 00:26:07.950
+100 for example.
+
+471
+00:26:09.040 --> 00:26:09.590
+And
+
+472
+00:26:09.940 --> 00:26:11.350
+then these changes
+
+473
+00:26:12.040 --> 00:26:13.560
+make a lot more of a difference.
+
+474
+00:26:16.740 --> 00:26:20.190
+Now these patterns are still a little bit similar and the reason
+
+475
+00:26:20.190 --> 00:26:23.460
+for that is just that the geometry is the exact same.
+
+476
+00:26:26.940 --> 00:26:29.550
+So if you still want to adjust how it looks,
+
+477
+00:26:29.940 --> 00:26:32.060
+the best way would probably be to just
+
+478
+00:26:32.740 --> 00:26:35.550
+there is change the position of the origin.
+
+479
+00:26:40.040 --> 00:26:43.550
+That way you can directly control the texture space
+
+480
+00:26:46.840 --> 00:26:48.960
+because it's taking the object cornice
+
+481
+00:26:53.740 --> 00:26:56.770
+and this way you get some more subtle variations as well.
+
+482
+00:26:59.840 --> 00:27:03.770
+But yeah at this point this traitor is done and
+
+483
+00:27:04.140 --> 00:27:08.320
+I was interesting. I hope you learned something and it supported the course itself.
+
+484
+00:27:08.330 --> 00:27:11.060
+One last thing for me to do frame these two nodes
+
+485
+00:27:12.040 --> 00:27:12.960
+and call them
+
+486
+00:27:13.740 --> 00:27:14.360
+random.

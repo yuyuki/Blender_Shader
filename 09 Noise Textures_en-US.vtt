@@ -1,0 +1,729 @@
+WEBVTT
+
+0
+00:00:00.040 --> 00:00:03.310
+before we dive into creating everything entirely from scratch.
+
+1
+00:00:03.320 --> 00:00:05.720
+I want to talk about the procedural textures that are
+
+2
+00:00:05.720 --> 00:00:09.160
+included as a shaded note already specifically about noises,
+
+3
+00:00:09.540 --> 00:00:12.940
+textures like checker break gradient or wave are
+
+4
+00:00:12.940 --> 00:00:15.400
+nice to generate a texture quickly and easily.
+
+5
+00:00:15.410 --> 00:00:16.950
+But they are also very limited
+
+6
+00:00:17.340 --> 00:00:20.100
+And in this course I want to focus on the very fundamentals
+
+7
+00:00:20.100 --> 00:00:23.750
+and how you can replace these textures with your own custom months.
+
+8
+00:00:23.760 --> 00:00:27.180
+In your workflow you will see that some of these textures are easily
+
+9
+00:00:27.180 --> 00:00:28.720
+recreated using the methods that I'm
+
+10
+00:00:28.720 --> 00:00:31.340
+showing throughout this course and personally I
+
+11
+00:00:31.340 --> 00:00:34.990
+find it to be more convenient to build my own custom textures with
+
+12
+00:00:35.000 --> 00:00:37.440
+exactly the functionality that I need no
+
+13
+00:00:37.440 --> 00:00:40.060
+unnecessary overhead and no missing features.
+
+14
+00:00:40.340 --> 00:00:44.290
+Procedural textures that I do use all the time though are noise textures.
+
+15
+00:00:44.300 --> 00:00:47.530
+They expose random functionality that is very useful for
+
+16
+00:00:47.530 --> 00:00:49.950
+procedural texture ring and much harder to achieve.
+
+17
+00:00:49.950 --> 00:00:51.740
+Using only the other and shader notes.
+
+18
+00:00:51.770 --> 00:00:55.170
+Noises are the easiest way to introduce some interesting
+
+19
+00:00:55.170 --> 00:00:59.150
+variations and more organic based patterns into procedural shakers.
+
+20
+00:00:59.440 --> 00:01:00.900
+But there could be a whole different
+
+21
+00:01:00.900 --> 00:01:03.180
+course only about the different noise textures,
+
+22
+00:01:03.180 --> 00:01:07.560
+how they work when to use which one and all the different ways to combine them
+
+23
+00:01:07.840 --> 00:01:08.110
+here.
+
+24
+00:01:08.110 --> 00:01:10.910
+I want to outline the basics and show a few examples
+
+25
+00:01:10.910 --> 00:01:13.960
+of how we use different ones in the example scene later on
+
+26
+00:01:14.340 --> 00:01:18.380
+the noise simply titled Noise texture is based on a Perlin Noise.
+
+27
+00:01:18.510 --> 00:01:22.290
+That is a very basic but extremely versatile noise texture to get
+
+28
+00:01:22.300 --> 00:01:26.680
+organic patterns that look random besides the scale of the overall texture,
+
+29
+00:01:26.690 --> 00:01:30.590
+you can control the detail level of the noise to see a bit better what that does.
+
+30
+00:01:30.600 --> 00:01:33.700
+That may just plug in the X coordinate into the vector input.
+
+31
+00:01:33.710 --> 00:01:35.590
+Now we see the profile of the noise along
+
+32
+00:01:35.590 --> 00:01:38.770
+one axis and as I increase the detailed parameter,
+
+33
+00:01:38.780 --> 00:01:41.780
+the size of the peaks and valleys gets smaller but
+
+34
+00:01:41.780 --> 00:01:44.340
+the overall shape stays more or less the same.
+
+35
+00:01:44.390 --> 00:01:47.220
+That is achieved by using another Perlin noise with a
+
+36
+00:01:47.220 --> 00:01:50.470
+different scale for each level of detail called an octave,
+
+37
+00:01:50.480 --> 00:01:53.040
+knowing that it should make sense that this parameter
+
+38
+00:01:53.040 --> 00:01:56.550
+drastically influences the performance of the noise texture note.
+
+39
+00:01:56.640 --> 00:02:01.870
+So try and make it only as high as necessary as you can see here putting it as high
+
+40
+00:02:01.870 --> 00:02:04.900
+as the maximum of 16 has only a marginal
+
+41
+00:02:04.900 --> 00:02:07.560
+difference compared to half of the levels of eight.
+
+42
+00:02:07.570 --> 00:02:10.759
+That is as far on a technical level as I want to go here.
+
+43
+00:02:10.770 --> 00:02:14.550
+But it can be useful to have an idea of how these things work under the hood.
+
+44
+00:02:14.740 --> 00:02:18.410
+Then you have the distortion parameter that warps the texture and gives
+
+45
+00:02:18.410 --> 00:02:21.460
+it a little bit more of an interesting and less a regular look
+
+46
+00:02:22.240 --> 00:02:25.210
+blender has changed a bit since initially making this video.
+
+47
+00:02:25.220 --> 00:02:27.580
+So I quickly want to interject and talk about
+
+48
+00:02:27.580 --> 00:02:29.700
+the roughness parameter that the noise texture has.
+
+49
+00:02:29.700 --> 00:02:30.060
+Now
+
+50
+00:02:30.640 --> 00:02:34.660
+it is a measure of how much influence each level of detail has on the texture.
+
+51
+00:02:35.140 --> 00:02:40.260
+So if I drag the slider all the way down to zero, the detail has no influence at all
+
+52
+00:02:41.240 --> 00:02:43.210
+and if I drag it all the way to one,
+
+53
+00:02:43.220 --> 00:02:46.140
+each level of detail has the same importance
+
+54
+00:02:46.140 --> 00:02:48.560
+and that makes everything look less smooth.
+
+55
+00:02:49.640 --> 00:02:51.960
+This is a very nice functionality to adjust
+
+56
+00:02:51.960 --> 00:02:55.060
+the ratio between high and low frequency detail
+
+57
+00:02:56.640 --> 00:03:00.060
+from the outputs. We have been looking at the simple value map
+
+58
+00:03:00.440 --> 00:03:03.890
+but the note also returns a color that gives you essentially just
+
+59
+00:03:03.900 --> 00:03:07.480
+three different Perlin noise is in the container of a color output.
+
+60
+00:03:07.490 --> 00:03:11.890
+It is interesting to note that the red channel of this color is the same as
+
+61
+00:03:11.890 --> 00:03:16.270
+the value output fact and if you use the color to drive a value input,
+
+62
+00:03:16.280 --> 00:03:20.030
+remember that the luminosity is used for the conversion which creates
+
+63
+00:03:20.030 --> 00:03:22.460
+a different noise and might not be what you want.
+
+64
+00:03:22.840 --> 00:03:25.130
+As you can see in the profile view of the graph,
+
+65
+00:03:25.140 --> 00:03:27.330
+the values that this noise creates range
+
+66
+00:03:27.330 --> 00:03:29.770
+between zero and one and are centered around
+
+67
+00:03:29.780 --> 00:03:35.100
+0.5 most values are around the center and only few are close to 01.
+
+68
+00:03:35.110 --> 00:03:37.290
+So keep that in mind when you're working with the noise.
+
+69
+00:03:37.320 --> 00:03:39.950
+The irregular Perlin noise is the go to
+
+70
+00:03:39.950 --> 00:03:44.390
+noise to generate variations and organic based textures procedurally
+
+71
+00:03:44.400 --> 00:03:48.870
+and it can be used to achieve a very broad spectrum of looks in the example seen.
+
+72
+00:03:48.880 --> 00:03:53.160
+Almost every one of the shakers has this noise texture incorporated in some way
+
+73
+00:03:53.540 --> 00:03:56.040
+either as a base pattern itself or just
+
+74
+00:03:56.040 --> 00:03:59.450
+to support other structures by including a variation.
+
+75
+00:03:59.940 --> 00:04:03.410
+Benoit is another very useful type of noise that looks entirely
+
+76
+00:04:03.410 --> 00:04:06.690
+different from the Perlin noise that we've seen and thus combined.
+
+77
+00:04:06.690 --> 00:04:10.340
+They already offer a very broad range of different looks and applications.
+
+78
+00:04:10.350 --> 00:04:15.210
+The board noise essentially partitions a surface into random selves by using
+
+79
+00:04:15.210 --> 00:04:19.160
+scattered points and grew up in the space by the closest point
+
+80
+00:04:19.339 --> 00:04:21.170
+detection note offers a couple of
+
+81
+00:04:21.170 --> 00:04:23.750
+useful outputs that have different applications.
+
+82
+00:04:23.840 --> 00:04:26.450
+The distance to these cells origin point,
+
+83
+00:04:26.460 --> 00:04:29.890
+a random color output for each cell and the position to
+
+84
+00:04:29.900 --> 00:04:33.310
+each cell's origin point based on the input coordinate map,
+
+85
+00:04:33.320 --> 00:04:35.570
+there are a bunch of useful parameters to choose how
+
+86
+00:04:35.570 --> 00:04:38.130
+these cells are defined and the texture is generated.
+
+87
+00:04:38.140 --> 00:04:40.970
+I'm not going over all different combinations of settings.
+
+88
+00:04:40.980 --> 00:04:43.350
+There is a lot to play around with some settings that
+
+89
+00:04:43.350 --> 00:04:45.880
+I do want to point out though are the smooth,
+
+90
+00:04:45.880 --> 00:04:48.390
+have one option to soften the edges of the
+
+91
+00:04:48.390 --> 00:04:51.350
+cells which makes the texture much more organic.
+
+92
+00:04:51.360 --> 00:04:56.140
+And then the distance to edge option, which sets all the cell walls to zero,
+
+93
+00:04:56.150 --> 00:04:58.250
+enabling you to isolate the edges.
+
+94
+00:04:58.340 --> 00:05:00.010
+Using the randomness slider,
+
+95
+00:05:00.020 --> 00:05:03.400
+you can always dial in how randomly these cells are distributed,
+
+96
+00:05:03.410 --> 00:05:06.560
+leaving you with simple cube or square shaped cells
+
+97
+00:05:06.740 --> 00:05:09.730
+naturally The varnai texture is useful when you
+
+98
+00:05:09.730 --> 00:05:12.120
+want to create some sort of cellular texture
+
+99
+00:05:12.470 --> 00:05:15.650
+like skin and also for structures like cracks.
+
+100
+00:05:16.140 --> 00:05:17.880
+Just as the noise texture node.
+
+101
+00:05:17.890 --> 00:05:21.340
+The Musgrave noise is based on parallel noise but it
+
+102
+00:05:21.340 --> 00:05:25.010
+has a lot more parameters which makes it both highly flexible
+
+103
+00:05:25.020 --> 00:05:28.740
+but also more complex to handle the scale and detail
+
+104
+00:05:28.740 --> 00:05:32.040
+parameter regular the same as for the regular noise texture.
+
+105
+00:05:32.100 --> 00:05:35.660
+The other parameters and different types control the different
+
+106
+00:05:35.660 --> 00:05:38.230
+layers of detail and how they are combined.
+
+107
+00:05:38.300 --> 00:05:40.750
+I will not go into more detail on the settings of this
+
+108
+00:05:40.750 --> 00:05:45.230
+node as there are so many different combinations of parameters and options,
+
+109
+00:05:45.240 --> 00:05:47.040
+creating very different results.
+
+110
+00:05:47.150 --> 00:05:50.430
+If you are interested in the actual specific function of each of
+
+111
+00:05:50.430 --> 00:05:54.060
+these parameters recommend looking them up in the blender manual page.
+
+112
+00:05:54.440 --> 00:05:58.280
+The main use case for the Musgrave texture is usually generating
+
+113
+00:05:58.280 --> 00:06:01.910
+terrain but due to its high flexibility and fractal nature,
+
+114
+00:06:01.920 --> 00:06:04.980
+it can be used to generate a broad variety of noises.
+
+115
+00:06:04.990 --> 00:06:07.960
+For example just a specific high frequency noise.
+
+116
+00:06:08.640 --> 00:06:11.540
+The white noise texture is a noise texture that is
+
+117
+00:06:11.540 --> 00:06:15.000
+more a functional node than it is an actual texture.
+
+118
+00:06:15.010 --> 00:06:16.830
+What I mean by that is that it
+
+119
+00:06:16.830 --> 00:06:20.660
+returns a different random value for every possible input
+
+120
+00:06:21.240 --> 00:06:23.910
+and there is no connection between them whatsoever.
+
+121
+00:06:24.200 --> 00:06:25.990
+That is different to the Perlin noise
+
+122
+00:06:26.140 --> 00:06:31.050
+as the Perlin noise is not totally random but rather still has smooth gradients.
+
+123
+00:06:31.640 --> 00:06:34.320
+So just using it like this with an actual
+
+124
+00:06:34.320 --> 00:06:37.250
+coordinate map as inputs does not really make sense.
+
+125
+00:06:37.940 --> 00:06:42.840
+But the white noise is incredibly useful when you want to have a random value
+
+126
+00:06:42.840 --> 00:06:47.590
+for individual cells of a texture or get a random value for a seed input.
+
+127
+00:06:47.590 --> 00:06:48.350
+For example,
+
+128
+00:06:48.840 --> 00:06:51.500
+the revolutionary texture as you have seen comes
+
+129
+00:06:51.500 --> 00:06:54.050
+with a built in random value per cell.
+
+130
+00:06:54.060 --> 00:06:57.040
+But what we can also do is connect the position
+
+131
+00:06:57.040 --> 00:06:59.670
+output of the veterinary texture to a white noise.
+
+132
+00:06:59.680 --> 00:07:02.370
+That creates individual random values as each
+
+133
+00:07:02.370 --> 00:07:04.050
+side has a different position vector.
+
+134
+00:07:04.140 --> 00:07:06.520
+The random values that the white noise returns
+
+135
+00:07:06.520 --> 00:07:09.450
+are uniformly distributed between zero and 1.
+
+136
+00:07:09.640 --> 00:07:12.980
+So every value in that range is equally probable
+
+137
+00:07:12.990 --> 00:07:16.670
+and the average is 0.5 since blender 2.83.
+
+138
+00:07:16.680 --> 00:07:19.870
+The white noise texture also has a color output which is
+
+139
+00:07:19.870 --> 00:07:23.560
+nice to receive three independent random values at the same time.
+
+140
+00:07:23.940 --> 00:07:28.460
+You can directly use them as a color or split them with a separate rgb note
+
+141
+00:07:30.040 --> 00:07:33.680
+you have probably noticed the option to change the number of dimensions.
+
+142
+00:07:33.690 --> 00:07:35.610
+Each noises generated with.
+
+143
+00:07:35.620 --> 00:07:39.070
+The options range from one dimension to four dimensions.
+
+144
+00:07:39.080 --> 00:07:42.290
+That means that with 40 you can include an
+
+145
+00:07:42.290 --> 00:07:44.810
+additional coordinate parameter on top of the X,
+
+146
+00:07:44.810 --> 00:07:49.750
+Y, Z coordinates that input just pops up as an additional parameter called W
+
+147
+00:07:50.040 --> 00:07:54.710
+The parameter could be anything. What essentially does is for different values.
+
+148
+00:07:54.720 --> 00:07:56.270
+It returns a different noise.
+
+149
+00:07:56.320 --> 00:07:59.710
+But just as the noises smooth along the axes in
+
+150
+00:07:59.710 --> 00:08:02.800
+three D space when you're using the 40 Virgin,
+
+151
+00:08:02.820 --> 00:08:06.040
+the noise changes smoothly along that fourth axis as well.
+
+152
+00:08:06.070 --> 00:08:08.400
+You can use that for example to animate
+
+153
+00:08:08.400 --> 00:08:11.160
+the noise by animating this parameter over time
+
+154
+00:08:11.440 --> 00:08:14.760
+But in general nothing is special about this 4th dimension.
+
+155
+00:08:14.840 --> 00:08:17.550
+It has just the same properties as each one
+
+156
+00:08:17.550 --> 00:08:20.540
+of the three parameters contained in the vector input.
+
+157
+00:08:20.550 --> 00:08:22.520
+That is an important thing to point out here,
+
+158
+00:08:22.530 --> 00:08:27.460
+going into the other direction and decreasing the number of dimensions to to
+
+159
+00:08:27.470 --> 00:08:31.360
+just ignores the zet component of the vector and on the one D.
+
+160
+00:08:31.360 --> 00:08:34.850
+Setting the coordinate input is reduced to only the w.
+
+161
+00:08:35.140 --> 00:08:38.460
+Using only a two dimensional texture version for a surface
+
+162
+00:08:38.640 --> 00:08:39.860
+Can be beneficial.
+
+163
+00:08:39.870 --> 00:08:44.250
+As I pointed out earlier, for example with a voluntary texture in 3D space,
+
+164
+00:08:44.640 --> 00:08:50.180
+it is impossible to achieve evenly thick cell walls as the points used to generate.
+
+165
+00:08:50.180 --> 00:08:55.450
+The texture can be spread above and below the surface and generate these artifacts.
+
+166
+00:08:55.460 --> 00:08:58.300
+So switching it actually to two D.
+
+167
+00:08:58.310 --> 00:09:01.810
+Allows for these nice evenly thick edges because
+
+168
+00:09:01.810 --> 00:09:04.050
+now all points are sitting on the same level
+
+169
+00:09:04.540 --> 00:09:05.150
+of course.
+
+170
+00:09:05.160 --> 00:09:07.830
+That only works with a two dimensional coordinate map
+
+171
+00:09:07.840 --> 00:09:11.650
+like movies or a flat xy plane like this.
+
+172
+00:09:12.340 --> 00:09:14.950
+one last thing in general about procedural noises,
+
+173
+00:09:15.540 --> 00:09:17.850
+although they are giving a random impression
+
+174
+00:09:18.340 --> 00:09:18.920
+on their own.
+
+175
+00:09:18.920 --> 00:09:22.730
+These noises have a very distinct look and they still have to go
+
+176
+00:09:22.730 --> 00:09:26.260
+a long way to look natural to make up a realistic shader.
+
+177
+00:09:26.840 --> 00:09:30.600
+The trick is hiding that a textures procedural and that can be difficult.
+
+178
+00:09:30.610 --> 00:09:33.420
+What I recommend is to combine multiple noises
+
+179
+00:09:33.420 --> 00:09:35.550
+to achieve what you're looking for and I
+
+180
+00:09:35.550 --> 00:09:37.180
+will show a couple of techniques to do
+
+181
+00:09:37.180 --> 00:09:39.560
+that throughout the following chapters of this course.

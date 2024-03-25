@@ -1,0 +1,889 @@
+WEBVTT
+
+0
+00:00:00.140 --> 00:00:04.760
+feature of blender that is often overlooked in the context of shading our drivers.
+
+1
+00:00:05.140 --> 00:00:07.630
+Drivers are a powerful tool to set up
+
+2
+00:00:07.630 --> 00:00:10.960
+dynamic interactions between properties of several kinds.
+
+3
+00:00:11.340 --> 00:00:16.149
+Going from simply remote controlling parameters in a custom interface all the
+
+4
+00:00:16.149 --> 00:00:18.580
+way to setting up complex dependencies
+
+5
+00:00:18.580 --> 00:00:21.360
+between multiple objects and scene parameters.
+
+6
+00:00:21.740 --> 00:00:27.550
+A driver is essentially a tool to link the value of one property to something else
+
+7
+00:00:27.650 --> 00:00:30.530
+that could just be another property or a
+
+8
+00:00:30.530 --> 00:00:33.490
+combination of multiple other properties and inputs.
+
+9
+00:00:33.540 --> 00:00:36.740
+Any value input field in blender that can be
+
+10
+00:00:36.740 --> 00:00:39.560
+animated can also be assigned with a driver.
+
+11
+00:00:39.840 --> 00:00:45.260
+A value field with a driver can easily be identified by its color turning violet
+
+12
+00:00:45.540 --> 00:00:49.560
+similar to the coloration of values that are animated with key frames.
+
+13
+00:00:50.140 --> 00:00:54.580
+The value of a driven input is completely overridden by that driver,
+
+14
+00:00:54.590 --> 00:00:57.550
+so the value cannot be changed manually anymore.
+
+15
+00:00:58.140 --> 00:01:01.410
+As an example here I simply linked the hawaii component
+
+16
+00:01:01.410 --> 00:01:04.000
+of the location of this cube to the X.
+
+17
+00:01:04.000 --> 00:01:04.650
+Component.
+
+18
+00:01:05.239 --> 00:01:08.670
+And if I now shift the cube along the X axis,
+
+19
+00:01:08.680 --> 00:01:13.960
+you can see that the Y component exactly mirrors the values of the X component
+
+20
+00:01:14.740 --> 00:01:18.320
+so it shifts the same distance on the y axis as well.
+
+21
+00:01:18.600 --> 00:01:24.550
+And shifting the cube along the Y axis manually is not possible at all anymore.
+
+22
+00:01:24.940 --> 00:01:29.760
+Of course you can simply delete a driver by right clicking and pressing delete.
+
+23
+00:01:30.140 --> 00:01:35.150
+Then the value just stays at what it was and is manually adjustable again
+
+24
+00:01:35.640 --> 00:01:39.200
+because you can only use drivers to control single parameters
+
+25
+00:01:39.200 --> 00:01:43.170
+individually and not whole maps of values like textures,
+
+26
+00:01:43.180 --> 00:01:47.740
+Their use in the shading context is still limited to a certain degree,
+
+27
+00:01:47.760 --> 00:01:50.960
+but they are definitely an important addition to your tool set
+
+28
+00:01:51.340 --> 00:01:54.140
+and if you know your way a bit around blenders, python,
+
+29
+00:01:54.140 --> 00:01:58.640
+api drivers even open up a whole new world of hidden possibilities.
+
+30
+00:01:58.660 --> 00:02:02.340
+Drivers perfectly extend the concepts of procedural
+
+31
+00:02:02.340 --> 00:02:04.630
+shading that I've shown in the previous chapters
+
+32
+00:02:04.640 --> 00:02:07.260
+with the ability to connect different parts
+
+33
+00:02:07.260 --> 00:02:10.360
+of blender to create interactive shading setups.
+
+34
+00:02:11.340 --> 00:02:16.380
+If you just want to use a driver to control one parameter in your scene with another,
+
+35
+00:02:16.410 --> 00:02:20.590
+you can simply use the copy as new driver function by
+
+36
+00:02:20.600 --> 00:02:23.850
+right clicking on the parameter that you want to link to
+
+37
+00:02:24.240 --> 00:02:27.860
+and then pasting the driver in the place that you want to be driven.
+
+38
+00:02:27.870 --> 00:02:29.610
+That is incredibly useful.
+
+39
+00:02:29.610 --> 00:02:33.450
+For example, to control multiple parameter is at the same time,
+
+40
+00:02:33.840 --> 00:02:36.960
+especially when they are not accessible in the same place.
+
+41
+00:02:37.340 --> 00:02:40.870
+Another great use case is to create custom properties
+
+42
+00:02:40.870 --> 00:02:44.200
+in an object to control parameters of for example,
+
+43
+00:02:44.200 --> 00:02:49.060
+the shader or the modifier stack directly from within the view port.
+
+44
+00:02:49.070 --> 00:02:52.480
+But if you want to set up more complex relations with drivers,
+
+45
+00:02:52.490 --> 00:02:55.160
+you have to edit them either directly by
+
+46
+00:02:55.160 --> 00:02:58.460
+clicking edit driver or in the driver editor,
+
+47
+00:02:58.840 --> 00:03:01.960
+the interface for the driver properties looks like this.
+
+48
+00:03:02.340 --> 00:03:05.460
+You can select different operation types for the driver.
+
+49
+00:03:05.840 --> 00:03:09.430
+These are all based on the driver's variables that you can define
+
+50
+00:03:09.430 --> 00:03:14.310
+several of down here and link to multiple other parameters as inputs.
+
+51
+00:03:14.470 --> 00:03:19.030
+These variables can link to any property in the file to make
+
+52
+00:03:19.030 --> 00:03:23.060
+it accessible to the driver variables have a type as well.
+
+53
+00:03:23.140 --> 00:03:26.950
+And you can select between directly linking a specific property
+
+54
+00:03:27.240 --> 00:03:30.370
+or hooking them up to the transformation of other objects.
+
+55
+00:03:30.840 --> 00:03:34.060
+That way, you can either directly grab the location,
+
+56
+00:03:34.060 --> 00:03:36.690
+rotation or scale of an object to drive another
+
+57
+00:03:36.690 --> 00:03:40.560
+value or the distance or angle between two objects.
+
+58
+00:03:40.940 --> 00:03:44.290
+If you select single property is the variable type.
+
+59
+00:03:44.300 --> 00:03:47.670
+You can directly reference any specific property of
+
+60
+00:03:47.670 --> 00:03:49.850
+a data block within the blend file.
+
+61
+00:03:50.340 --> 00:03:54.500
+First you have to specify the type of data block that you want to access.
+
+62
+00:03:54.510 --> 00:03:59.810
+That can be anything from an object, a material, a mesh to an image,
+
+63
+00:03:59.810 --> 00:04:02.360
+a seen a workspace, you name it.
+
+64
+00:04:02.940 --> 00:04:07.050
+You see the list of all the different types of data blocks in the drop down menu.
+
+65
+00:04:07.440 --> 00:04:10.920
+Then you can select the specific prop that you want to reference
+
+66
+00:04:11.100 --> 00:04:13.950
+from the list of data blocks of the selected type.
+
+67
+00:04:14.340 --> 00:04:18.779
+And lastly you have to specify the exact path of a property that you
+
+68
+00:04:18.779 --> 00:04:23.020
+want to reference when you use the copy as a new driver function.
+
+69
+00:04:23.030 --> 00:04:25.990
+This part is done for you automatically but if
+
+70
+00:04:25.990 --> 00:04:28.710
+you want to access something very specific here,
+
+71
+00:04:28.750 --> 00:04:31.950
+some knowledge of the python, api of blender is useful.
+
+72
+00:04:32.240 --> 00:04:35.260
+You can also look at the path online in the documentation
+
+73
+00:04:35.440 --> 00:04:37.960
+or use the copy data path feature.
+
+74
+00:04:38.340 --> 00:04:43.050
+What is important here is to realize that the data path that you specify
+
+75
+00:04:43.440 --> 00:04:48.210
+is appended to the path of the data block. You can see what path it belongs to.
+
+76
+00:04:48.220 --> 00:04:49.760
+Up here in the properties tab.
+
+77
+00:04:50.240 --> 00:04:55.050
+So for example, this way I can link the properties of a modifier,
+
+78
+00:04:55.060 --> 00:04:58.160
+like the random visibility of this rain modifier,
+
+79
+00:04:58.640 --> 00:05:03.860
+I can see at the top of the panel that the modifiers are part of the object properties.
+
+80
+00:05:04.340 --> 00:05:08.360
+So I select the cube object as the linked data block.
+
+81
+00:05:08.940 --> 00:05:12.860
+If you have python tool tips enabled in the interface preferences,
+
+82
+00:05:13.240 --> 00:05:15.460
+you can see the full path as well.
+
+83
+00:05:16.040 --> 00:05:21.130
+But the only thing we need to specify now is the last part after the object.
+
+84
+00:05:21.140 --> 00:05:23.950
+And if I then just copy the data path of
+
+85
+00:05:23.950 --> 00:05:27.950
+the property and paste it into the path text field.
+
+86
+00:05:27.960 --> 00:05:31.630
+It simply gives me the selected property in this case that is
+
+87
+00:05:31.630 --> 00:05:35.780
+a value switching between zero and one depending on the modifiers,
+
+88
+00:05:35.780 --> 00:05:36.850
+render visibility
+
+89
+00:05:37.140 --> 00:05:41.160
+and of course this works the same way for the other properties of the modifiers.
+
+90
+00:05:41.640 --> 00:05:45.200
+And also it works the same way for other types of properties
+
+91
+00:05:45.210 --> 00:05:48.560
+you only have to keep in mind what path it is relative to
+
+92
+00:05:49.040 --> 00:05:50.450
+just as a heads up.
+
+93
+00:05:50.460 --> 00:05:54.500
+Sometimes when you change the dependency of a driver to another property,
+
+94
+00:05:54.510 --> 00:05:57.830
+you have to press update dependencies for the driver to work.
+
+95
+00:05:57.840 --> 00:06:02.150
+If the link somehow does not work, the text field will be marked as read,
+
+96
+00:06:03.140 --> 00:06:06.030
+let's also take a look at the driver editor in general,
+
+97
+00:06:06.080 --> 00:06:08.690
+you can open it by right clicking at a driver
+
+98
+00:06:08.720 --> 00:06:12.190
+and pressing open and driver editor but also it is just
+
+99
+00:06:12.190 --> 00:06:15.250
+a window like anything else in blender and you can directly
+
+100
+00:06:15.250 --> 00:06:18.210
+selected from the drop down menu and the driver editor,
+
+101
+00:06:18.210 --> 00:06:23.190
+you can manage all the drivers in your scene, edit their content and their behavior.
+
+102
+00:06:23.640 --> 00:06:27.920
+I won't go over all the functionality of the driver editor in detail as this
+
+103
+00:06:27.920 --> 00:06:29.950
+is not the point of this chapter And
+
+104
+00:06:29.950 --> 00:06:32.530
+personally when working with drivers for shading,
+
+105
+00:06:32.550 --> 00:06:35.970
+I usually don't find myself opening the driver editor a lot.
+
+106
+00:06:35.980 --> 00:06:40.670
+Something that is very useful about the driver editor is to have all drivers in
+
+107
+00:06:40.670 --> 00:06:45.060
+one place and being able to edit them without using a small pop up window.
+
+108
+00:06:45.440 --> 00:06:48.540
+Also here you can temporarily disable the effect of
+
+109
+00:06:48.540 --> 00:06:51.810
+a driver making the value available for manual input.
+
+110
+00:06:51.810 --> 00:06:52.260
+Again,
+
+111
+00:06:52.280 --> 00:06:55.680
+the general layout and functionality of the driver editor
+
+112
+00:06:55.690 --> 00:06:58.200
+is similar to the graph editor for animation.
+
+113
+00:06:58.210 --> 00:07:01.870
+One very crucial distinction to make though is that what
+
+114
+00:07:01.870 --> 00:07:04.250
+was shown on the X axis of this graph?
+
+115
+00:07:04.440 --> 00:07:06.860
+It's not the timeline of the scene and frames
+
+116
+00:07:07.040 --> 00:07:11.560
+the X axis represents the value of what the driver links.
+
+117
+00:07:12.040 --> 00:07:17.050
+So in the example of linking the white location of the cube to its X location.
+
+118
+00:07:17.440 --> 00:07:22.660
+The X axis of the graph represents the actual X component of the cube's location
+
+119
+00:07:23.140 --> 00:07:25.450
+because that is what the driver references
+
+120
+00:07:25.940 --> 00:07:29.600
+and the Y component of this curve then gives you the actual
+
+121
+00:07:29.600 --> 00:07:34.070
+value that the driver will return to the by location by default,
+
+122
+00:07:34.080 --> 00:07:37.060
+the curve simply returns exactly the input,
+
+123
+00:07:37.440 --> 00:07:39.550
+which is why the wild location is always
+
+124
+00:07:39.550 --> 00:07:42.680
+exactly equal to the explication and this example.
+
+125
+00:07:42.690 --> 00:07:48.170
+But if I change around the curve by adjusting the handles and adding more key frames,
+
+126
+00:07:48.180 --> 00:07:51.450
+I can control the behavior of how the X location
+
+127
+00:07:51.450 --> 00:07:54.560
+is converted into the value that the driver returns.
+
+128
+00:07:55.140 --> 00:07:59.630
+That way I can define a specific path that the cube has to follow.
+
+129
+00:07:59.630 --> 00:08:03.330
+In this example you can even just like in the graph editor for
+
+130
+00:08:03.330 --> 00:08:08.210
+animation use f curve modifiers to change the progression of the graph.
+
+131
+00:08:08.220 --> 00:08:11.250
+But as I mentioned before this aspect of adjusting
+
+132
+00:08:11.250 --> 00:08:14.760
+drivers is quite specific and not usually necessary.
+
+133
+00:08:15.140 --> 00:08:16.680
+So let's move on with the main
+
+134
+00:08:16.680 --> 00:08:20.490
+functionality of the driver properties themselves another and
+
+135
+00:08:20.490 --> 00:08:22.850
+perhaps even the main operation type of
+
+136
+00:08:22.850 --> 00:08:26.040
+drivers is using them as scripted expressions.
+
+137
+00:08:26.140 --> 00:08:28.930
+That means instead of simply defining the driver
+
+138
+00:08:28.930 --> 00:08:31.960
+as for example the average of the variables
+
+139
+00:08:32.240 --> 00:08:35.400
+being able to define a specific function using
+
+140
+00:08:35.400 --> 00:08:37.850
+the variables in a line off python code.
+
+141
+00:08:38.340 --> 00:08:43.350
+This way you can simply define a custom operation using the drivers variables
+
+142
+00:08:43.840 --> 00:08:47.800
+that can simply be a mathematical operation using the variables
+
+143
+00:08:47.800 --> 00:08:52.660
+with the simple arithmetic operations like addition and subtraction etcetera.
+
+144
+00:08:53.040 --> 00:08:56.670
+But you can also use the basic functions of python and some
+
+145
+00:08:56.670 --> 00:09:01.050
+additional mathematical functions within the expression like sign or co sign.
+
+146
+00:09:01.050 --> 00:09:01.760
+For example,
+
+147
+00:09:02.240 --> 00:09:06.620
+the general python functionality here is useful as you can pass other
+
+148
+00:09:06.620 --> 00:09:10.090
+types of data through as a variable than just single values.
+
+149
+00:09:10.090 --> 00:09:10.850
+For example,
+
+150
+00:09:11.340 --> 00:09:15.000
+when I simply reference the name of an object as a variable,
+
+151
+00:09:15.010 --> 00:09:17.640
+I can retrieve the length of the name as
+
+152
+00:09:17.640 --> 00:09:21.060
+the value of the driver using the land operation.
+
+153
+00:09:21.440 --> 00:09:25.710
+The only restriction to the data type here is that the result has
+
+154
+00:09:25.710 --> 00:09:29.860
+to be a single value as drivers can only be applied to value fields
+
+155
+00:09:30.440 --> 00:09:33.830
+to quickly set up a driver as a scripted expression.
+
+156
+00:09:33.840 --> 00:09:37.040
+You can simply type in a hash symbol in front of
+
+157
+00:09:37.040 --> 00:09:39.760
+the expression and it will be interpreted as a driver.
+
+158
+00:09:40.240 --> 00:09:44.860
+That way you can very quickly link a value to you dynamic expression.
+
+159
+00:09:45.240 --> 00:09:49.860
+You can buy the way use expressions also without creating a driver.
+
+160
+00:09:50.240 --> 00:09:54.170
+The difference is that then the result is converted into a value
+
+161
+00:09:54.480 --> 00:09:56.750
+and you can't adjust the expression later on.
+
+162
+00:09:57.140 --> 00:10:00.050
+But for simple operations that is usually very useful.
+
+163
+00:10:00.440 --> 00:10:05.000
+Something that I use a lot together with scripted expressions is to refer to
+
+164
+00:10:05.000 --> 00:10:10.660
+the current frame by simply using the global variable frame within the expression.
+
+165
+00:10:11.340 --> 00:10:17.050
+You can use this to very easily by simply typing hash frame into any value
+
+166
+00:10:17.050 --> 00:10:22.560
+field drive a value by the current frame which represents the time in the scene.
+
+167
+00:10:23.140 --> 00:10:25.560
+The following video is going to be all about
+
+168
+00:10:25.560 --> 00:10:28.850
+how to use this for procedural animation of shakers.
+
+169
+00:10:28.860 --> 00:10:32.050
+So here I want to leave it at just mentioning it like that.
+
+170
+00:10:32.840 --> 00:10:35.660
+The driver expression can also be based on
+
+171
+00:10:35.660 --> 00:10:37.960
+the variables that you define for the driver.
+
+172
+00:10:38.540 --> 00:10:42.160
+You can simply refer to them with their sad name in the expression.
+
+173
+00:10:42.740 --> 00:10:47.110
+Additionally scripted expressions give you access to the general python,
+
+174
+00:10:47.110 --> 00:10:50.370
+api of blender and thus you can access a lot of
+
+175
+00:10:50.370 --> 00:10:54.560
+functionality that is otherwise only reserved for add ons and scripts
+
+176
+00:10:55.240 --> 00:10:56.510
+and with drivers.
+
+177
+00:10:56.520 --> 00:10:59.680
+The functionality is conveniently linked to the
+
+178
+00:10:59.690 --> 00:11:02.860
+input of a value and updates automatically
+
+179
+00:11:03.540 --> 00:11:04.830
+a lot of the time it makes more
+
+180
+00:11:04.830 --> 00:11:07.860
+sense to actually write your implementation as a script
+
+181
+00:11:08.340 --> 00:11:10.560
+but it's still very useful to have this option.
+
+182
+00:11:11.040 --> 00:11:15.120
+This means that with a scripted expression you can do basically whatever
+
+183
+00:11:15.120 --> 00:11:18.260
+you can come up with using a single line of python code
+
+184
+00:11:19.440 --> 00:11:21.290
+but on top of that you can even
+
+185
+00:11:21.290 --> 00:11:24.350
+integrate your own python functions into the driver name
+
+186
+00:11:24.350 --> 00:11:27.300
+space to call custom functions from within a
+
+187
+00:11:27.300 --> 00:11:30.960
+driver and achieve all kinds of customer interactions.
+
+188
+00:11:31.540 --> 00:11:36.670
+That way you can bypass being limited to a single line of python code and
+
+189
+00:11:36.680 --> 00:11:40.210
+even integrate any external python packages to
+
+190
+00:11:40.210 --> 00:11:43.860
+evaluate some custom functionality from within a driver
+
+191
+00:11:44.240 --> 00:11:47.160
+and this is where the opportunities of drivers
+
+192
+00:11:47.170 --> 00:11:49.810
+get really crazy if they haven't been before.
+
+193
+00:11:49.820 --> 00:11:50.730
+However,
+
+194
+00:11:50.740 --> 00:11:53.770
+this course is not about scripting with python so I
+
+195
+00:11:53.770 --> 00:11:55.550
+will leave it at that for the time being.
+
+196
+00:11:56.240 --> 00:11:57.980
+If you are interested in learning more
+
+197
+00:11:57.980 --> 00:12:00.470
+about using python for scripting and blender.
+
+198
+00:12:00.590 --> 00:12:03.350
+I recommend you to check out the scripting for artists,
+
+199
+00:12:03.350 --> 00:12:06.890
+tutorial series by blender zone doctors sibling stubble.
+
+200
+00:12:06.900 --> 00:12:08.070
+Here on the blender cloud.
+
+201
+00:12:08.240 --> 00:12:11.060
+I will leave a link to it in the description of this video.
+
+202
+00:12:11.440 --> 00:12:15.000
+So now that we talked about how to use drivers in general,
+
+203
+00:12:15.010 --> 00:12:16.530
+I want to quickly go over some
+
+204
+00:12:16.530 --> 00:12:19.860
+applications of including drivers with procedural shaming.
+
+205
+00:12:19.870 --> 00:12:21.210
+As I mentioned before,
+
+206
+00:12:21.220 --> 00:12:26.090
+The use of drivers is limited to values as opposed to texture maps but
+
+207
+00:12:26.100 --> 00:12:30.460
+still they can nicely be used to integrate external information into a shader.
+
+208
+00:12:30.640 --> 00:12:33.900
+So the simplest use case would be just exposing
+
+209
+00:12:33.900 --> 00:12:37.240
+the shade of parameters and an external user interface.
+
+210
+00:12:37.250 --> 00:12:38.620
+As I have shown before.
+
+211
+00:12:38.630 --> 00:12:42.820
+You can even use parameters like the custom properties to synchronize
+
+212
+00:12:42.820 --> 00:12:46.880
+the controls of shading parameters with other parameters in the scene.
+
+213
+00:12:46.890 --> 00:12:50.350
+Like for example the modifiers as another use case
+
+214
+00:12:50.540 --> 00:12:52.850
+you can actually drive the content of a
+
+215
+00:12:52.850 --> 00:12:56.150
+shader dynamically with properties from other objects.
+
+216
+00:12:56.340 --> 00:13:01.250
+This usually only gets useful for rather advanced shading setups but you can
+
+217
+00:13:01.250 --> 00:13:05.360
+for example use this to control wind direction with an actual empty object
+
+218
+00:13:05.840 --> 00:13:10.060
+or to control a character's shading features. Wire amateur,
+
+219
+00:13:11.040 --> 00:13:14.760
+there are infinitely more uses of drivers in the shading context.
+
+220
+00:13:14.880 --> 00:13:17.430
+I just wanted to give you a selection to show you
+
+221
+00:13:17.430 --> 00:13:20.550
+some ideas and inspire you to come up with your own interactions

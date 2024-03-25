@@ -1,0 +1,589 @@
+WEBVTT
+
+0
+00:00:00.040 --> 00:00:02.760
+advancing from surface shader is to volumetric
+
+1
+00:00:02.760 --> 00:00:04.710
+shakers is for a procedural workflow.
+
+2
+00:00:04.710 --> 00:00:06.550
+Actually not that big of a difference
+
+3
+00:00:06.940 --> 00:00:09.380
+apart from the fact that there is an additional dimension
+
+4
+00:00:09.380 --> 00:00:11.490
+to take care of compared to the two day space.
+
+5
+00:00:11.500 --> 00:00:14.020
+But if you think about it in a lot of cases,
+
+6
+00:00:14.020 --> 00:00:17.200
+we were already using three dimensional coordinate space
+
+7
+00:00:17.200 --> 00:00:20.300
+for the textures whenever adding a noise texture.
+
+8
+00:00:20.300 --> 00:00:23.880
+Using for example, object coordinates or generated coordinates.
+
+9
+00:00:24.190 --> 00:00:26.860
+The texture that is displayed on the measures surface
+
+10
+00:00:27.140 --> 00:00:32.560
+Is simply the intersection of a 3D texture in the coordinate space and that surface
+
+11
+00:00:32.940 --> 00:00:34.590
+that gets more clearly visible.
+
+12
+00:00:34.590 --> 00:00:37.650
+When I simply duplicate this, playing a bunch of times
+
+13
+00:00:38.140 --> 00:00:44.170
+Every individual plane displays a two dimensional intersection of the 3D texture
+
+14
+00:00:44.180 --> 00:00:48.250
+that gets visible as what is essentially a volume of planes.
+
+15
+00:00:48.840 --> 00:00:53.550
+The most striking difference for volumetric shading is the shader itself.
+
+16
+00:00:53.560 --> 00:00:57.710
+Volumetric materials interact with light in a completely different way than
+
+17
+00:00:57.710 --> 00:01:01.760
+surfaces and thus you need a totally different shader type as well
+
+18
+00:01:02.240 --> 00:01:06.460
+as the volumetric counterpart to a principal be sdf shader.
+
+19
+00:01:06.470 --> 00:01:09.160
+There is also the principal volume shader
+
+20
+00:01:09.540 --> 00:01:12.680
+instead of the inputs to characterize the surface properties,
+
+21
+00:01:12.850 --> 00:01:16.900
+the principal volume shader takes as inputs properties of the volume.
+
+22
+00:01:16.910 --> 00:01:18.660
+Like the density for example,
+
+23
+00:01:19.140 --> 00:01:21.920
+I'm not going to go into as much detail about the
+
+24
+00:01:21.920 --> 00:01:24.860
+inputs of this shader as it did for the surface shader
+
+25
+00:01:25.440 --> 00:01:29.050
+color and density are pretty self explanatory.
+
+26
+00:01:29.060 --> 00:01:32.460
+They simply control the color and the density of the volume.
+
+27
+00:01:32.940 --> 00:01:37.190
+The anti Satrapi setting controls similarly to the nice entropy
+
+28
+00:01:37.190 --> 00:01:41.050
+of surface reflections if there is a preferred direction,
+
+29
+00:01:41.060 --> 00:01:43.350
+how the light is scattered in the volume
+
+30
+00:01:43.840 --> 00:01:46.700
+and the absorption color can be used to
+
+31
+00:01:46.710 --> 00:01:50.050
+easily control the color of the volumetric shadows.
+
+32
+00:01:50.640 --> 00:01:53.700
+A great way of previewing the density and color
+
+33
+00:01:53.700 --> 00:01:57.290
+of a volumetric shader is using a mission instead,
+
+34
+00:01:57.300 --> 00:02:00.880
+this is essentially the volumetric equivalent to
+
+35
+00:02:00.890 --> 00:02:03.000
+using an emission shader as a viewer
+
+36
+00:02:03.000 --> 00:02:08.250
+note for the surface textures and it takes much less computing power to display them
+
+37
+00:02:08.639 --> 00:02:10.560
+as a practical application,
+
+38
+00:02:10.570 --> 00:02:13.360
+volumetric emission is really important for
+
+39
+00:02:13.360 --> 00:02:17.060
+fire explosions in similar volumetric light effects
+
+40
+00:02:17.640 --> 00:02:22.350
+using cycles. This emission also casts light onto the surrounding objects.
+
+41
+00:02:23.040 --> 00:02:27.450
+The remaining parameters mostly focus on the use for smoke and fire.
+
+42
+00:02:27.460 --> 00:02:28.950
+Using simulation data
+
+43
+00:02:29.340 --> 00:02:30.150
+for example,
+
+44
+00:02:30.150 --> 00:02:34.470
+the attribute parameters that take these text inputs are used to
+
+45
+00:02:34.470 --> 00:02:38.660
+directly hook up the material to the volume data from simulations.
+
+46
+00:02:39.240 --> 00:02:43.670
+The black body parameters are used alongside the temperature
+
+47
+00:02:43.680 --> 00:02:47.850
+to get a more physically accurate representation of glowing volumes
+
+48
+00:02:48.540 --> 00:02:51.660
+and that is all I want to say about the shade of properties for now.
+
+49
+00:02:52.140 --> 00:02:55.730
+But before we can start working on procedural volumetric shakers,
+
+50
+00:02:55.740 --> 00:02:58.390
+it is advisable to quickly touch how the
+
+51
+00:02:58.390 --> 00:03:01.950
+Miranda engines even cycles handle these shakers differently
+
+52
+00:03:02.340 --> 00:03:03.020
+cycles.
+
+53
+00:03:03.020 --> 00:03:06.160
+When rendering volumetric shader creates a lot of
+
+54
+00:03:06.160 --> 00:03:10.260
+noise because there is no clearly defined surface and
+
+55
+00:03:10.260 --> 00:03:12.800
+the whole volume of the mesh has to essentially
+
+56
+00:03:12.800 --> 00:03:16.260
+be scanned for its density and volumetric properties,
+
+57
+00:03:16.940 --> 00:03:20.080
+especially when trying to deny the rendered image.
+
+58
+00:03:20.090 --> 00:03:24.440
+You can see that having information about the surface is highly beneficial,
+
+59
+00:03:24.450 --> 00:03:28.660
+which for volumetric objects you inherently can't have.
+
+60
+00:03:29.340 --> 00:03:33.580
+You can control the step size that the race take for rendering.
+
+61
+00:03:33.580 --> 00:03:37.050
+With cycles in the volumes. Panel of the rental properties
+
+62
+00:03:37.540 --> 00:03:42.460
+lower volumes will give you a more accurate but also more dense looking result.
+
+63
+00:03:43.240 --> 00:03:47.650
+This parameter, however, also has a large impact on the Iran the time.
+
+64
+00:03:48.140 --> 00:03:49.280
+Even on the other hand,
+
+65
+00:03:49.290 --> 00:03:53.990
+has a lot more settings to adjust how volumetrics are rendered and you should
+
+66
+00:03:53.990 --> 00:03:57.650
+get familiar with how they work to make the most out of the quality.
+
+67
+00:03:58.340 --> 00:03:59.240
+The way E.
+
+68
+00:03:59.240 --> 00:04:02.300
+V handles volumes is actually similar to the method
+
+69
+00:04:02.300 --> 00:04:04.660
+of stacked planes that I showed you earlier.
+
+70
+00:04:05.140 --> 00:04:05.550
+E. V.
+
+71
+00:04:05.550 --> 00:04:09.020
+Creates a bunch of slices to the volume that are parallel
+
+72
+00:04:09.020 --> 00:04:13.360
+to the view plane and uses these to approximate the volume
+
+73
+00:04:13.840 --> 00:04:17.190
+the number of slicing planes and with that also the
+
+74
+00:04:17.200 --> 00:04:20.850
+resolution of the volume depends on the number of samples.
+
+75
+00:04:20.860 --> 00:04:25.780
+The dedicated volume samples can be adjusted in the volumetric settings of
+
+76
+00:04:25.780 --> 00:04:29.560
+the rendered properties that show up when you select obviously render engine
+
+77
+00:04:29.940 --> 00:04:34.480
+but as you can see the regular sample count of the render settings also
+
+78
+00:04:34.480 --> 00:04:38.460
+plays a role and scales up the number of planes as a factor.
+
+79
+00:04:38.840 --> 00:04:41.440
+The planes are positioned between the start
+
+80
+00:04:41.450 --> 00:04:44.480
+and the end distance relative to the camera
+
+81
+00:04:44.490 --> 00:04:49.390
+and their distribution is adjusted to have a higher density closer to the camera.
+
+82
+00:04:49.400 --> 00:04:52.460
+You can also adjust this with the distribution parameter
+
+83
+00:04:53.140 --> 00:04:56.120
+to make use of these planes as efficiently as possible.
+
+84
+00:04:56.130 --> 00:04:59.420
+You want to make sure that the start and end parameter fit
+
+85
+00:04:59.420 --> 00:05:02.970
+the minimum and maximum distance to the camera for which you need.
+
+86
+00:05:02.970 --> 00:05:04.060
+Volumetric shading
+
+87
+00:05:04.840 --> 00:05:07.620
+these planes essentially control the resolution of
+
+88
+00:05:07.630 --> 00:05:09.890
+the volume in the depth dimension.
+
+89
+00:05:09.900 --> 00:05:12.630
+To control the resolution of the E. V.
+
+90
+00:05:12.630 --> 00:05:17.050
+Volume on screen can simply select the tile size in pixels.
+
+91
+00:05:17.740 --> 00:05:22.540
+Then to include actual lighting information from light sources in the scene,
+
+92
+00:05:22.550 --> 00:05:26.050
+you can activate volumetric lighting and volumetric shadows.
+
+93
+00:05:26.840 --> 00:05:27.630
+In general,
+
+94
+00:05:27.640 --> 00:05:31.120
+volumetric shakers are much less expensive to render and
+
+95
+00:05:31.120 --> 00:05:34.460
+tv but that also comes at the cost of accuracy
+
+96
+00:05:34.940 --> 00:05:40.880
+and one obvious drawback of volumetrics and Eve is that the shape of the volume
+
+97
+00:05:40.890 --> 00:05:45.940
+follows the objects bounding box and not the actual mesh as a dozen cycles.
+
+98
+00:05:45.950 --> 00:05:50.860
+That can only be counteracted by shaping the volume from within the shader.
+
+99
+00:05:51.840 --> 00:05:53.920
+So to show a little bit more what
+
+100
+00:05:53.920 --> 00:05:57.070
+it means to work with procedural volumetric shakers.
+
+101
+00:05:57.080 --> 00:06:01.860
+Let me quickly show you an easy way to create these volumetric clouds.
+
+102
+00:06:02.240 --> 00:06:06.860
+Clouds are a great application of procedural volumetric shakers because they are
+
+103
+00:06:06.860 --> 00:06:10.990
+very difficult to get right with a mesh or particle system.
+
+104
+00:06:11.000 --> 00:06:14.310
+Creating clouds with actual simulation can also be
+
+105
+00:06:14.320 --> 00:06:17.060
+quite difficult and is extremely cost intensive.
+
+106
+00:06:17.440 --> 00:06:22.150
+Actually creating basic procedural volumetric clouds is quite simple
+
+107
+00:06:22.640 --> 00:06:24.730
+with the regular Perlin noise.
+
+108
+00:06:24.740 --> 00:06:27.740
+You have a three dimensional noise that has a pattern
+
+109
+00:06:27.740 --> 00:06:31.060
+which already comes close to the general look of clouds.
+
+110
+00:06:31.640 --> 00:06:36.050
+If we simply grab a noise texture modified with a map range note
+
+111
+00:06:36.060 --> 00:06:40.220
+and stick that into the density input of a principled volume shader.
+
+112
+00:06:40.230 --> 00:06:44.750
+We are already halfway there. I'm going to use the global coordinates again.
+
+113
+00:06:44.760 --> 00:06:47.210
+And that way we can simply adjust the
+
+114
+00:06:47.210 --> 00:06:50.640
+domain object without stretching the cloud shapes inside.
+
+115
+00:06:50.650 --> 00:06:55.560
+Also right now the cloud scape is just cut off at all the edges.
+
+116
+00:06:55.840 --> 00:06:58.690
+I'm fine with that on the sides but at the top
+
+117
+00:06:58.690 --> 00:07:02.350
+and bottom it should fade out in a smooth layoff clouds
+
+118
+00:07:02.740 --> 00:07:03.500
+to do that.
+
+119
+00:07:03.510 --> 00:07:08.230
+I simply grab the generated coordinates and use the zet component
+
+120
+00:07:08.240 --> 00:07:11.460
+to create a mirror gradient from the center to the edges.
+
+121
+00:07:11.840 --> 00:07:14.710
+That can then be adjusted and subtracted from the
+
+122
+00:07:14.710 --> 00:07:18.330
+noise to manipulate the density towards the edges.
+
+123
+00:07:18.360 --> 00:07:20.190
+Here you can really see the
+
+124
+00:07:20.200 --> 00:07:23.360
+three dimensional application of procedural texture ring
+
+125
+00:07:23.740 --> 00:07:26.540
+obviously to get actual realistic clouds.
+
+126
+00:07:26.540 --> 00:07:28.940
+There is still quite a long way to go but
+
+127
+00:07:28.940 --> 00:07:32.260
+it nicely shows the principle of these volumetric shakers.
+
+128
+00:07:32.270 --> 00:07:36.430
+And one last thing I want to do for this example here is to make the noise
+
+129
+00:07:36.430 --> 00:07:39.400
+pattern look less regular and a bit more dynamic
+
+130
+00:07:39.400 --> 00:07:43.150
+and fuzzy by adding an additional noise texture.
+
+131
+00:07:43.340 --> 00:07:46.380
+What I do is simply manipulate the coordinates
+
+132
+00:07:46.380 --> 00:07:49.280
+of the noise texture with the second noise.
+
+133
+00:07:49.290 --> 00:07:51.260
+Using a linear light operation
+
+134
+00:07:51.440 --> 00:07:57.150
+this warps the noise creating a much more interesting and natural looking noise you
+
+135
+00:07:57.150 --> 00:08:01.460
+probably have seen or will seem using this specific set up quite a lot.
+
+136
+00:08:01.840 --> 00:08:06.250
+It is quite a simple way of making the noise texture look less generic and
+
+137
+00:08:06.250 --> 00:08:09.220
+it's highly adjustable with the amount of warping
+
+138
+00:08:09.260 --> 00:08:12.250
+and the individual parameters of both noises.
+
+139
+00:08:12.840 --> 00:08:17.310
+Procedural volumetric shade is like this can also be animated in the
+
+140
+00:08:17.310 --> 00:08:20.020
+cloud seen that you can download and take a look at.
+
+141
+00:08:20.030 --> 00:08:22.650
+I set it up to play as a simple time lapse.
+
+142
+00:08:23.040 --> 00:08:24.840
+We will talk about how to animate
+
+143
+00:08:24.840 --> 00:08:28.350
+traders in the dedicated chapter about automation and
+
+144
+00:08:28.350 --> 00:08:33.360
+I will show you how I created the animated volumetric fire for the example scene.
+
+145
+00:08:33.740 --> 00:08:35.570
+But for now this is all I want to
+
+146
+00:08:35.570 --> 00:08:38.659
+talk about in terms of procedural volumetric shakers.

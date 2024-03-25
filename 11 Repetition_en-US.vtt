@@ -1,0 +1,317 @@
+WEBVTT
+
+0
+00:00:00.240 --> 00:00:05.210
+the most important step from shapes to patterns usually is some form of repetition.
+
+1
+00:00:05.280 --> 00:00:08.740
+We have already seen that the absolute operation can be used to
+
+2
+00:00:08.740 --> 00:00:13.020
+mirror a shape by mirroring the used coordinates in the same sense.
+
+3
+00:00:13.030 --> 00:00:15.810
+There are multiple different operations to make
+
+4
+00:00:15.820 --> 00:00:19.230
+coordinates repeat analogous to the array modifier,
+
+5
+00:00:19.240 --> 00:00:22.790
+while the absolute operation flips the negative values
+
+6
+00:00:22.790 --> 00:00:25.290
+to be positive and creates merit coordinates.
+
+7
+00:00:25.290 --> 00:00:28.460
+This way operations like fraction, for example,
+
+8
+00:00:28.490 --> 00:00:30.800
+make coordinates repeat fraction.
+
+9
+00:00:30.810 --> 00:00:36.220
+Just cuts off the integer part of a value and returns only the decimals.
+
+10
+00:00:36.230 --> 00:00:42.190
+That means that after going from 0 to 1 instead of going from one to the coordinate,
+
+11
+00:00:42.190 --> 00:00:43.160
+wraps around
+
+12
+00:00:43.340 --> 00:00:45.650
+and just goes from 0 to 1 again,
+
+13
+00:00:45.840 --> 00:00:50.300
+you can easily incorporate repetitions into shapes to make use of for example,
+
+14
+00:00:50.310 --> 00:00:51.640
+rotational symmetry.
+
+15
+00:00:51.650 --> 00:00:55.560
+Earlier we map the angular gradient around the center so
+
+16
+00:00:55.560 --> 00:00:58.220
+it goes from 0 to 1 in one rotation.
+
+17
+00:00:58.310 --> 00:01:02.880
+If we now stretch this six times and play the fraction operation.
+
+18
+00:01:02.900 --> 00:01:06.750
+The gradient goes from 0 to 1 repeatedly six times.
+
+19
+00:01:06.940 --> 00:01:11.030
+And you can also combine mirror operations and the repetition.
+
+20
+00:01:11.040 --> 00:01:12.450
+Like we have seen before.
+
+21
+00:01:12.460 --> 00:01:15.040
+You can use the absolute operation for the mirroring,
+
+22
+00:01:15.050 --> 00:01:19.590
+but in this case it is much simpler to just use the ping pong operation.
+
+23
+00:01:19.600 --> 00:01:24.550
+That operation does not repeat only from 0-1, but back to zero again.
+
+24
+00:01:24.840 --> 00:01:27.860
+And this way achieves both repetition and mirroring
+
+25
+00:01:28.040 --> 00:01:32.100
+This way, it is easy for example, to create a flower shape like this,
+
+26
+00:01:32.110 --> 00:01:35.550
+but because from 0-1 is only half a petal of the flower,
+
+27
+00:01:35.560 --> 00:01:37.820
+we are left with only three and not six.
+
+28
+00:01:37.830 --> 00:01:40.460
+So that number has to be multiplied by two.
+
+29
+00:01:40.940 --> 00:01:44.800
+To repeat this whole shape infinitely over the surface.
+
+30
+00:01:44.810 --> 00:01:47.770
+We can use the same trick with the fraction operation.
+
+31
+00:01:47.780 --> 00:01:50.700
+But this time we have to manipulate the very first
+
+32
+00:01:50.710 --> 00:01:54.310
+incoming coordinates that are used for the whole shape afterwards.
+
+33
+00:01:54.310 --> 00:01:58.550
+You have already seen. It should make sense that if you are repeating coordinates,
+
+34
+00:01:58.670 --> 00:02:02.530
+the same shape is generated in the places with the same coordinates.
+
+35
+00:02:02.740 --> 00:02:05.460
+I want the shape to be repeated along both axes.
+
+36
+00:02:05.470 --> 00:02:09.949
+And just so I don't have to manipulate the X. And the Y coordinate individually.
+
+37
+00:02:09.960 --> 00:02:14.510
+Instead of using the regular math node. This time I am using the vector math node.
+
+38
+00:02:14.570 --> 00:02:16.080
+The vector math node.
+
+39
+00:02:16.090 --> 00:02:20.570
+Apart from some operations that are specific to vectors in general has some
+
+40
+00:02:20.570 --> 00:02:24.180
+of the same functions that the regular math note has for those.
+
+41
+00:02:24.190 --> 00:02:28.100
+It just works in a way that it applies the operation to all X, Y.
+
+42
+00:02:28.100 --> 00:02:29.890
+Z channels individually.
+
+43
+00:02:29.960 --> 00:02:33.650
+It multiply mode, for example, it just multiplies the 1st,
+
+44
+00:02:33.660 --> 00:02:37.200
+2nd and 3rd channels of both inputs in pairs.
+
+45
+00:02:37.210 --> 00:02:38.580
+For the repetition,
+
+46
+00:02:38.590 --> 00:02:41.670
+I use the fraction operation again and combine it with a
+
+47
+00:02:41.670 --> 00:02:45.250
+scale operation that multiplies the whole vector with a value.
+
+48
+00:02:45.440 --> 00:02:49.760
+But now we have that problem again that the shape we created is located in a
+
+49
+00:02:49.760 --> 00:02:52.660
+space between negative one and positive one while
+
+50
+00:02:52.660 --> 00:02:55.630
+the fraction operation returns a range of 0-1.
+
+51
+00:02:55.730 --> 00:02:58.160
+So we have to re map again here.
+
+52
+00:02:58.170 --> 00:03:00.710
+I want to do this using more vector math nodes,
+
+53
+00:03:00.790 --> 00:03:03.860
+subtracting .5 and multiplying by two.
+
+54
+00:03:04.640 --> 00:03:07.640
+Now that the repetition is properly set up,
+
+55
+00:03:07.650 --> 00:03:11.930
+I can just crank up the scale factor here and the pattern expands
+
+56
+00:03:11.930 --> 00:03:16.440
+infinitely of course because all of these shapes are using the same notes,
+
+57
+00:03:16.480 --> 00:03:20.450
+I can just change them around and all update at the same time
+
+58
+00:03:20.840 --> 00:03:24.900
+to get some variation into this pattern. We can use another very useful concept.
+
+59
+00:03:24.910 --> 00:03:29.910
+The repeating current vectors separate the surface into individual cells.
+
+60
+00:03:29.920 --> 00:03:32.960
+But right now every cell is the exact same.
+
+61
+00:03:32.970 --> 00:03:35.840
+If we instead of the fraction operation use
+
+62
+00:03:35.840 --> 00:03:38.660
+a snap operation with an increment of one,
+
+63
+00:03:38.840 --> 00:03:42.160
+we get a different value for each of these resulting cells.
+
+64
+00:03:42.340 --> 00:03:46.130
+This value is constant for each individual cell and as you can see,
+
+65
+00:03:46.140 --> 00:03:48.230
+represents the position of the cell.
+
+66
+00:03:48.240 --> 00:03:52.940
+When we now use the snapped coordinates as the input to a noise texture.
+
+67
+00:03:52.960 --> 00:03:55.490
+We get random values for each of the cells.
+
+68
+00:03:55.500 --> 00:03:59.990
+This is where the white noise comes in incredibly handy with the random noise.
+
+69
+00:04:00.000 --> 00:04:01.930
+Each of these values should be different.
+
+70
+00:04:01.940 --> 00:04:07.000
+So that process can be described as assigning each cell with an I. D.
+
+71
+00:04:07.150 --> 00:04:11.460
+Now these random values can be used for all sorts of things by
+
+72
+00:04:11.460 --> 00:04:15.680
+driving the parameters that decide how the shape is created with those values.
+
+73
+00:04:15.690 --> 00:04:18.760
+You can easily achieve a variety of random features.
+
+74
+00:04:19.140 --> 00:04:19.790
+For example,
+
+75
+00:04:19.790 --> 00:04:22.250
+you can just change the scale of the individual shapes
+
+76
+00:04:22.260 --> 00:04:25.060
+by adding a multiply node and plugging it in here.
+
+77
+00:04:25.290 --> 00:04:27.720
+But you still need to control the random values.
+
+78
+00:04:27.800 --> 00:04:32.250
+You can just change the range of what scale it should be with another map range note.

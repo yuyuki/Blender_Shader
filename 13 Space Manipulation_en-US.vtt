@@ -1,0 +1,705 @@
+WEBVTT
+
+0
+00:00:00.140 --> 00:00:04.090
+one of the most powerful tools when creating a shaded with procedural methods is
+
+1
+00:00:04.090 --> 00:00:07.020
+the ability to manipulate coordinate factories and
+
+2
+00:00:07.030 --> 00:00:09.500
+even generate your own custom coordinate maps.
+
+3
+00:00:09.530 --> 00:00:13.480
+Space manipulation is something we have been doing all along in this chapter
+
+4
+00:00:13.500 --> 00:00:16.820
+but it is still something I want to dedicate a whole video too.
+
+5
+00:00:16.830 --> 00:00:19.850
+As there are more intricacies and fundamental ideas
+
+6
+00:00:20.040 --> 00:00:22.390
+now that you have seen some of the applications,
+
+7
+00:00:22.400 --> 00:00:24.450
+I want to explain a bit more what goes into it.
+
+8
+00:00:24.640 --> 00:00:29.060
+This is also a good time to talk about the fundamental logic of shady no trees.
+
+9
+00:00:29.070 --> 00:00:31.890
+The information is processed from left to right.
+
+10
+00:00:31.900 --> 00:00:34.360
+So all the changes that you make in the notes
+
+11
+00:00:34.370 --> 00:00:36.670
+propagated from the left to the right as well.
+
+12
+00:00:36.680 --> 00:00:38.050
+This is why for example,
+
+13
+00:00:38.060 --> 00:00:42.380
+you don't apply a transform operation after an image texture in the no tree
+
+14
+00:00:42.390 --> 00:00:44.950
+to change its location but rather shift
+
+15
+00:00:44.960 --> 00:00:47.560
+the incoming coordinate factories at its left.
+
+16
+00:00:47.740 --> 00:00:52.040
+You can just use a vector method node to add a vector to the coordinates,
+
+17
+00:00:52.040 --> 00:00:54.660
+which shifts the texture by that vector.
+
+18
+00:00:55.140 --> 00:00:57.810
+This general logic should make sense by now
+
+19
+00:00:57.820 --> 00:01:00.350
+after we talked about the importance of coordinates.
+
+20
+00:01:00.360 --> 00:01:04.610
+But what I want to really point out in this section is that what you
+
+21
+00:01:04.610 --> 00:01:08.110
+are essentially doing is manipulating the space that
+
+22
+00:01:08.110 --> 00:01:10.160
+the texture on the right is drawn in
+
+23
+00:01:10.340 --> 00:01:12.760
+that idea is very useful to understand,
+
+24
+00:01:12.770 --> 00:01:16.160
+as it can be generalist for a broad variety of use cases
+
+25
+00:01:16.340 --> 00:01:21.020
+to visualize. Was actually going on when you are doing such space manipulation.
+
+26
+00:01:21.040 --> 00:01:23.760
+I made another visualization tool that should help you
+
+27
+00:01:23.760 --> 00:01:25.940
+to better understand what I mean by that.
+
+28
+00:01:25.950 --> 00:01:28.450
+I have the file with the tool opened up right now
+
+29
+00:01:28.460 --> 00:01:30.860
+and you can download it from the page with this video.
+
+30
+00:01:31.140 --> 00:01:34.310
+I will not go into too much detail of how this tool is
+
+31
+00:01:34.310 --> 00:01:37.350
+set up but let me quickly go over what we are looking at
+
+32
+00:01:37.740 --> 00:01:38.670
+on the left,
+
+33
+00:01:38.680 --> 00:01:41.840
+there are two view ports showing a plane on top of you
+
+34
+00:01:41.850 --> 00:01:44.520
+and on the right is the shade of note set up.
+
+35
+00:01:44.530 --> 00:01:48.140
+The core part of this tool is the note group that has already opened
+
+36
+00:01:48.140 --> 00:01:51.860
+up and if I tap out of it you can see the whole setup.
+
+37
+00:01:52.240 --> 00:01:55.940
+The only important part here is this part of the note
+
+38
+00:01:55.940 --> 00:02:00.390
+tree draws this very simple shape with the RGB curve method
+
+39
+00:02:00.390 --> 00:02:03.900
+that I already explained before and the coordinates that this shape
+
+40
+00:02:03.900 --> 00:02:09.160
+uses are manipulated in the Essential note group called space manipulation.
+
+41
+00:02:09.840 --> 00:02:13.690
+This note in between it's just there to dial in the effect of manipulation.
+
+42
+00:02:13.700 --> 00:02:17.940
+You can simply control this parameter with the effect of property in the view port.
+
+43
+00:02:17.950 --> 00:02:19.880
+To see the space manipulation.
+
+44
+00:02:19.880 --> 00:02:23.210
+Take effect, change the bottom view port to rendered,
+
+45
+00:02:23.220 --> 00:02:26.480
+that will change it into cycles rendering while the top
+
+46
+00:02:26.480 --> 00:02:29.460
+view port shows you the material preview with tv.
+
+47
+00:02:29.540 --> 00:02:31.860
+Right now there is no difference between the two
+
+48
+00:02:31.870 --> 00:02:35.450
+because the note group just passes through the original coordinates
+
+49
+00:02:35.740 --> 00:02:39.850
+but you will see what happens when we manipulate the texture space in just a second.
+
+50
+00:02:40.340 --> 00:02:44.730
+Okay, so now that you know the general set up, let's put this tool into action,
+
+51
+00:02:44.740 --> 00:02:47.550
+make sure that the factory slider is cranked up to
+
+52
+00:02:47.550 --> 00:02:51.370
+one and tap back into the space manipulation node group.
+
+53
+00:02:51.380 --> 00:02:54.940
+Right now it just passes through the incoming UV coordinates.
+
+54
+00:02:54.950 --> 00:02:57.760
+But if I add a vector math note in between,
+
+55
+00:02:57.940 --> 00:02:59.990
+you can see the texture being shifted in the
+
+56
+00:02:59.990 --> 00:03:02.550
+top view port just as you have seen before.
+
+57
+00:03:02.560 --> 00:03:04.760
+But something interesting is happening in the bottom
+
+58
+00:03:04.760 --> 00:03:07.450
+view port instead of the texture being shifted,
+
+59
+00:03:07.460 --> 00:03:10.180
+the texture itself is fixed in place and
+
+60
+00:03:10.190 --> 00:03:12.700
+the plane is shifted in the opposite direction.
+
+61
+00:03:12.710 --> 00:03:15.350
+This shows what's essentially happening when you
+
+62
+00:03:15.350 --> 00:03:17.690
+are manipulating the texture space like this.
+
+63
+00:03:17.700 --> 00:03:22.660
+The ad note shifts the coordinate system that the texture is drawn in
+
+64
+00:03:22.740 --> 00:03:26.530
+and so a different part of the texture is drawn on the plane.
+
+65
+00:03:26.540 --> 00:03:30.880
+The point that I want to make here is that you are actually not changing the
+
+66
+00:03:30.880 --> 00:03:33.940
+texture itself at all but rather manipulating the
+
+67
+00:03:33.940 --> 00:03:36.880
+texture space that is defined on the plane.
+
+68
+00:03:36.890 --> 00:03:39.500
+I know that this can be a tough concept to wrap your
+
+69
+00:03:39.500 --> 00:03:42.750
+head around completely but try to get familiar with this idea.
+
+70
+00:03:42.840 --> 00:03:45.330
+Of course adding is not the only operation that
+
+71
+00:03:45.330 --> 00:03:47.960
+can be applied to manipulate the coordinate space,
+
+72
+00:03:48.340 --> 00:03:51.480
+just like what we have done before to create shapes and patterns.
+
+73
+00:03:51.490 --> 00:03:53.780
+The space can be squished stretched,
+
+74
+00:03:53.790 --> 00:03:56.060
+warped and band ripped apart and put back
+
+75
+00:03:56.060 --> 00:03:58.810
+together to create all sorts of different effects.
+
+76
+00:03:58.840 --> 00:04:02.940
+I recommend you just play around with this idea and see what you can come up with but
+
+77
+00:04:02.940 --> 00:04:06.960
+I still want to go over a couple of useful ways that I personally use a lot.
+
+78
+00:04:07.640 --> 00:04:12.380
+So let's start with the standard methods of transformation which are offsetting,
+
+79
+00:04:12.390 --> 00:04:15.640
+rotating and scaling the way of approaching these is very
+
+80
+00:04:15.640 --> 00:04:19.480
+straightforward to get access to all three transformation types.
+
+81
+00:04:19.480 --> 00:04:21.250
+You can just use a mapping note.
+
+82
+00:04:21.260 --> 00:04:23.760
+If you have been using shading notes previously,
+
+83
+00:04:23.770 --> 00:04:26.060
+then you have probably already come across this note.
+
+84
+00:04:26.440 --> 00:04:30.800
+Maybe you have been wondering why for positive values it shifts the texture
+
+85
+00:04:30.800 --> 00:04:35.500
+in a negative direction or why values for the scale greater than one.
+
+86
+00:04:35.510 --> 00:04:37.220
+Make the texture appear smaller.
+
+87
+00:04:37.230 --> 00:04:41.490
+Well with this visualization you can see why what you are transforming with
+
+88
+00:04:41.490 --> 00:04:46.180
+the node is the actual coordinate system and not the texture itself.
+
+89
+00:04:46.190 --> 00:04:50.810
+When you change the type to texture, the exact inverse transformation is applied,
+
+90
+00:04:50.820 --> 00:04:53.010
+making it more intuitive to work with.
+
+91
+00:04:53.020 --> 00:04:57.120
+In a lot of cases you don't need to use all three transformation types.
+
+92
+00:04:57.130 --> 00:05:01.530
+You can also just supplement offsetting and scaling with a vector method,
+
+93
+00:05:01.530 --> 00:05:04.700
+node setting it to add for offsetting
+
+94
+00:05:04.710 --> 00:05:08.660
+and scale or alternatively multiply for scaling
+
+95
+00:05:09.140 --> 00:05:10.070
+for rotation.
+
+96
+00:05:10.080 --> 00:05:13.030
+You can just use the vector rotate note which also
+
+97
+00:05:13.030 --> 00:05:15.450
+has a bunch of more options than the mapping note.
+
+98
+00:05:15.450 --> 00:05:15.760
+Has
+
+99
+00:05:16.340 --> 00:05:20.430
+another advantage of using the transformations individually is that
+
+100
+00:05:20.430 --> 00:05:22.960
+you can choose the order in which they are applied
+
+101
+00:05:23.540 --> 00:05:24.290
+naturally.
+
+102
+00:05:24.290 --> 00:05:28.330
+There is a difference between rotating first and then shifting
+
+103
+00:05:28.330 --> 00:05:31.160
+along axes and doing it the other way around.
+
+104
+00:05:31.740 --> 00:05:36.480
+Being able to choose between those methods can simplify a lot of issues.
+
+105
+00:05:36.490 --> 00:05:40.290
+And now that we are on the subject of the order of operations,
+
+106
+00:05:40.300 --> 00:05:44.650
+I want to point out how crucial it can be to make the right decision in that regard.
+
+107
+00:05:44.660 --> 00:05:49.260
+It is a frequent source of errors as often times. It is not very intuitive.
+
+108
+00:05:49.340 --> 00:05:52.050
+I hope that this video and the tool that I'm providing,
+
+109
+00:05:52.060 --> 00:05:55.550
+help you to wrap your head around the logic of these operations.
+
+110
+00:05:56.040 --> 00:05:58.370
+Don't worry if this is giving you a hard time at first
+
+111
+00:05:58.380 --> 00:06:01.190
+it takes quite some getting used to this way of thinking.
+
+112
+00:06:01.200 --> 00:06:05.120
+You will probably confuse the order of operations for a long time.
+
+113
+00:06:05.130 --> 00:06:05.820
+Trust me,
+
+114
+00:06:05.830 --> 00:06:09.670
+I still do it a lot and if you are truly lost there's no
+
+115
+00:06:09.670 --> 00:06:13.760
+shame and just flipping the order of notes around until it works as intended.
+
+116
+00:06:14.040 --> 00:06:17.060
+That is one of the advantages of a note based trading system.
+
+117
+00:06:17.540 --> 00:06:20.430
+Now that we covered the basic transformations and
+
+118
+00:06:20.430 --> 00:06:22.650
+talked a bit about the importance of order.
+
+119
+00:06:22.660 --> 00:06:25.960
+That's generally is the idea of space manipulation further.
+
+120
+00:06:26.540 --> 00:06:30.730
+Instead of modifying the coordinate space with a simple vector operation,
+
+121
+00:06:30.780 --> 00:06:36.350
+you can also split it into its X, Y, Z components and modify those individually.
+
+122
+00:06:37.140 --> 00:06:40.390
+For example, just like you've seen in the previous chapter,
+
+123
+00:06:40.400 --> 00:06:42.760
+we can apply the ping pong operation to
+
+124
+00:06:42.760 --> 00:06:46.050
+the X component to achieve a mirrored repetition.
+
+125
+00:06:46.740 --> 00:06:49.350
+and now you can nicely see how it works.
+
+126
+00:06:49.740 --> 00:06:53.620
+The coordinate system is folded and goes back and
+
+127
+00:06:53.620 --> 00:06:57.960
+forth between X equals zero and X equals one.
+
+128
+00:06:58.640 --> 00:07:01.560
+In the same way you can of course use all the
+
+129
+00:07:01.560 --> 00:07:05.560
+other ways of controlling values to manipulate these coordinate values.
+
+130
+00:07:06.240 --> 00:07:10.350
+In theory there are no limits to how the space can be manipulated
+
+131
+00:07:10.840 --> 00:07:11.990
+just to prove this point.
+
+132
+00:07:11.990 --> 00:07:14.850
+I made a Suzanne silhouette just by manipulating
+
+133
+00:07:14.850 --> 00:07:17.350
+the texture space of this exact setup.
+
+134
+00:07:18.440 --> 00:07:23.280
+One very simple but effective method of space manipulation that I want
+
+135
+00:07:23.280 --> 00:07:27.760
+to mention is finally using a noise texture to drive the distortion
+
+136
+00:07:28.240 --> 00:07:31.560
+as I pointed out before a color is just a vector.
+
+137
+00:07:31.570 --> 00:07:35.760
+And so we can just use the colour output of the noise texture
+
+138
+00:07:36.140 --> 00:07:37.850
+and added to the coordinates.
+
+139
+00:07:38.240 --> 00:07:40.770
+This gives us a really nice distortion effect.
+
+140
+00:07:40.770 --> 00:07:45.490
+That is incredibly useful when you want to give a pattern some natural variation.
+
+141
+00:07:45.500 --> 00:07:48.400
+The only problem right now is that the values
+
+142
+00:07:48.400 --> 00:07:51.560
+of the noise texture are centered around 0.5.
+
+143
+00:07:51.940 --> 00:07:56.120
+This means that the coordinates as a whole are shifted on average.
+
+144
+00:07:56.130 --> 00:08:01.560
+To counter this effect, you can just subtract a factor of 0.5 from the noise.
+
+145
+00:08:02.040 --> 00:08:04.850
+Then it is centered around zero and you can also add
+
+146
+00:08:04.850 --> 00:08:07.760
+a scale note to change the amount of this effect.
+
+147
+00:08:08.340 --> 00:08:12.360
+Alternatively though you can simply use a color mix node instead
+
+148
+00:08:12.580 --> 00:08:17.070
+setting it to the blend mode linear light has the exact same effect.
+
+149
+00:08:17.100 --> 00:08:22.760
+The only disadvantage is that the amount slider now is clamped between zero and one.
+
+150
+00:08:23.140 --> 00:08:25.950
+Using the additional vector math nodes allows you
+
+151
+00:08:25.950 --> 00:08:27.960
+to apply the effect without a limit.
+
+152
+00:08:28.440 --> 00:08:31.020
+I mentioned in an earlier topic that there is a
+
+153
+00:08:31.020 --> 00:08:33.740
+way to fake blurring in the shade of notes.
+
+154
+00:08:33.760 --> 00:08:35.950
+Even without pixel based textures.
+
+155
+00:08:35.960 --> 00:08:39.590
+When you crank up the scale parameter of this noise texture,
+
+156
+00:08:39.600 --> 00:08:44.360
+you can see how this effect looks more and more like it is blurring the texture.
+
+157
+00:08:44.740 --> 00:08:48.960
+The problem here is that the texture itself is not actually being blurred.
+
+158
+00:08:49.340 --> 00:08:53.430
+An edge between black and white will not result in a great tone.
+
+159
+00:08:53.450 --> 00:08:56.360
+Just in a cluster of black and white dots.
+
+160
+00:08:56.740 --> 00:08:59.600
+You could get actual blurring by applying this effect
+
+161
+00:08:59.600 --> 00:09:03.750
+multiple times with different seeds and mixing the results.
+
+162
+00:09:03.760 --> 00:09:07.220
+This however is incredibly cast intensive and I
+
+163
+00:09:07.220 --> 00:09:10.120
+recommend avoiding this workflow as much as possible.
+
+164
+00:09:10.130 --> 00:09:13.000
+The last thing that I want to point out in this section
+
+165
+00:09:13.010 --> 00:09:17.160
+is that all of these operations can be used together in succession
+
+166
+00:09:17.540 --> 00:09:22.650
+space manipulation can be incredibly useful and vital for specific textures but it
+
+167
+00:09:22.650 --> 00:09:26.660
+can be an absolute pain to wrap your head around for complex setups,
+
+168
+00:09:27.040 --> 00:09:29.760
+luckily that's not necessary. Most of the time.
+
+169
+00:09:30.240 --> 00:09:32.890
+You can rather remember simple setups as
+
+170
+00:09:32.890 --> 00:09:36.520
+small chunks and build more complex traders,
+
+171
+00:09:36.530 --> 00:09:41.210
+modular lee just remember the logic that the coordinates on the left
+
+172
+00:09:41.230 --> 00:09:44.060
+influence the texture set up on the right as a whole.
+
+173
+00:09:44.540 --> 00:09:46.520
+Maybe after space manipulation.
+
+174
+00:09:46.520 --> 00:09:49.510
+You are already looking forward to manipulating time.
+
+175
+00:09:49.520 --> 00:09:52.550
+Well, we will be doing that in a later chapter of discourse.
